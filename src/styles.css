@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+body {
+  font-family: 'Roboto Condensed', sans-serif !important;
+  font-weight: normal;
+  font-style: normal;
+  color: rgb(83, 83, 83);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+ul, ol {
+    margin: 0px;
+    padding: 0px;
+    list-style-type: none;
+  }
+
+  /* MEDIA QUERIES OF THE NAVBAR */
+
+
+
+
+
+  
+
+
+  /* END OF THE MEDIA QUERIES OF THE NAVBAR */

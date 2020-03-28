@@ -1,0 +1,79 @@
+<!-- NAVBAR -->
+
+
+<div class="navbar">
+    <a class="navbar-brand" [routerLink]="['/']">
+        <img class="navbar-logo" src="../../assets/images/stunlab.png" alt="Logo">
+    </a>
+
+    <ul class="mainlist">
+        <li> <img src="assets/images/1.png" width="25" height="25" alt=""> Categories
+            <ul class="sublist">
+                <li>Science</li>
+                <li>Science</li>
+                <li>Science</li>
+                <li>Science</li>
+                <li>Science</li>
+            </ul>
+        </li>
+
+    </ul>
+    <input type="text" class="searchin" #search><i (click)="searchBook(search.value)" class="fa fa-search"
+        id="search"></i>
+    <div class="user-logs" *ngIf="!loginStatus; else userData">
+        <button class="login"><a routerLink="/login"> Log In</a></button>
+        <button class="signin"><a routerLink="/signup"> Sign Up</a></button>
+    </div>
+</div>
+<!-- CONTENT -->
+<div class="contents">
+    <div class="contents1">
+        <p class="searchtext" *ngIf="total > 1 else showSearchResult"> {{total}} results of {{searchKey}} </p>
+        <ng-template #showSearchResult>
+            <p class="searchtext"> {{total}} result of {{searchKey}} </p>
+
+        </ng-template>
+        <button class="pages" onclick="show_hide()">Book provider &nbsp;&nbsp;&nbsp;&nbsp;<i
+                class="fa fa-sort-down"></i></button>
+        <div id="drop-content" style="display: none;">
+            <a href="#">REB</a>
+            <a href="#">WDA </a>
+            <a href="#">TTC </a>
+            <!-- <a href="#">OTHER </a> TO BE DONE NEXT YEAR -->
+        </div>
+        <button class="sort" onclick="show_hide1()">Sort &nbsp;&nbsp;&nbsp;&nbsp;<i
+                class="fa fa-sort-down"></i></button>
+        <div id="drop-content1" style="display: none;">
+            <a href="#">Pages</a>
+            <a href="#">Views </a>
+            <a href="#">Downloads </a>
+            <a href="#">Most Popular </a>
+            <a href="#">Most Liked </a>
+
+        </div>
+    </div>
+    <div class="filter">
+        <div class="filterdiv">
+
+            <!-- <button class="filterbook" onclick="show_hide2()">Filter By &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-sort-down"></i></button><br>
+               <div id="drop-content2" style="display: none;">
+                    <a href="#">Publisher</a>
+                    <a href="#">Pages </a>
+                   
+                </div> -->
+        </div>
+    </div>
+    <div class="filterdiv2" *ngFor="let book of foundBooks">
+
+        <img src={{BASE_URL}}{{book.cover}} alt="" height="200" width="200">
+        <p class="booktext">Book</p> <button class="pop">Popular</button> <br>
+        <div class="bookinfo">
+            <span class="bookhead">{{book.name}}</span> <br>
+            <span class="booktitle">Provider :</span> &nbsp;&nbsp; <span>{{book.provider_providerName}}</span> <br>
+            <span class="booktitle">Category : </span> &nbsp;&nbsp; <span>{{book.category_categoryName}}</span> <br>
+            <span>455 views</span><br>
+            <button class="bookopen" [routerLink]="['/view/book', book.ISBN]">Enroll Book</button>
+        </div>
+    </div>
+
+</div>

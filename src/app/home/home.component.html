@@ -1,0 +1,318 @@
+<div class="allPage">
+
+
+
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <a class="navbar-brand" [routerLink]="['/']">
+            <img class="navbar-logo" src="../../assets/images/stunlab.png" alt="Logo">
+        </a>
+
+        <ul class="mainlist">
+            <li> <img src="assets/images/1.png" width="25" height="25" alt=""> Categories
+                <ul class="sublist">
+                    <li>Science</li>
+                    <li>Science</li>
+                    <li>Science</li>
+                    <li>Science</li>
+                    <li>Science</li>
+                </ul>
+            </li>
+
+        </ul>
+        <input type="text" placeholder="Search for any book" class="searchin" #search><i
+            (click)="searchBook(search.value)" class="fa fa-search" id="search"></i>
+        <div class="user-logs" *ngIf="!loginStatus; else userData">
+            <button class="login"><a routerLink="/login"> Log In</a></button>
+            <button class="signin"><a routerLink="/signup"> Sign Up</a></button>
+        </div>
+    </div>
+    <!-- HOME IMAGE -->
+    <div>
+        <section id="home" class="home">
+            <h4>Digital Transformation of Education</h4> <br>
+            <span>
+                STUNLAB provides the easiest way of reading books via the Internet</span>
+            <img src="assets/images/1.jpg" alt="Slider">
+
+        </section>
+    </div>
+    <!-- BOOK NAV -->
+    <div class="bookdiv">
+        <ul class="booknav">
+            <li class="active navlist"><a href="#"> Science</a></li>
+            <li class="navlist"><a href="#"> Technology</a></li>
+            <li class="navlist"><a href="#"> Humanities</a></li>
+            <li class="navlist"><a href="#"> Language</a></li>
+            <li class="slide"></li>
+        </ul>
+    </div>
+
+    <!-- BOOK SLIDER -->
+    <div class="booksliderdiv1">
+        <div class="page-wrapper">
+            <div class="post-slider">
+                <i class="fa fa-chevron-left prev"></i>
+                <i class="fa fa-chevron-right next"></i>
+                <div class="post-wrapper">
+                    <div class="post">
+                        <img src="assets/images/aa.jpg" alt="" class="slider-image">
+                        <div class="post-info">
+                            <p id="para">Miraculous Boy runs alot from the buildingfsfdadsfafafasdfasdf</p>
+                            <span>Adventure</span>
+                            <br>
+                            <span>REB</span>
+                            <br>
+                            <span>45</span>&nbsp;&nbsp;&nbsp;&nbsp; <span>Readers</span>
+                            <br>
+                            <img src="assets/images/like.png" alt="" class="imge1"> <span class="likes">23</span>
+
+                            <img src="assets/images/dislike.png" alt="" class="imge2"> <span class="diss">45</span>
+                            <button class="bookopen">Read</button>
+
+
+                        </div>
+                    </div>
+                    <div class="post">
+                        <img src="assets/images/bb.jpg" alt="" class="slider-image">
+                        <div class="post-info">
+                            <p id="para">Miraculous Boy runs alot from the buildingfsfdadsfafafasdfasdf</p>
+                            <span>Adventure</span>
+                            <br>
+                            <span>REB</span>
+                            <br>
+                            <span>45</span>&nbsp;&nbsp;&nbsp;&nbsp; <span>Readers</span>
+                            <br>
+
+                            <img src="assets/images/like.png" alt="" class="imge1"> <span class="likes">23</span>
+                            <img src="assets/images/dislike.png" alt="" class="imge2"> <span class="diss">45</span>
+                            <button class="bookopen">Read</button>
+                        </div>
+                    </div>
+                    <div class="post">
+                        <img src="assets/images/bb.jpg" alt="" class="slider-image">
+                        <div class="post-info">
+                            <p id="para">Miraculous Boy runs alot from the buildingfsfdadsfafafasdfasdf</p>
+                            <span>Adventure</span>
+                            <br>
+                            <span>REB</span>
+                            <br>
+                            <span>45</span>&nbsp;&nbsp;&nbsp;&nbsp; <span>Readers</span>
+                            <br>
+                            <img src="assets/images/like.png" alt="" class="imge1"> <span class="likes">23</span>
+                            <img src="assets/images/dislike.png" alt="" class="imge2"> <span class="diss">45</span>
+                            <button class="bookopen">Read</button>
+                        </div>
+                    </div>
+                    <div class="post">
+                        <img src="assets/images/bb.jpg" alt="" class="slider-image">
+                        <div class="post-info">
+                            <p id="para">Miraculous Boy runs alot from the buildingfsfdadsfafafasdfasdf</p>
+                            <span>Adventure</span>
+                            <br>
+                            <span>REB</span>
+                            <br>
+                            <span>45</span>&nbsp;&nbsp;&nbsp;&nbsp; <span>Readers</span>
+                            <br>
+                            <img src="assets/images/like.png" alt="" class="imge1"> <span class="likes">23</span>
+                            <img src="assets/images/dislike.png" alt="" class="imge2"> <span class="diss">45</span>
+                            <button class="bookopen">Read</button>
+                        </div>
+                    </div>
+                    <div class="post">
+                        <img src="assets/images/bb.jpg" alt="" class="slider-image">
+                        <div class="post-info">
+                            <p id="para">Miraculous Boy runs alot from the buildingfsfdadsfafafasdfasdf</p>
+                            <span>Adventure</span>
+                            <br>
+                            <span>REB</span>
+                            <br>
+                            <span>45</span>&nbsp;&nbsp;&nbsp;&nbsp; <span>Readers</span>
+                            <br>
+                            <img src="assets/images/like.png" alt="" class="imge1"> <span class="likes">23</span>
+                            <img src="assets/images/dislike.png" alt="" class="imge2"> <span class="diss">45</span>
+                            <button class="bookopen">Read</button>
+                        </div>
+                    </div>
+                    <div class="post">
+                        <img src="assets/images/cc.jpg" alt="" class="slider-image">
+                        <div class="post-info">
+                            <p id="para">Miraculous Boy runs alot from the buildingfsfdadsfafafasdfasdf</p>
+                            <span>Adventure</span>
+                            <br>
+                            <span>REB</span>
+                            <br>
+                            <span>45</span>&nbsp;&nbsp;&nbsp;&nbsp; <span>Readers</span>
+                            <br>
+                            <img src="assets/images/like.png" alt="" class="imge1"> <span class="likes">23</span>
+                            <img src="assets/images/dislike.png" alt="" class="imge2"> <span class="diss">45</span>
+                            <button class="bookopen">Read</button>
+                        </div>
+                    </div>
+                    <div class="post"> <img src="assets/images/aa.jpg" alt="" class="slider-image">
+                        <div class="post-info">
+                            <p id="para">Miraculous Boy runs alot from the buildingfsfdadsfafafasdfasdf</p>
+                            <span>Adventure</span>
+                            <br>
+                            <span>REB</span>
+                            <br>
+                            <span>45</span>&nbsp;&nbsp;&nbsp;&nbsp; <span>Readers</span>
+                            <br>
+                            <img src="assets/images/like.png" alt="" class="imge1"> <span class="likes">23</span>
+                            <img src="assets/images/dislike.png" alt="" class="imge2"> <span class="diss">45</span>
+                            <button class="bookopen">Read</button>
+                        </div>
+                    </div>
+                    <div class="post"> <img src="assets/images/aa.jpg" alt="" class="slider-image">
+                        <div class="post-info">
+                            <p id="para">Miraculous Boy runs alot from the buildingfsfdadsfafafasdfasdf</p>
+                            <span>Adventure</span>
+                            <br>
+                            <span>REB</span>
+                            <br>
+                            <span>45</span>&nbsp;&nbsp;&nbsp;&nbsp; <span>Readers</span>
+                            <br>
+                            <img src="assets/images/like.png" alt="" class="imge1"> <span class="likes">23</span>
+                            <img src="assets/images/dislike.png" alt="" class="imge2"> <span class="diss">45</span>
+                            <button class="bookopen">Read</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-mostviewed class="mostviewed"></app-mostviewed>
+    <!-- COUNTER UP -->
+    <div class="middle">
+        <div class="counting-sec">
+            <div class="inner-width">
+                <div class="col">
+                    <img src="assets/images/book.png" alt="">
+                    <div class="num">1246</div>
+                    Books
+                </div>
+            </div>
+        </div>
+        <div class="counting-sec">
+            <div class="inner-width">
+                <div class="col">
+                    <img src="assets/images/user.png" alt="">
+                    <div class="num">30</div>
+                    Readers
+                </div>
+            </div>
+        </div>
+        <div class="counting-sec">
+            <div class="inner-width">
+                <div class="col">
+                    <img src="assets/images/down1.png" alt="">
+                    <div class="num">1000</div>
+                    Downloads
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- TOP CATEGORIES -->
+    <section>
+
+
+        <div class="lineCateg"></div>
+        <h5 class="topcategHead">* Top categories</h5>
+
+
+
+        <div class="categ">
+            <button>&nbsp;&nbsp;&nbsp;<img src="assets/images/sci.png" alt=""> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Sciences</button>
+            <button>&nbsp;&nbsp;&nbsp;<img src="assets/images/text.png" alt="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Technoloy</button>
+            <button>&nbsp;&nbsp;&nbsp;<img src="assets/images/lng.png" alt="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Language</button>
+            <button>&nbsp;&nbsp;&nbsp;<img src="assets/images/sci.png" alt="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Literature</button>
+            <button>&nbsp;&nbsp;&nbsp;<img src="assets/images/muntu.png" alt="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Humanities</button>
+            <button>&nbsp;&nbsp;&nbsp;<img src="assets/images/ict.png" alt="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Ict</button>
+            <button>&nbsp;&nbsp;&nbsp;<img src="assets/images/pro.png" alt="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Programming</button>
+            <button>&nbsp;&nbsp;&nbsp;<img src="assets/images/sci.png" alt="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Sports</button>
+
+        </div> <!-- section title -->
+
+    </section>
+
+    <!-- PATTERNERS -->
+    <section class="paterners">
+        <h2 class="text-center pat">OUR PATTERNERS</h2>
+        <div class="paterns">
+            <button><img src="assets/images/a.jpg" alt=""></button>
+
+            <button><img src="assets/images/b.jpg" alt=""></button>
+            <button><img src="assets/images/c.jpg" alt=""></button>
+            <button><img src="assets/images/d.jpg" alt=""></button>
+            <button><img src="assets/images/e.jpeg" alt=""></button>
+            <button><img src="assets/images/f.png" alt=""></button>
+        </div>
+
+
+    </section>
+
+
+    <div class="contact">
+        <h2>Get In Touch</h2>
+
+        <div class="contact-info">
+            <h4>Contact Info</h4>
+            <ul class="contact-list">
+                <li><img src="assets/images/iconPhone.png" alt="">+250783 869 632</li>
+                <li><img src="assets/images/iconEmail.png" alt="">stunity@gmail.com</li>
+                <li><img src="assets/images/iconHome.png" alt="">Kigali - Rwanda</li>
+            </ul>
+            <div class="forminputs">
+                <input type="text" name="" id="" placeholder="Enter Your Name ">
+                <input type="text" name="" id="" placeholder="Enter Your Email"> <br>
+                <textarea class="textareaform" placeholder="Enter Your Message"></textarea>
+
+
+            </div>
+            <button>CONTACT NOW</button>
+
+        </div>
+    </div>
+
+    <!-- FOOTER  -->
+
+    <section class="myFooter">
+        <div class="mainfoot">
+            <div class="foot">
+                <h5>ABOUT STUNLAB </h5>
+                <ul>
+                    <li><a routerLink="/about"> About Us</a></li>
+                    <li><a href="#">Site map</a></li>
+                    <li><a href="#">Our books</a></li>
+                </ul>
+            </div>
+            <div class="footer">
+                <h5>CONNECT</h5>
+                <ul>
+                    <li><a href="#"> <img src="assets/images/fb.png" alt=""> Facebook</a></li>
+                    <li><a href="#"><img src="assets/images/twit.png" alt=""> Twitter</a></li>
+                    <li><a href="#"><img src="assets/images/linkin.png" alt=""> LinkedIn</a></li>
+                    <li><a href="#"><img src="assets/images/ig.png" alt=""> Instagram</a></li>
+                </ul>
+            </div>
+
+
+            <div class="downfoot">
+                <h4>STUNLAB</h4> <span> Copyright © 2019 Stunlab, Inc.</span>
+            </div>
+        </div>
+    </section>
+
+</div>

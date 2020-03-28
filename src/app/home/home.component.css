@@ -1,0 +1,976 @@
+/* CSS OF THE NAVBAR */
+
+.login {
+  background-color: transparent;
+  border: 1px solid rgb(184, 181, 181);
+  padding: 5px;
+  width: 80px;
+  position: absolute;
+  right: 10%;
+  cursor: pointer;
+  font-weight: bolder;
+  transform: translateY(-50%);
+}
+
+.login a {
+  text-decoration: none;
+  color: black;
+}
+
+.login:hover {
+  background-color: #f5f5f5;
+  color: white;
+  transition: .5s ease;
+  font-weight: bolder;
+  border: none;
+  border: 1px solid rgb(202, 202, 202);
+}
+
+.signin:hover {
+  background-color: #dd6e60;
+  border: 1px solid #ca6356;
+  transition: .5s ease;
+  font-weight: bolder;
+}
+
+.signin {
+  background-color: #fe7865;
+  border: 1px solid #EC5252;
+  color: white;
+  padding: 5px;
+  width: 80px;
+  position: absolute;
+  right: 3%;
+  cursor: pointer;
+  font-weight: bolder;
+  transform: translateY(-50%);
+}
+
+.signin a {
+  text-decoration: none;
+  color: white;
+}
+
+#search {
+  cursor: pointer;
+  color: #EC5252;
+  position: absolute;
+  left: 60.5%;
+  padding: 10px;
+}
+
+#search:hover {
+  cursor: pointer;
+  background-color: #EC5252;
+  color: white;
+  transition: .5s ease;
+}
+
+.mainlist {
+  position: relative;
+  left: -32%;
+  text-decoration: none;
+}
+
+.searchin {
+  border: 1px solid rgb(184, 181, 181);
+  position: absolute;
+  left: 40%;
+  padding: 4px;
+  width: 23%;
+  padding-left: 10px;
+}
+
+.searchin::placeholder {
+  color: rgb(153, 152, 152);
+  padding-left: 5px;
+}
+
+.sublist {
+  position: absolute;
+  display: block;
+  background-color: rgba(238, 238, 238, 1);
+  padding: 0px;
+  width: 177px;
+}
+
+.sublist li {
+  position: relative;
+  width: 177px;
+  padding: 12px;
+  border-bottom: 1px solid white;
+  display: none;
+}
+
+.sublist li:hover {
+  display: block;
+  color: #EC5252;
+  background-color: white;
+  transition: .2s ease;
+  cursor: pointer;
+}
+
+.mainlist li:hover .sublist li {
+  display: block;
+}
+
+.navbar-logo {
+  height: 40px;
+}
+
+.navbar {
+  height: 70px;
+  position: fixed;
+  width: 100%;
+  background-color: white;
+  box-shadow: 0px 0px 40px 0px rgba(156, 156, 156, 0.25);
+  z-index: 999;
+}
+
+/* END OF NAVBAR CSS */
+
+/* HOME IMAGE CSS */
+
+.home h4 {
+  position: absolute;
+  color: white;
+  top: 52%;
+  font-size: 60px;
+  left: 2%;
+  font-family: 'Khula', sans-serif;
+  font-weight: bolder;
+  width: 45%;
+}
+
+.home span {
+  color: white;
+  position: absolute;
+  top: 79%;
+  font-size: 28px;
+  left: 32px;
+  width: 38%;
+}
+
+.home img {
+  height: 100vh;
+  width: 100%;
+}
+
+.firstimg {
+  height: 0%;
+  margin-top: 70px;
+}
+
+.libbut {
+  position: absolute;
+}
+
+/* END OF HOME IMAGE CSS */
+
+/* BOOKNAV CSS */
+
+.bookdiv {
+  position: absolute;
+  border-bottom: 1px solid #007791;
+  border-top: 1px solid #007791;
+  left: 20%;
+  margin-top: 4%;
+}
+
+.booknav {
+  margin: 0;
+  padding: 0;
+}
+
+.booknav li {
+  color: black;
+  float: left;
+  padding-left: 60px;
+  padding-top: 17px;
+  font-size: 18px;
+  padding-bottom: 17px;
+  padding-right: 60px;
+  width: 200px;
+}
+
+.booknav li a {
+  text-decoration: none;
+  color: #333;
+  text-align: center;
+}
+
+.slide {
+  position: absolute;
+  width: 150px;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: #007791;
+  z-index: -1;
+  transition: 0.5s;
+  opacity: 0;
+  box-shadow: 1rem 1rem 1rem -1rem #83818133;
+}
+
+.booknav li.active a {
+  color: white;
+}
+
+.booknav li:nth-child(1).active~.slide {
+  left: 0;
+  opacity: 1;
+}
+
+.booknav li:nth-child(2).active~.slide {
+  left: 200px;
+  opacity: 1;
+}
+
+.booknav li:nth-child(3).active~.slide {
+  left: 400px;
+  opacity: 1;
+}
+
+.booknav li:nth-child(4).active~.slide {
+  left: 600px;
+  opacity: 1;
+}
+
+/* END OF BOOKNAV CSS */
+
+/* BOOK SLIDER CSS */
+
+.post-slider {
+  position: absolute;
+  top: 120%;
+  width: 100%;
+  height: 600px;
+}
+
+.post-slider .post-wrapper {
+  width: 70%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  height: 529px;
+  margin: 0px auto;
+  margin-top: 89px;
+  overflow: hidden;
+}
+
+.post-slider .post-wrapper .post {
+  background: white;
+  display: inline-block;
+  height: 383px;
+  margin: 0px 10px;
+  box-shadow: 0 0 1px 1px rgb(216, 216, 216), 0 3px 1px 0 rgba(20, 23, 28, .1);
+  border-bottom: 4px solid rgba(0, 0, 0, 0.1);
+  width: 23%;
+}
+
+.post-slider .next {
+  position: absolute;
+  top: 48%;
+  right: 175px;
+  cursor: pointer;
+  font-size: 2em;
+  background-color: #fff;
+  border-radius: 50%;
+  border-width: 0;
+  box-shadow: 0 0 1px 1px rgba(20, 23, 28, .1), 0 3px 1px 0 rgba(20, 23, 28, .1);
+  color: #007791;
+  font-size: 24px;
+  height: 47px;
+  line-height: 1;
+  padding: 11px 0;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: 300ms;
+  width: 47px;
+  z-index: 3;
+  font-size: 16px;
+  padding-top: 16px;
+  padding-left: 5px;
+}
+
+.post-slider .prev {
+  position: absolute;
+  top: 48%;
+  left: 175px;
+  font-size: 2em;
+  cursor: pointer;
+  background-color: #fff;
+  border-radius: 50%;
+  border-width: 0;
+  box-shadow: 0 0 1px 1px rgba(20, 23, 28, .1), 0 3px 1px 0 rgba(20, 23, 28, .1);
+  color: #007791;
+  font-size: 24px;
+  height: 47px;
+  line-height: 1;
+  padding: 11px 0;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: 300ms;
+  width: 47px;
+  z-index: 4;
+  font-size: 16px;
+  padding-top: 16px;
+  padding-right: 5px;
+}
+
+.post-slider .post-wrapper .post .slider-image {
+  width: 100%;
+  height: 172px;
+}
+
+.post-slider .post-wrapper .post .post-info {
+  height: 130px;
+  width: 194px;
+  margin: 11px;
+  position: absolute;
+  top: 164px;
+  padding: 5px;
+}
+
+.post-slider .post-wrapper .post .post-info p {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-weight: bolder;
+  color: rgb(27, 42, 47);
+}
+
+.imge1 {
+  width: 12%;
+  padding: 0px;
+  margin: 0px;
+  color: #f1523b;
+}
+
+.imge2 {
+  width: 11%;
+  padding: 0px;
+  margin: 0px;
+  position: absolute;
+  top: 95.5%;
+  left: 31%;
+}
+
+.likes {
+  position: absolute;
+  left: 17%;
+  top: 93.5%;
+}
+
+.diss {
+  position: absolute;
+  left: 48.5%;
+  top: 93.5%;
+}
+
+.bookopen {
+  width: 100%;
+  background: #495D70;
+  color: white;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  font-weight: bolder;
+  top: 16px;
+  padding: 7px;
+  left: 1%;
+}
+
+.bookopen:hover {
+  background-color: #f1523b;
+  color: white;
+  transition: .5s ease;
+}
+
+.booksliderdiv1 {
+  position: relative;
+  top: 74px;
+  width: 100%;
+}
+
+/* END OF BOOK SLIDER CSS */
+
+/* SECOND BOOK SLIDER CSS */
+
+.mostviewed {
+  position: absolute;
+  top: 198%;
+  width: 100%;
+}
+
+/* END OF SECOND BOOK SLIDER CSS */
+
+/* COUNTER CSS */
+
+.middle {
+  background-color: #29303B;
+  display: flex;
+  width: 100%;
+  transform: translateY(-50%);
+  height: 203px;
+  position: absolute;
+  top: 315%;
+}
+
+.counting-sec {
+  padding: 40px 0;
+  width: 100%;
+}
+
+.inner-width {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.col {
+  flex: 1;
+  text-align: center;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.num {
+  font-size: 40px;
+  margin-top: 5px;
+}
+
+.col img {
+  height: 49px;
+}
+
+/* END OF COUNTER CSS */
+
+/* TOP CATEGORIES CSS */
+
+.topcategHead {
+  color: #EC5252;
+  position: absolute;
+  top: 344%;
+  left: 10%;
+}
+
+.lineCateg {
+  width: 6%;
+  height: 2px;
+  position: absolute;
+  top: 345%;
+  background-color: #EC5252;
+  left: 3.5%;
+}
+
+.categ {
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  top: 358%;
+}
+
+.categ button {
+  margin-bottom: 56px;
+  text-align: left;
+  background: transparent;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  width: 20%;
+  margin-left: 46px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-color: #0e0d0d33;
+  box-shadow: 1rem 1rem 1rem -1rem #83818133;
+}
+
+.categ button:hover {
+  box-shadow: 0 0 40px #46454533;
+  transition: .3s ease;
+}
+
+/* END OF TOP CATEGORIES CSS */
+
+/* PATTERNERS CSS */
+
+.pat {
+  font-weight: 700;
+  color: black;
+  position: absolute;
+  top: 397%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.paterns {
+  background-color: #F7F8FA;
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  top: 412%;
+}
+
+.paterns button {
+  background-color: white;
+  width: 25%;
+  margin: 52px;
+  border: none;
+  filter: grayscale(100%);
+}
+
+.paterns button img {
+  width: 200px;
+  padding: 16px;
+}
+
+.paterns button:hover {
+  box-shadow: 0 0 22px #83818133;
+  filter: grayscale(0%);
+  transition: .2s ease;
+}
+
+/* END OF PATTERNERS CSS */
+
+/* CONTACT CSS */
+
+.contact-info {
+  position: absolute;
+  top: 541%;
+  width: 81%;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 55%;
+  padding: 10px 40px 40px;
+  box-shadow: 0px 0px 40px 0px rgba(156, 156, 156, 0.25);
+  background-color: #fff;
+}
+
+.contact-info h4 {
+  position: absolute;
+  top: 12%;
+  left: 6%;
+  font-weight: bold;
+  font-size: 26px;
+}
+
+.contact h2 {
+  position: absolute;
+  top: 521%;
+  font-weight: 800;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 36px;
+}
+
+.contact-list {
+  position: absolute;
+  top: 33%;
+  left: 6%;
+}
+
+.contact-list li {
+  padding-bottom: 29px;
+}
+
+.contact-list li img {
+  padding-right: 28px;
+}
+
+.contact-info input {
+  width: 45%;
+  height: 55px;
+  border: 1px solid #ddd;
+  background-color: #f7f7ff;
+  padding: 0 20px;
+  margin-right: 24px;
+}
+
+.forminputs {
+  position: absolute;
+  width: 60%;
+  left: 38%;
+  top: 10%;
+}
+
+.textareaform {
+  height: 55px;
+  border: 1px solid #ddd;
+  background-color: #f7f7ff;
+  padding: 0 20px;
+  width: 93.6%;
+  margin-top: 33px;
+  padding-top: 13px;
+  resize: none;
+}
+
+.contact-info button {
+  cursor: pointer;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid #fe7865;
+  padding: 0 35px;
+  font-size: 16px;
+  line-height: 48px;
+  color: #fff;
+  z-index: 5;
+  transition: all 0.4s ease-out 0s;
+  background-color: #fe7865;
+  POSITION: absolute;
+  TOP: 59%;
+  LEFT: 38%;
+}
+
+/* END OF CONTACT CSS */
+
+/* FOOTER CSS */
+
+.foot h5 {
+  border-bottom: 4px solid #0091C7;
+  color: white;
+}
+
+.mainfoot {
+  position: relative;
+}
+
+.footer {
+  position: absolute;
+  right: 268px;
+  top: 0px;
+  padding-top: 66px;
+}
+
+.footer h5 {
+  border-bottom: 4px solid #0091C7;
+  color: white;
+}
+
+.foot {
+  position: absolute;
+  left: 268px;
+  padding-top: 66px;
+}
+
+.downfoot {
+  width: 100%;
+  background-color: #1C232E;
+  color: #505960;
+  position: absolute;
+  top: 330px;
+  display: flex;
+  padding: 20px;
+}
+
+.myFooter {
+  background-color: #2E3942;
+  height: 52vh;
+  margin-top: 2%;
+  position: absolute;
+  bottom: 0;
+  top: 601%;
+  width: 100%;
+}
+
+.foot a {
+  color: white;
+  margin-bottom: 0px;
+  padding-top: 17px;
+}
+
+.footer a:hover {
+  transition: .90s ease;
+}
+
+.footer a {
+  color: white;
+  margin-bottom: 0px;
+  padding-top: 17px;
+}
+
+.downfoot h4 {
+  color: white;
+}
+
+.downfoot span {
+  margin-left: 11%;
+  border-right: 1px solid;
+  padding: 7px;
+}
+
+/* END OF FOOTER CSS */
+
+/* WHOLE PAGE MEDIA QUERIES */
+
+/* FOR TABLETS */
+
+@media only screen and (max-width: 768px) {
+  /* NAVBAR MEDIA QUERIES */
+  #search {
+    position: absolute;
+    left: 58.5%;
+    height: 34px;
+    top: 17px;
+  }
+  .navbar-logo {
+    height: 37px;
+  }
+  .mainlist {
+    margin-left: 0px;
+  }
+  .login {
+    right: 16%;
+  }
+  /* END OF NAVBAR MEDIA QUERIES */
+  /* HOME IMG MEDIA QUERIES */
+  .home img {
+    height: 38vh;
+  }
+  .home h4 {
+    top: 18%;
+    font-size: 33px;
+  }
+  .home span {
+    top: 28%;
+    font-size: 19px;
+    left: 19px;
+  }
+  /* END OF HOME IMG MEDIA QUERIES */
+  /* BOOKNAV QUERIES */
+  .booknav li {
+    width: 152px;
+    padding-left: 44px;
+  }
+  .bookdiv {
+    left: 12%;
+  }
+  .booknav li:nth-child(2).active~.slide {
+    left: 160px;
+  }
+  .booknav li:nth-child(3).active~.slide {
+    left: 320px;
+  }
+  .booknav li:nth-child(4).active~.slide {
+    left: 457px;
+  }
+  /* END OF BOOKNAV QUERIES */
+  /* BOOKSLIDER QUERIES */
+  .post-slider {
+    top: 52.5%;
+  }
+  .post-slider .post-wrapper {
+    margin-top: 0;
+  }
+  .post-slider .post-wrapper .post .post-info p {
+    width: 146px;
+    margin-left: -8px;
+  }
+  .post-slider .next {
+    right: 43px;
+    top: 36%;
+  }
+  .post-slider .prev {
+    top: 36%;
+    left: 43px;
+  }
+  .post-slider .post-wrapper .post .slider-image {
+    height: 153px;
+  }
+  .post-slider .post-wrapper .post .post-info {
+    width: 148px;
+    top: 142px;
+  }
+  .post-slider .post-wrapper .post {
+    margin: 0px 9px;
+    height: 363px;
+  }
+  .bookopen {
+    left: -4px;
+  }
+  .booksliderdiv1 {
+    top: 140px;
+  }
+  /* END OF BOOKSLIDER QUERIES */
+  /* SECOND BOOKSLIDER QUERIES */
+  .mostviewed {
+    top: 89%;
+  }
+  /* END SECOND BOOKSLIDER QUERIES */
+  /* COUNTER QUERIES */
+  .middle {
+    top: 159%;
+  }
+  /* END OF COUNTER QUERIES */
+  /* TOP CATEGORIES QUERIES */
+  .categ button {
+    width: 18%;
+  }
+  .categ {
+    left: 0%;
+  }
+  .topcategHead {
+    top: 176%;
+  }
+  .lineCateg {
+    width: 6%;
+    height: 2px;
+    position: absolute;
+    top: 176.7%;
+  }
+  .categ {
+    top: 183%;
+    left: 0%;
+  }
+  /* END OF TOP CATEGORIES QUERIES */
+  /* PATTERNS MEDIA QUERIES */
+  .pat {
+    top: 208%;
+  }
+  .paterns {
+    top: 216%;
+  }
+  .paterns button {
+    width: 35%;
+  }
+  /* END OF PATTERNS MEDIA QUERIES */
+  /* CONTACT QUERIES*/
+  .contact h2 {
+    top: 316%;
+  }
+  .contact-info {
+    top: 326%;
+    height: 30%;
+  }
+  .contact-info input {
+    width: 43%;
+  }
+  .contact-info button {
+    TOP: 68%;
+  }
+  .contact-list {
+    top: 33%;
+  }
+  /* END OF CONTACT QUERIES*/
+  /* FOOTER QUERIES */
+  .myFooter {
+    height: 38vh;
+    top: 360%;
+  }
+  .footer {
+    right: 134px
+  }
+  .foot {
+    left: 134px;
+  }
+  /* END OF FOOTER QUERIES */
+}
+
+/* FOR IPADS */
+
+@media only screen and (min-width: 992px) and (max-width:1024px) {
+  /* NAVBAR MEDIA QUERIES */
+  #search {
+    position: absolute;
+    left: 59.6%;
+    height: 34px;
+    top: 17px;
+  }
+  .login {
+    right: 13%;
+  }
+  /* END OF NAVBAR MEDIA QUERIES */
+  /* HOME IMG MEDIA QUERIES */
+  .home img {
+    height: 34vh;
+  }
+  .home h4 {
+    top: 16%;
+    font-size: 43px;
+  }
+  .home span {
+    top: 24%;
+    font-size: 21px;
+    left: 25px;
+  }
+  /* END OF HOME IMG MEDIA QUERIES */
+  /* BOOKNAV QUERIES */
+  .bookdiv {
+    left: 11%;
+  }
+  /* END OF BOOKNAV QUERIES */
+  /* BOOKSLIDER QUERIES */
+  .post-slider {
+    top: 40%;
+  }
+  .post-slider .next {
+    right: 43px;
+  }
+  .post-slider .prev {
+    left: 43px;
+  }
+  .post-slider .post-wrapper .post .post-info p {
+    width: 156px;
+    margin-left: -7px;
+  }
+  .post-slider .post-wrapper .post .post-info {
+    width: 151px;
+  }
+  .post-slider .post-wrapper .post {
+    margin: 0px 9px;
+  }
+  /* END OF BOOKSLIDER QUERIES */
+  /* SECOND BOOKSLIDER QUERIES */
+  .mostviewed {
+    top: 77%;
+  }
+  /* END OF SECOND BOOKSLIDER QUERIES */
+  /* COUNTER QUERIES */
+  .middle {
+    top: 129%;
+  }
+  /* END OF COUNTER QUERIS */
+  /* TOP CATEGORIES QUERIES */
+  .topcategHead {
+    top: 143%;
+  }
+  .lineCateg {
+    top: 143.5%;
+  }
+  .categ {
+    top: 151%;
+    left: 2%;
+  }
+  .categ button {
+    width: 19%;
+  }
+  /* END OF TOP CATEGORIES QUERIES */
+  /* PATTERNS MEDIA QUERIES */
+  .pat {
+    top: 170%;
+  }
+  .paterns {
+    top: 179%;
+  }
+  .paterns button {
+    width: 23%;
+  }
+  /* END OF PATTERNS MEDIA QUERIES */
+  /* CONTACT QUERIES*/
+  .contact h2 {
+    position: absolute;
+    top: 232%;
+  }
+  .contact-info {
+    top: 242%;
+    height: 26%;
+  }
+  /* END OF CONTACT QUERIES*/
+  /* FOOTER QUERIES */
+  .myFooter {
+    height: 28vh;
+    top: 272%;
+  }
+  /* END OF FOOTER QUERIES */
+}
