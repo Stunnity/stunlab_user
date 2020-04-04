@@ -1,27 +1,50 @@
 /* CSS OF THE NAVBAR */
+.main-nav {
+  position: relative;
+}
+.mainlist .category-img {
+  width: 22px;
+  height: 21px;
+}
+.mainlist .category-list {
+  font-size: 18px;
+  vertical-align: middle;
+}
 
 .login {
   background-color: transparent;
   border: 1px solid rgb(184, 181, 181);
   padding: 5px;
   width: 80px;
-  position: absolute;
-  right: 10%;
+  margin-right: 20px;
   cursor: pointer;
-  font-weight: bolder;
   transform: translateY(-50%);
 }
 
-.login a {
-  text-decoration: none;
-  color: black;
+.nav-item input.form-control {
+  box-shadow: none !important;
 }
+.login a {
+  color: black;
+  text-decoration: none;
+}
+.about-link {
+  position: absolute;
+  list-style: none;
+  margin-left: 742px;
+}
+.about-link a {
+  color: rgba(0, 0, 0, 0.5);
 
+  font-size: 18px;
+}
+.about-link a:hover {
+  color: #1c232e;
+}
 .login:hover {
   background-color: #f5f5f5;
-  color: white;
-  transition: .5s ease;
-  font-weight: bolder;
+  color: black;
+  transition: 0.5s ease;
   border: none;
   border: 1px solid rgb(202, 202, 202);
 }
@@ -29,18 +52,16 @@
 .signin:hover {
   background-color: #dd6e60;
   border: 1px solid #ca6356;
-  transition: .5s ease;
+  transition: 0.5s ease;
   font-weight: bolder;
 }
 
 .signin {
-  background-color: #fe7865;
-  border: 1px solid #EC5252;
+  background-color: #ec5252;
+  border: 1px solid #ec5252;
   color: white;
   padding: 5px;
   width: 80px;
-  position: absolute;
-  right: 3%;
   cursor: pointer;
   font-weight: bolder;
   transform: translateY(-50%);
@@ -53,23 +74,53 @@
 
 #search {
   cursor: pointer;
-  color: #EC5252;
+  color: #ec5252;
   position: absolute;
-  left: 60.5%;
+  left: 125.9%;
   padding: 10px;
+  top: 4.4%;
 }
 
 #search:hover {
   cursor: pointer;
-  background-color: #EC5252;
+  background-color: #ec5252;
   color: white;
-  transition: .5s ease;
+  transition: 0.5s ease;
+}
+
+.navbar-collapse .navbar-nav {
+  margin-left: 80px;
+}
+.navbar-collapse .navbar-nav .dropdown a {
+  font-size: 17px;
+}
+.navbar-collapse .form-inline {
+  position: relative;
+  margin-top: 3.4%;
+  margin-left: 33%;
+}
+.form-inline .login-btn {
+  margin-right: 11px;
+}
+
+.form-inline .signup-btn {
+  background: #ec5252;
+}
+.form-inline .signup-btn:hover {
+  background: #dc3545;
 }
 
 .mainlist {
   position: relative;
   left: -32%;
   text-decoration: none;
+}
+.search-input {
+  margin-left: 119px;
+  width: 100%;
+}
+.search-container {
+  position: relative;
 }
 
 .searchin {
@@ -86,6 +137,9 @@
   padding-left: 5px;
 }
 
+.navbar .searchin:focus {
+  border: 1px solid #ec5252 !important;
+}
 .sublist {
   position: absolute;
   display: block;
@@ -104,9 +158,9 @@
 
 .sublist li:hover {
   display: block;
-  color: #EC5252;
+  color: #ec5252;
   background-color: white;
-  transition: .2s ease;
+  transition: 0.2s ease;
   cursor: pointer;
 }
 
@@ -119,7 +173,7 @@
 }
 
 .navbar {
-  height: 70px;
+  height: 60px;
   position: fixed;
   width: 100%;
   background-color: white;
@@ -131,28 +185,56 @@
 
 /* HOME IMAGE CSS */
 
-.home h4 {
-  position: absolute;
+.home {
+  position: relative;
+  background-image: url("../../assets/images/1.jpg");
+  background-size: cover;
+  height: 570px;
+}
+.header {
+  position: relative;
+  height: 62px;
+}
+.home h1 {
   color: white;
-  top: 52%;
-  font-size: 60px;
-  left: 2%;
-  font-family: 'Khula', sans-serif;
+  font-size: 43px;
+  font-family: "Khula", sans-serif;
   font-weight: bolder;
-  width: 45%;
+  width: 100%;
+}
+.section-guider {
+  position: absolute;
+  margin-top: 33%;
+  margin-left: 8%;
+}
+.section-guider button {
+  padding: 5px;
+  padding: 8px 20px;
+  font-size: 19px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+
+  text-transform: uppercase;
 }
 
-.home span {
-  color: white;
+.section-content {
+  margin-left: 6%;
+  margin-top: 18%;
   position: absolute;
-  top: 79%;
-  font-size: 28px;
-  left: 32px;
-  width: 38%;
+}
+
+.home p {
+  margin-top: -20px;
+  margin-left: 30px;
+  color: white;
+  font-family: Roboto, "Helvetica Neue", sans-serif !important;
+  font-weight: 200;
+  font-size: 18px;
+  width: 55%;
 }
 
 .home img {
-  height: 100vh;
+  height: 100%;
   width: 100%;
 }
 
@@ -168,7 +250,9 @@
 /* END OF HOME IMAGE CSS */
 
 /* BOOKNAV CSS */
-
+.book-nav-slider {
+  position: relative;
+}
 .bookdiv {
   position: absolute;
   border-bottom: 1px solid #007791;
@@ -191,6 +275,10 @@
   padding-bottom: 17px;
   padding-right: 60px;
   width: 200px;
+}
+.booknav li:hover,
+.booknav li a:hover {
+  cursor: pointer;
 }
 
 .booknav li a {
@@ -216,22 +304,23 @@
   color: white;
 }
 
-.booknav li:nth-child(1).active~.slide {
+.booknav li:nth-child(1).active ~ .slide {
   left: 0;
+
   opacity: 1;
 }
 
-.booknav li:nth-child(2).active~.slide {
+.booknav li:nth-child(2).active ~ .slide {
   left: 200px;
   opacity: 1;
 }
 
-.booknav li:nth-child(3).active~.slide {
+.booknav li:nth-child(3).active ~ .slide {
   left: 400px;
   opacity: 1;
 }
 
-.booknav li:nth-child(4).active~.slide {
+.booknav li:nth-child(4).active ~ .slide {
   left: 600px;
   opacity: 1;
 }
@@ -262,7 +351,7 @@
   display: inline-block;
   height: 383px;
   margin: 0px 10px;
-  box-shadow: 0 0 1px 1px rgb(216, 216, 216), 0 3px 1px 0 rgba(20, 23, 28, .1);
+  box-shadow: 0 0 1px 1px rgb(216, 216, 216), 0 3px 1px 0 rgba(20, 23, 28, 0.1);
   border-bottom: 4px solid rgba(0, 0, 0, 0.1);
   width: 23%;
 }
@@ -276,7 +365,8 @@
   background-color: #fff;
   border-radius: 50%;
   border-width: 0;
-  box-shadow: 0 0 1px 1px rgba(20, 23, 28, .1), 0 3px 1px 0 rgba(20, 23, 28, .1);
+  box-shadow: 0 0 1px 1px rgba(20, 23, 28, 0.1),
+    0 3px 1px 0 rgba(20, 23, 28, 0.1);
   color: #007791;
   font-size: 24px;
   height: 47px;
@@ -302,7 +392,8 @@
   background-color: #fff;
   border-radius: 50%;
   border-width: 0;
-  box-shadow: 0 0 1px 1px rgba(20, 23, 28, .1), 0 3px 1px 0 rgba(20, 23, 28, .1);
+  box-shadow: 0 0 1px 1px rgba(20, 23, 28, 0.1),
+    0 3px 1px 0 rgba(20, 23, 28, 0.1);
   color: #007791;
   font-size: 24px;
   height: 47px;
@@ -371,7 +462,7 @@
 
 .bookopen {
   width: 100%;
-  background: #495D70;
+  background: #495d70;
   color: white;
   border: none;
   cursor: pointer;
@@ -385,7 +476,7 @@
 .bookopen:hover {
   background-color: #f1523b;
   color: white;
-  transition: .5s ease;
+  transition: 0.5s ease;
 }
 
 .booksliderdiv1 {
@@ -398,24 +489,18 @@
 
 /* SECOND BOOK SLIDER CSS */
 
-.mostviewed {
-  position: absolute;
-  top: 198%;
-  width: 100%;
-}
-
 /* END OF SECOND BOOK SLIDER CSS */
 
 /* COUNTER CSS */
 
 .middle {
-  background-color: #29303B;
+  background-color: #29303b;
   display: flex;
   width: 100%;
   transform: translateY(-50%);
   height: 203px;
-  position: absolute;
-  top: 315%;
+  margin-top: 215px;
+  position: relative;
 }
 
 .counting-sec {
@@ -448,9 +533,13 @@
 
 /* TOP CATEGORIES CSS */
 
+.top-categories {
+  position: relative;
+  margin-left: 16%;
+}
 .topcategHead {
-  color: #EC5252;
-  position: absolute;
+  color: #ec5252;
+
   top: 344%;
   left: 10%;
 }
@@ -458,17 +547,17 @@
 .lineCateg {
   width: 6%;
   height: 2px;
-  position: absolute;
+
   top: 345%;
-  background-color: #EC5252;
+  background-color: #ec5252;
   left: 3.5%;
 }
 
 .categ {
   display: flex;
   flex-wrap: wrap;
-  position: absolute;
-  top: 358%;
+  position: relative;
+  margin-top: 3%;
 }
 
 .categ button {
@@ -488,7 +577,7 @@
 
 .categ button:hover {
   box-shadow: 0 0 40px #46454533;
-  transition: .3s ease;
+  transition: 0.3s ease;
 }
 
 /* END OF TOP CATEGORIES CSS */
@@ -498,18 +587,20 @@
 .pat {
   font-weight: 700;
   color: black;
-  position: absolute;
-  top: 397%;
-  left: 50%;
+  position: relative;
+  margin-top: 2%;
+  margin-left: 50%;
+  -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
 }
 
 .paterns {
-  background-color: #F7F8FA;
+  background-color: #f7f8fa;
+  display: -webkit-box;
   display: flex;
   flex-wrap: wrap;
-  position: absolute;
-  top: 412%;
+  position: relative;
+  margin-top: 2%;
 }
 
 .paterns button {
@@ -528,7 +619,7 @@
 .paterns button:hover {
   box-shadow: 0 0 22px #83818133;
   filter: grayscale(0%);
-  transition: .2s ease;
+  transition: 0.2s ease;
 }
 
 /* END OF PATTERNERS CSS */
@@ -536,15 +627,17 @@
 /* CONTACT CSS */
 
 .contact-info {
-  position: absolute;
-  top: 541%;
+  position: relative;
+  /* height: 100%; */
   width: 81%;
   left: 50%;
+  -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
-  height: 55%;
+  height: 361px;
   padding: 10px 40px 40px;
   box-shadow: 0px 0px 40px 0px rgba(156, 156, 156, 0.25);
   background-color: #fff;
+  margin-top: 28px;
 }
 
 .contact-info h4 {
@@ -556,10 +649,11 @@
 }
 
 .contact h2 {
-  position: absolute;
-  top: 521%;
+  position: relative;
+  margin-top: 4%;
   font-weight: 800;
-  left: 50%;
+  margin-left: 63%;
+  -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
   font-size: 36px;
 }
@@ -618,9 +712,9 @@
   z-index: 5;
   transition: all 0.4s ease-out 0s;
   background-color: #fe7865;
-  POSITION: absolute;
-  TOP: 59%;
-  LEFT: 38%;
+  position: absolute;
+  top: 59%;
+  left: 38%;
 }
 
 /* END OF CONTACT CSS */
@@ -628,7 +722,7 @@
 /* FOOTER CSS */
 
 .foot h5 {
-  border-bottom: 4px solid #0091C7;
+  border-bottom: 4px solid #0091c7;
   color: white;
 }
 
@@ -644,7 +738,7 @@
 }
 
 .footer h5 {
-  border-bottom: 4px solid #0091C7;
+  border-bottom: 4px solid #0091c7;
   color: white;
 }
 
@@ -656,7 +750,7 @@
 
 .downfoot {
   width: 100%;
-  background-color: #1C232E;
+  background-color: #1c232e;
   color: #505960;
   position: absolute;
   top: 330px;
@@ -665,10 +759,10 @@
 }
 
 .myFooter {
-  background-color: #2E3942;
+  background-color: #2e3942;
   height: 52vh;
-  margin-top: 2%;
-  position: absolute;
+  margin-top: 4%;
+  /* position: absolute; */
   bottom: 0;
   top: 601%;
   width: 100%;
@@ -681,7 +775,7 @@
 }
 
 .footer a:hover {
-  transition: .90s ease;
+  transition: 0.9s ease;
 }
 
 .footer a {
@@ -700,6 +794,9 @@
   padding: 7px;
 }
 
+/* .form-inline {
+  display: flex;
+} */
 /* END OF FOOTER CSS */
 
 /* WHOLE PAGE MEDIA QUERIES */
@@ -710,8 +807,9 @@
   /* NAVBAR MEDIA QUERIES */
   #search {
     position: absolute;
-    left: 58.5%;
+
     height: 34px;
+    left: 63.9%;
     top: 17px;
   }
   .navbar-logo {
@@ -720,9 +818,7 @@
   .mainlist {
     margin-left: 0px;
   }
-  .login {
-    right: 16%;
-  }
+
   /* END OF NAVBAR MEDIA QUERIES */
   /* HOME IMG MEDIA QUERIES */
   .home img {
@@ -746,13 +842,13 @@
   .bookdiv {
     left: 12%;
   }
-  .booknav li:nth-child(2).active~.slide {
+  .booknav li:nth-child(2).active ~ .slide {
     left: 160px;
   }
-  .booknav li:nth-child(3).active~.slide {
+  .booknav li:nth-child(3).active ~ .slide {
     left: 320px;
   }
-  .booknav li:nth-child(4).active~.slide {
+  .booknav li:nth-child(4).active ~ .slide {
     left: 457px;
   }
   /* END OF BOOKNAV QUERIES */
@@ -847,7 +943,7 @@
     width: 43%;
   }
   .contact-info button {
-    TOP: 68%;
+    top: 68%;
   }
   .contact-list {
     top: 33%;
@@ -859,7 +955,7 @@
     top: 360%;
   }
   .footer {
-    right: 134px
+    right: 134px;
   }
   .foot {
     left: 134px;
@@ -869,7 +965,7 @@
 
 /* FOR IPADS */
 
-@media only screen and (min-width: 992px) and (max-width:1024px) {
+@media only screen and (min-width: 992px) and (max-width: 1024px) {
   /* NAVBAR MEDIA QUERIES */
   #search {
     position: absolute;
@@ -973,4 +1069,9 @@
     top: 272%;
   }
   /* END OF FOOTER QUERIES */
+}
+
+.scrolled {
+  height: 70px;
+  transition: all 200ms ease-in-out;
 }

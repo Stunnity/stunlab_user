@@ -1,0 +1,47 @@
+.first-form-group{
+  margin-top: 20px;
+}
+.submit-button{
+  text-transform: capitalize;
+}
+
+.login{
+
+    font-size: 13px;
+    line-height: 70px;
+}
+.containter-fluid{
+  background-color: #f9f9f9;
+}
+form{
+  margin-top: 10px;
+}
+.form-control, .form-control:focus{
+  background-image: none !important;
+}
+
+.message{
+  font-size: small;
+  margin-left: 11px;
+}
+
+.incorrect{
+  color: green;
+  letter-spacing: 0.1px;
+  font-weight: bold;
+}
+.correct{
+  color: #dc3545;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+@media screen and (min-width: 1024px) {
+  .main-content{
+    margin-left: 23%;
+    margin-top: 8%;
+  }
+}
+.containter-fluid{
+
+  background-color: #f9f9f9;
+}

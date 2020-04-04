@@ -1,66 +1,85 @@
-.login {
-    background-color: transparent;
-    border: 1px solid rgb(184, 181, 181);
-    padding: 5px;
-    width: 80px;
-    position: absolute;
-    right: 10%;
-    cursor: pointer;
-    font-weight: bolder;
-    transform: translateY(-50%);
+
+.header {
+  position: relative;
+  height: 62px;
 }
+
+
+.login {
+  background-color: transparent;
+  border: 1px solid rgb(184, 181, 181);
+  padding: 5px;
+  width: 80px;
+  margin-right: 20px;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
 
 .login a {
-    text-decoration: none;
-    color: black;
+  color: black;
+  text-decoration: none;
 }
-
-.login:hover {
-    background-color: #f5f5f5;
-    transition: .5s ease;
-    font-weight: bolder;
-    border: none;
-    border: 1px solid rgb(202, 202, 202);
-}
-
 .signin:hover {
-    background-color: #dd6e60;
-    border: 1px solid #ca6356;
-    transition: .5s ease;
-    font-weight: bolder;
+  background-color: #dd6e60;
+  border: 1px solid #ca6356;
+  transition: 0.5s ease;
+  font-weight: bolder;
 }
 
 .signin {
-    background-color: #fe7865;
-    border: 1px solid #EC5252;
-    color: white;
-    padding: 5px;
-    width: 80px;
-    position: absolute;
-    right: 3%;
-    cursor: pointer;
-    font-weight: bolder;
-    transform: translateY(-50%);
+  background-color: #ec5252;
+  border: 1px solid #ec5252;
+  color: white;
+  padding: 5px;
+  width: 80px;
+  cursor: pointer;
+  font-weight: bolder;
+  transform: translateY(-50%);
+}
+.personal-profile{
+  position: relative;
 }
 
 .signin a {
-    text-decoration: none;
-    color: white;
+  text-decoration: none;
+  color: white;
+}
+.navbar-collapse .navbar-nav {
+  margin-left: 80px;
+}
+.navbar-collapse .navbar-nav .dropdown a {
+  font-size: 17px;
+}
+.navbar-collapse .form-inline {
+  position: relative;
+  margin-top: 3.4%;
+  margin-left: 33%;
+}
+.form-inline .login-btn {
+  margin-right: 11px;
 }
 
+.form-inline .signup-btn {
+  background: #ec5252;
+}
+.form-inline .signup-btn:hover {
+  background: #dc3545;
+}
 #search {
-    cursor: pointer;
-    color: #EC5252;
-    position: absolute;
-    left: 60.5%;
-    padding: 10px;
+  cursor: pointer;
+  color: #ec5252;
+  position: absolute;
+  left: 125.9%;
+  padding: 10px;
+  top: 4.4%;
 }
 
 #search:hover {
-    cursor: pointer;
-    color: white;
-    background-color: #EC5252;
-    transition: .5s ease;
+  cursor: pointer;
+  background-color: #ec5252;
+  color: white;
+  transition: 0.5s ease;
 }
 
 .mainlist {
@@ -92,6 +111,9 @@
     padding: 0px;
     width: 177px;
 }
+.nav-item input.form-control {
+  box-shadow: none !important;
+}
 
 .sublist li {
     position: relative;
@@ -112,23 +134,43 @@
 .mainlist li:hover .sublist li {
     display: block;
 }
-
+.search-input {
+  margin-left: 119px;
+  width: 100%;
+   border: 1px solid rgb(184, 181, 181);
+}
 .navbar-logo {
     height: 40px;
 }
+.search-container {
+  position: relative;
+}
+.about-link {
+  position: absolute;
+  list-style: none;
+  margin-left: 742px;
+}
+.about-link a {
+  color: rgba(0, 0, 0, 0.5);
+
+  font-size: 18px;
+}
+.about-link a:hover {
+  color: #1c232e;
+}
 
 .navbar {
-    height: 70px;
-    position: fixed;
-    width: 100%;
-    background-color: white;
-    box-shadow: 0px 0px 40px 0px rgba(156, 156, 156, 0.25);
-    z-index: 999;
+  height: 60px;
+  position: fixed;
+  width: 100%;
+  background-color: white;
+  box-shadow: 0px 0px 40px 0px rgba(156, 156, 156, 0.25);
+  z-index: 999;
 }
 
 .heading1 {
     position: relative;
-    margin-top: 11%;
+  margin-top: 3%;
     text-align: center;
     font-weight: bolder;
     font-size: 26px;
@@ -140,7 +182,6 @@
     width: 44%;
     margin: 0 auto;
     position: relative;
-    margin-top: 6%;
 }
 
 .name {
@@ -212,7 +253,7 @@
     position: relative;
     text-align: center;
     margin-top: 5%;
-    margin-bottom: 6%;
+    margin-bottom: 3%;
 }
 
 .savebut {
@@ -389,4 +430,9 @@ select {
         height: 29vh;
         top: 88%;
     }
+}
+
+.scrolled {
+  height: 70px;
+  transition: all 200ms ease-in-out;
 }
