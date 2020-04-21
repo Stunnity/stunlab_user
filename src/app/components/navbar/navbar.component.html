@@ -1,0 +1,123 @@
+<header class="header">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <a class="navbar-brand" [routerLink]="['/']">
+      <img
+        class="navbar-logo"
+        src="../../assets/images/stunlab.png"
+        alt="Logo"
+      />
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse m-3" id="navbarSupportedContent">
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <i class="fa fa-align-left"></i> &nbsp;&nbsp;Categories
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Sciences</a>
+            <a class="dropdown-item" href="#">Sciences</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <div class="search-container">
+            <input
+              type="text"
+              placeholder="Search for any book"
+              class="search-input form-control"
+              #search
+            /><i
+              (click)="searchBook(search.value)"
+              class="fa fa-search"
+              id="search"
+            ></i>
+          </div>
+        </li>
+      </ul>
+      <li class="nav-item about-link" *ngIf="!isLoggenIn">
+        <a class="nav-link" [routerLink]="['/', 'about']"
+          >About <span class="sr-only">(current)</span></a
+        >
+      </li>
+      <form class="form-inline" *ngIf="!isLoggenIn; else loggedInTemplate">
+        <button class="login" type="button" [routerLink]="['/', 'login']">
+          Log In
+        </button>
+        <button class="signin btn-danger" [routerLink]="['/', 'signup']">
+          Sign Up
+        </button>
+        <!-- <button class="login-btn btn btn-outline-dark" type="button">
+            Sign In
+          </button>
+          <button class="signup-btn btn btn-danger" id="signup" type="button">
+            Sign Up
+          </button> -->
+      </form>
+      <ng-template #loggedInTemplate>
+        <div class="user-details">
+          <div class="book-shelf">
+            <img
+              src="../../../assets/images/likeHeart.png"
+              style="width: 25px;"
+              alt=""
+            />
+          </div>
+          <div class="user-profile">
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <img
+                    src="../../../assets/images/download.png"
+                    style="width: 27px; margin: 0 4px;"
+                    alt=""
+                  />
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" [routerLink]="['/', 'user']"
+                    >Profile</a
+                  >
+                  <a class="dropdown-item" [routerLink]="['/', '']">Invite</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" [routerLink]="['/', 'login']"
+                    >Logout</a
+                  >
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </nav>
+  <!-- HOME IMAGE -->
+</header>

@@ -1,47 +1,80 @@
-.first-form-group{
+.main-content {
+  font-size: 23px;
+  font-family: sans-serif !important;
+}
+.first-form-group {
+  margin-top: 30px;
+}
+.isOnline {
+  position: fixed;
+  top: 0;
+}
+
+.card-title {
+  font-family: "Khula" !important;
+  font-size: 24px;
+  font-weight: bold;
+}
+.submit-button {
+  font-family: sans-serif !important;
+}
+.login {
+  font-size: 14px;
+  font-family: "Khula" !important;
+  line-height: 73px;
+}
+.login:hover {
+  text-decoration: underline;
+}
+#available-status {
+  position: absolute;
+  top: 6px;
+  right: 23px;
+  z-index: 10;
+}
+form {
   margin-top: 20px;
 }
-.submit-button{
-  text-transform: capitalize;
-}
-
-.login{
-
-    font-size: 13px;
-    line-height: 70px;
-}
-.containter-fluid{
-  background-color: #f9f9f9;
-}
-form{
-  margin-top: 10px;
-}
-.form-control, .form-control:focus{
+.form-control,
+.form-control:focus {
   background-image: none !important;
 }
 
-.message{
+.message {
   font-size: small;
   margin-left: 11px;
 }
 
-.incorrect{
+.incorrect {
   color: green;
   letter-spacing: 0.1px;
   font-weight: bold;
 }
-.correct{
+.correct {
   color: #dc3545;
   letter-spacing: 1px;
   font-weight: bold;
 }
+.icon {
+  position: absolute;
+  margin-top: -2.2em;
+  margin-left: 41.5em;
+  cursor: pointer;
+}
+.form-control {
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  padding: 16px;
+}
+
 @media screen and (min-width: 1024px) {
-  .main-content{
+  .main-content {
     margin-left: 23%;
     margin-top: 8%;
   }
-}
-.containter-fluid{
-
-  background-color: #f9f9f9;
+  .icon {
+    position: absolute;
+    margin-top: -2.2em;
+    margin-left: 41.5em;
+  }
 }

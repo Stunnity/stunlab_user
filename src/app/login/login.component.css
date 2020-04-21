@@ -1,0 +1,76 @@
+.main-content {
+  font-size: 23px;
+  font-family: sans-serif !important;
+}
+.alert {
+  font-size: 14px;
+}
+.first-form-group {
+  margin-top: 30px;
+}
+.card-title {
+  font-family: "Khula" !important;
+  font-size: 24px;
+  font-weight: bold;
+}
+.alert-dismissible .close {
+  top: 5px;
+}
+.alert-dismissible .close:hover {
+  color: white;
+}
+.submit-button {
+  font-family: sans-serif !important;
+}
+.signup {
+  font-size: 14px;
+  font-family: "Khula" !important;
+  line-height: 69px;
+}
+.signup:hover {
+  text-decoration: underline;
+}
+form {
+  margin-top: 20px;
+}
+.form-control,
+.form-control:focus {
+  background-image: none !important;
+}
+
+.message {
+  font-size: small;
+  margin-left: 11px;
+}
+
+.incorrect {
+  color: green;
+  letter-spacing: 0.1px;
+  font-weight: bold;
+}
+.correct {
+  color: #dc3545;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+.icon {
+  position: absolute;
+  margin-top: -2.2em;
+  margin-left: 41.5em;
+  cursor: pointer;
+}
+.form-control {
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  padding: 16px;
+}
+
+.main-content {
+  margin-left: 23%;
+  margin-top: 8%;
+}
+
+.isOnline {
+  position: fixed;
+  top: 0;
+}

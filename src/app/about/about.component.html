@@ -12,6 +12,9 @@
     </div>
   </div>
 </header>
+<div class="isOnline">
+  <app-is-online></app-is-online>
+</div>
 <div class="home">
   <div class="section-about">
     <div class="hometext">
@@ -102,7 +105,13 @@
           href="#carouselExampleCaptions"
           role="button"
           data-slide="prev"
-          style=" background-color: darkslategray;opacity:2.5;top: 49%;height: 33px;width: 31px;"
+          style="
+            background-color: darkslategray;
+            opacity: 2.5;
+            top: 49%;
+            height: 33px;
+            width: 31px;
+          "
         >
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         </a>
@@ -111,7 +120,13 @@
           href="#carouselExampleCaptions"
           role="button"
           data-slide="next"
-          style=" background-color: darkslategray;opacity:2.5;top: 49%;height: 33px;width: 31px;"
+          style="
+            background-color: darkslategray;
+            opacity: 2.5;
+            top: 49%;
+            height: 33px;
+            width: 31px;
+          "
         >
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
         </a>
@@ -137,40 +152,5 @@
              <img src="assets/images/twit.png" alt="" class="iconfoot3"> -->
     </div>
   </div>
-  <section class="myFooter">
-    <div class="mainfoot">
-      <div class="foot">
-        <h5>ABOUT STUNLAB</h5>
-        <ul>
-          <li><a routerLink="/about"> About Us</a></li>
-          <li><a href="#">Site map</a></li>
-          <li><a href="#">Our books</a></li>
-        </ul>
-      </div>
-      <div class="footer">
-        <h5>CONNECT</h5>
-        <ul>
-          <li>
-            <a href="#"> <img src="assets/images/fb.png" alt="" /> Facebook</a>
-          </li>
-          <li>
-            <a href="#"><img src="assets/images/twit.png" alt="" /> Twitter</a>
-          </li>
-          <li>
-            <a href="#"
-              ><img src="assets/images/linkin.png" alt="" /> LinkedIn</a
-            >
-          </li>
-          <li>
-            <a href="#"><img src="assets/images/ig.png" alt="" /> Instagram</a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="downfoot">
-        <h4>STUNLAB</h4>
-        <span> Copyright © 2019 Stunlab, Inc.</span>
-      </div>
-    </div>
-  </section>
+  <app-footer></app-footer>
 </div>

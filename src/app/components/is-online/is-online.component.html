@@ -1,0 +1,26 @@
+<div class="row isOnline-alert" *ngIf="!isOnline">
+  <div
+    *ngIf="!isOnline"
+    class="alert alert-danger alert-dismissible fade show col-12"
+    role="alert"
+  >
+    <div class="row">
+      <div class="col-1"></div>
+      <div class="col-11">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+          (click)="setToFalse()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>
+          <i class="fa fa-wifi"></i> &nbsp;&nbsp;Stunlab is Offline.
+        </strong>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please Check Your Connection.
+      </div>
+    </div>
+  </div>
+</div>

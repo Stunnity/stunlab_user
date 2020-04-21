@@ -1,0 +1,26 @@
+.alert {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  padding: 12px 15px !important;
+  z-index: 100;
+  font-size: 13px;
+}
+.alert strong {
+  text-transform: uppercase;
+}
+.alert.alert-danger i {
+  color: white !important;
+}
+.close {
+  top: -15px;
+  right: 40px;
+}
+.isOnline-alert {
+  right: 15px;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+}
+.close:hover {
+  color: #fff !important;
+  opacity: 1 !important;
+}

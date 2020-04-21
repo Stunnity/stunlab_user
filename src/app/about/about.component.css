@@ -5,7 +5,13 @@
   position: relative;
   height: 72px;
 }
-
+.isOnline {
+  right: 15px;
+  top: 57px;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+}
 .topnav {
   position: relative;
 }
@@ -31,7 +37,7 @@
 
 .topnav h3 {
   position: absolute;
-  top: 50%;
+  top: 21%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -493,5 +499,5 @@
   }
 }
 .scrolled {
-  height: 72px !important;
+  height: 62px !important;
 }

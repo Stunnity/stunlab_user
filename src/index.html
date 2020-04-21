@@ -6,15 +6,48 @@
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+    <!-- Demo styles -->
+    <style></style>
   </head>
 
   <body>
     <app-root></app-root>
+
+    <!-- <p class="append-buttons">
+      <a href="#" class="prepend-2-slides">Prepend 2 Slides</a>
+      <a href="#" class="slide-1">Slide 1</a>
+      <a href="#" class="slide-250">Slide 250</a>
+      <a href="#" class="slide-500">Slide 500</a>
+      <a href="#" class="append-slide">Append Slide</a>
+    </p> -->
     <script src="./assets/js/jquery/jquery.min.js"></script>
     <script src="./assets/js/popper/popper.min.js"></script>
     <script src="./assets/js/slick-carousel/slick.min.js"></script>
     <script src="./assets/js/Counter-Up/jquery.counterup.min.js"></script>
     <script src="./assets/js/waypoints/jquery.waypoints.min.js"></script>
     <script src="./assets/js/main/script.js"></script>
+    <script src="./assets/js/swiper/package/js/swiper.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+      setTimeout(() => {
+        var swiper = new Swiper(".swiper-container", {
+          slidesPerView: 3,
+          spaceBetween: 30,
+          slidesPerGroup: 3,
+          loop: true,
+          loopFillGroupWithBlank: true,
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          },
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          },
+        });
+      }, 3000);
+    </script>
   </body>
 </html>

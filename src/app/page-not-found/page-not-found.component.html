@@ -1,23 +1,18 @@
+<div class="isOnline">
+  <app-is-online></app-is-online>
+</div>
 <div id="notfound" class="container">
-  <div class="notfound">
-    <div class="notfound-404">
-      <h1>404</h1>
+  <div class="row">
+    <div class="notfound-404 col-6">
+      <img src="../../assets/images/book_1.svg" alt="" />
     </div>
-    <div class="col-md-12 col-sm-3">
+    <div class="col-6 not-found-content">
       <h2>Oops! Nothing was found</h2>
       <p>
-        The page you are looking for might have been removed had its name
-        changed or is temporarily unavailable. We are Sorry!
-        <a [routerLink]="['/', 'home']">Return to Home</a>
+        The page you are looking for might have been removed, had its name
+        changed or is temporarily unavailable. We are Sorry! &nbsp;&nbsp;
+        <a [routerLink]="['/', 'home']" class="text-danger">Go to Stunlab</a>
       </p>
     </div>
-    <div class="notfound-social col-md-12" *ngIf="isMobile(); else mobileImage">
-      <img src="../../assets/images/stunlab-cropped.png" alt="Stunlab logo" />
-    </div>
-    <ng-template #mobileImage>
-      <div class="notfound-social">
-        <img src="../../assets/images/stunlab.png" alt="Stunlab logo" />
-      </div>
-    </ng-template>
   </div>
 </div>

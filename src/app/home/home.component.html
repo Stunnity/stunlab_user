@@ -40,84 +40,12 @@
         </div>
       </div>
     </div> -->
-
-    <header class="header">
-      <nav class="navbar navbar-expand-lg navbar-light bg-white">
-        <a class="navbar-brand" [routerLink]="['/']">
-          <img
-            class="navbar-logo"
-            src="../../assets/images/stunlab.png"
-            alt="Logo"
-          />
-        </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse m-3" id="navbarSupportedContent">
-          <ul class="navbar-nav ">
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                <i class="fa fa-align-left"></i> &nbsp;&nbsp;Categories
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Sciences</a>
-                <a class="dropdown-item" href="#">Sciences</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </li>
-
-            <li class="nav-item">
-              <div class="search-container">
-                <input
-                  type="text"
-                  placeholder="Search for any book"
-                  class="search-input form-control"
-                  #search
-                /><i
-                  (click)="searchBook(search.value)"
-                  class="fa fa-search"
-                  id="search"
-                ></i>
-              </div>
-            </li>
-          </ul>
-          <li class="nav-item about-link">
-            <a class="nav-link" [routerLink]="['/', 'about']"
-              >About <span class="sr-only">(current)</span></a
-            >
-          </li>
-          <form class="form-inline">
-            <button class="login">Log In</button>
-            <button class="signin">Sign Up</button>
-            <!-- <button class="login-btn btn btn-outline-dark" type="button">
-              Sign In
-            </button>
-            <button class="signup-btn btn btn-danger" id="signup" type="button">
-              Sign Up
-            </button> -->
-          </form>
-        </div>
-      </nav>
-      <!-- HOME IMAGE -->
-    </header>
+    <div class="home-navbar">
+      <app-navbar></app-navbar>
+    </div>
+    <div class="isOnline">
+      <app-is-online></app-is-online>
+    </div>
 
     <section id="home" class="home">
       <div class="section-content">
@@ -159,7 +87,7 @@
       </div>
 
       <!-- BOOK SLIDER -->
-      <div class="booksliderdiv1">
+      <!-- <div class="booksliderdiv1">
         <div class="page-wrapper">
           <div class="post-slider">
             <i class="fa fa-chevron-left prev"></i>
@@ -176,7 +104,7 @@
                   <br />
                   <span>REB</span>
                   <br />
-                  <span style="font-weight: bold">45</span>&nbsp;
+                  <span style="font-weight: bold;">45</span>&nbsp;
                   <span>Readers</span>
                   <br />
                   <img src="assets/images/like.png" alt="" class="imge1" /><span
@@ -198,7 +126,7 @@
                   </p>
                   <span>Adventure</span>
                   <br />
-                  <span style="font-weight: bold">REB</span>
+                  <span style="font-weight: bold;">REB</span>
                   <br />
                   <span>45</span>&nbsp;<span>Readers</span>
                   <br />
@@ -241,7 +169,7 @@
                   <br />
                   <span>REB</span>
                   <br />
-                  <span style="font-weight: bold">45</span>&nbsp;<span
+                  <span style="font-weight: bold;">45</span>&nbsp;<span
                     >Readers</span
                   >
                   <br />
@@ -263,7 +191,7 @@
                   <br />
                   <span>REB</span>
                   <br />
-                  <span style="font-weight: bold">45</span>&nbsp;<span
+                  <span style="font-weight: bold;">45</span>&nbsp;<span
                     >Readers</span
                   >
                   <br />
@@ -285,7 +213,7 @@
                   <br />
                   <span>REB</span>
                   <br />
-                  <span style="font-weight: bold">45</span>&nbsp;&nbsp;<span
+                  <span style="font-weight: bold;">45</span>&nbsp;&nbsp;<span
                     >Readers</span
                   >
                   <br />
@@ -339,9 +267,179 @@
             </div>
           </div>
         </div>
-      </div>
+      </div>-->
     </section>
+    <!-- Swiper -->
+    <div class="booksliderdiv1">
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="post">
+              <img src="assets/images/bb.jpg" alt="" class="slider-image" />
+              <div class="post-info">
+                <p id="para">
+                  Miraculous Boy runs alot from the buildingfsfdadsfafafasdfasdf
+                </p>
+                <span>Adventure</span>
+                <br />
+                <span>REB</span>
+                <br />
+                <span style="font-weight: bold;">45</span>&nbsp;
+                <span>Readers</span>
+                <br />
+                <img src="assets/images/like.png" alt="" class="imge1" /><span
+                  class="likes"
+                  >23</span
+                >
 
+                <img src="assets/images/dislike.png" alt="" class="imge2" />
+                <span class="diss">45</span>
+                <button class="bookopen">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="post">
+              <img src="assets/images/bb.jpg" alt="" class="slider-image" />
+              <div class="post-info">
+                <p id="para">
+                  Miraculous Boy runs alot from the buildingfsfdadsfafafasdfasdf
+                </p>
+                <span>Adventure</span>
+                <br />
+                <span style="font-weight: bold;">REB</span>
+                <br />
+                <span>45</span>&nbsp;<span>Readers</span>
+                <br />
+
+                <img src="assets/images/like.png" alt="" class="imge1" />
+                <span class="likes">23</span>
+                <img src="assets/images/dislike.png" alt="" class="imge2" />
+                <span class="diss">45</span>
+                <button class="bookopen">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="post">
+              <img src="assets/images/bb.jpg" alt="" class="slider-image" />
+              <div class="post-info">
+                <p id="para">
+                  Miraculous Boy runs alot from the buildingfsfdadsfafafasdfasdf
+                </p>
+                <span>Adventure</span>
+                <br />
+                <span>REB</span>
+                <br />
+                <span>45</span>&nbsp;<span>Readers</span>
+                <br />
+                <img src="assets/images/like.png" alt="" class="imge1" />
+                <span class="likes">23</span>
+                <img src="assets/images/dislike.png" alt="" class="imge2" />
+                <span class="diss">45</span>
+                <button class="bookopen">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="post">
+              <img src="assets/images/bb.jpg" alt="" class="slider-image" />
+              <div class="post-info">
+                <p id="para">
+                  Miraculous Boy runs alot from the buildingfsfdadsfafafasdfasdf
+                </p>
+                <span>Adventure</span>
+                <br />
+                <span>REB</span>
+                <br />
+                <span style="font-weight: bold;">45</span>&nbsp;<span
+                  >Readers</span
+                >
+                <br />
+                <img src="assets/images/like.png" alt="" class="imge1" />
+                <span class="likes">23</span>
+                <img src="assets/images/dislike.png" alt="" class="imge2" />
+                <span class="diss">45</span>
+                <button class="bookopen">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="post">
+              <img src="assets/images/bb.jpg" alt="" class="slider-image" />
+              <div class="post-info">
+                <p id="para">
+                  Miraculous Boy runs alot from the buildingfsfdadsfafafasdfasdf
+                </p>
+                <span>Adventure</span>
+                <br />
+                <span>REB</span>
+                <br />
+                <span style="font-weight: bold;">45</span>&nbsp;<span
+                  >Readers</span
+                >
+                <br />
+                <img src="assets/images/like.png" alt="" class="imge1" />
+                <span class="likes">23</span>
+                <img src="assets/images/dislike.png" alt="" class="imge2" />
+                <span class="diss">45</span>
+                <button class="bookopen">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="post">
+              <img src="assets/images/bb.jpg" alt="" class="slider-image" />
+              <div class="post-info">
+                <p id="para">
+                  Miraculous Boy runs alot from the buildingfsfdadsfafafasdfasdf
+                </p>
+                <span>Adventure</span>
+                <br />
+                <span>REB</span>
+                <br />
+                <span style="font-weight: bold;">45</span>&nbsp;<span
+                  >Readers</span
+                >
+                <br />
+                <img src="assets/images/like.png" alt="" class="imge1" />
+                <span class="likes">23</span>
+                <img src="assets/images/dislike.png" alt="" class="imge2" />
+                <span class="diss">45</span>
+                <button class="bookopen">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="post">
+              <img src="assets/images/bb.jpg" alt="" class="slider-image" />
+              <div class="post-info">
+                <p id="para">
+                  Miraculous Boy runs alot from the buildingfsfdadsfafafasdfasdf
+                </p>
+                <span>Adventure</span>
+                <br />
+                <span>REB</span>
+                <br />
+                <span style="font-weight: bold;">45</span>&nbsp;<span
+                  >Readers</span
+                >
+                <br />
+                <img src="assets/images/like.png" alt="" class="imge1" />
+                <span class="likes">23</span>
+                <img src="assets/images/dislike.png" alt="" class="imge2" />
+                <span class="diss">45</span>
+                <button class="bookopen">Read</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Add Arrows -->
+      </div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
     <app-mostviewed></app-mostviewed>
     <!-- COUNTER UP -->
     <div class="middle">
@@ -475,9 +573,10 @@
       </div>
     </section>
 
+    <app-footer></app-footer>
     <!-- FOOTER  -->
 
-    <section class="myFooter">
+    <!-- <section class="myFooter">
       <div class="mainfoot">
         <div class="foot">
           <h5>ABOUT STUNLAB</h5>
@@ -518,7 +617,6 @@
           <span> Copyright © 2019 Stunlab, Inc.</span>
         </div>
       </div>
-    </section>
-    -->
+    </section> -->
   </div>
 </div>

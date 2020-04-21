@@ -1,4 +1,4 @@
-* {
+/* * {
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
   }
@@ -116,4 +116,25 @@
     }
 
 
-  }
+  } */
+#notfound {
+  margin-top: 5%;
+}
+.notfound-404 img {
+  width: 80%;
+}
+.not-found-content {
+  margin-top: 10%;
+}
+.not-found-content h2 {
+  font-size: 48px;
+  font-weight: bolder;
+}
+.not-found-content p a:hover {
+  text-decoration: underline;
+}
+.isOnline {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+}

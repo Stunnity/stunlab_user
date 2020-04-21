@@ -1,0 +1,27 @@
+API TO
+    - Get books per category  - hahandi nyine hakurikira ifoto ya wa mytpype
+    
+    Ibi sinzi uko wabikoze gusa numva iyo umuntu akanze like then duhita tu incrementinga then iyo 
+    akoze dislike on same book tugahita tu incrementinga dislikes then delete likes.
+
+    - Post like 
+    - Post Dislike
+    - Delete like
+    - Delete Dislike
+    - Get total book likes
+    - Get total book dislikes
+    - Get total book readers
+
+    Most Viewd books Per Level
+     - Nursery
+     - Primary
+     - Lower Secondary
+     - upper Secondary
+     Zifite na statistics zazo za likes, readers ,,,
+
+     Statistivs
+     -  Total books
+     - Total Users
+     - Total Downloads
+
+     
