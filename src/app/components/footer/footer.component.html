@@ -57,8 +57,18 @@
           id="subscribe_newsletter"
           class="form-control"
           autocomplete="off"
+          #subscriber_email
+          (keyup)="validateEmail(subscriber_email.value)"
           placeholder="Email Address"
         />
+        <button
+          [disabled]="!validEmail"
+          class="send-email"
+          (click)="sendEmail(subscriber_email.value)"
+        >
+          <i class="fa fa-send"></i>
+          {{ error_message }}
+        </button>
       </div>
     </div>
   </div>

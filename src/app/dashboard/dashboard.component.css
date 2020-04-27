@@ -1,0 +1,512 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+ol {
+  margin: 0px;
+  padding: 0px;
+  list-style-type: none;
+}
+
+body {
+  font-family: "Duru Sans", sans-serif;
+}
+
+.navbar {
+  height: 68px;
+  position: fixed;
+  box-shadow: 0px 0px 40px 0px rgba(156, 156, 156, 0.25);
+  width: 100%;
+  z-index: 999;
+  background-color: white;
+}
+
+.books {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 47%;
+  height: 30px;
+}
+
+.heart {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 53%;
+  height: 30px;
+}
+
+.profile {
+  border-radius: 217px;
+  width: 40px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 5%;
+  height: 38px;
+}
+
+#search {
+  position: absolute;
+  top: 28%;
+  right: 17%;
+  color: #3424ea;
+  padding: 7px;
+}
+
+.categories {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 24%;
+  height: 30px;
+}
+
+.title {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 5%;
+}
+
+.catText {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 27%;
+}
+
+.inputsearch {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 30px;
+  right: 17%;
+  border: 1px solid rgb(184, 181, 181);
+  padding: 4px;
+  width: 23%;
+  padding-left: 10px;
+}
+
+#search:hover {
+  background-color: #3424ea;
+  transition: 0.5s ease;
+  color: white;
+  cursor: pointer;
+}
+
+.mainlist {
+  position: relative;
+  left: 0%;
+  text-decoration: none;
+  top: 50%;
+}
+
+.inputsearch::placeholder {
+  color: rgb(153, 152, 152);
+  font-size: 16px;
+}
+
+.listanime {
+  background-color: white !important;
+}
+
+.sublist {
+  position: absolute;
+  display: block;
+  background-color: rgba(238, 238, 238, 1);
+  padding: 0px;
+  width: 177px;
+  left: 22%;
+  top: 10px;
+  height: 0px;
+  opacity: 0;
+  transition: height 0.2s ease-in-out;
+}
+
+.sublist li {
+  position: relative;
+  width: 177px;
+  padding: 12px;
+  border-bottom: 1px solid white;
+  display: none;
+}
+
+.sublist li:hover {
+  display: block;
+  color: #3424ea;
+  background-color: white;
+  transition: 0.2s ease;
+  cursor: pointer;
+}
+
+.mainlist li:hover .sublist li {
+  display: block;
+}
+
+.mainlist li:hover .sublist {
+  height: 250px;
+  opacity: 1;
+}
+
+.greetings {
+  background: #ffffff;
+  box-shadow: 0px 9px 18px #cdcdcd;
+  border-radius: 9px;
+  position: relative;
+  height: 55px;
+  top: 127px;
+  width: 58px;
+  left: 5%;
+  z-index: 0;
+}
+
+.alert {
+  height: 40px;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  left: 50%;
+}
+
+.greetingstext {
+  background-color: #f5f9ff;
+  position: relative;
+  top: 82px;
+  left: 8%;
+  width: 26%;
+  z-index: -1;
+}
+
+.greetingstext p {
+  padding: 10px;
+  padding-left: 42px;
+}
+
+.mybooks {
+  background: #f5f5f5;
+
+  border-radius: 9px;
+  position: absolute;
+  height: 42px;
+  top: 127px;
+  width: 119px;
+  right: 5%;
+  background: #ec5352;
+  border-radius: 49px;
+  border: none;
+  color: white;
+  font-size: 16px;
+}
+.isOnline {
+  position: fixed;
+  z-index: 1;
+  margin-top: 4.4%;
+}
+.mybooks:hover {
+  cursor: pointer;
+  background: #ef7464;
+  box-shadow: 0px 10px 30px rgba(236, 46, 46, 0.25);
+  transition: 0.5s ease;
+}
+
+.booksviewed {
+  position: relative;
+  top: 150px;
+  height: 260px;
+  background-color: #f7f8fa;
+  width: 90%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.booksviewed p {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 40%;
+  font-size: 18px;
+  font-weight: bolder;
+}
+
+.booksviewed button {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 60%;
+  padding: 10px;
+  width: 122px;
+  border: none;
+  background-color: #fe7865;
+  font-size: 16px;
+  color: white;
+}
+
+.booksviewed button:hover {
+  cursor: pointer;
+  background-color: #dd6e60;
+  transition: 0.5s ease;
+}
+
+.recommendedbooks {
+  background: #ffffff;
+  box-shadow: 0px 9px 18px #cdcdcd;
+  border-radius: 9px;
+  position: relative;
+  height: 55px;
+  top: 237px;
+  width: 58px;
+  left: 5%;
+  z-index: 0;
+}
+
+.recommendedbookstext p {
+  padding: 10px;
+  padding-left: 42px;
+}
+
+.recommendedbookstext {
+  background-color: #f5f9ff;
+  position: relative;
+  top: 190px;
+  left: 8%;
+  width: 26%;
+  z-index: -1;
+}
+
+.cross {
+  position: relative;
+  left: 83%;
+  height: 30px;
+  top: 256px;
+}
+
+.bookcover {
+  height: 251px;
+  position: absolute;
+  left: 8%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.book {
+  position: relative;
+  top: 261px;
+  height: 290px;
+  background-color: #fbfbfb;
+  width: 70%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 3%;
+}
+
+.bookdes {
+  position: absolute;
+  width: 52%;
+  left: 37%;
+  top: 15%;
+  text-align: justify;
+}
+
+.adv {
+  position: absolute;
+  left: 37%;
+  top: 39%;
+}
+
+.category {
+  position: absolute;
+  left: 37%;
+  top: 50%;
+}
+
+.like {
+  position: absolute;
+  left: 37%;
+  top: 61%;
+  height: 30px;
+}
+
+.dislike {
+  position: absolute;
+  left: 44%;
+  top: 63%;
+  height: 30px;
+}
+
+.likes {
+  position: absolute;
+  left: 40%;
+  top: 64%;
+  height: 30px;
+}
+
+.dislikes {
+  position: absolute;
+  left: 48%;
+  top: 64%;
+  height: 30px;
+}
+
+.readbook {
+  padding: 10px;
+  width: 122px;
+  border: none;
+  background-color: #3424ea;
+  font-size: 16px;
+  color: white;
+  position: absolute;
+  left: 76%;
+  top: 61%;
+}
+
+.readbook:hover {
+  cursor: pointer;
+  background: #271cae;
+  box-shadow: 0px 9px 18px #cdcdcd;
+  transition: 0.5s ease;
+}
+
+.cross:hover {
+  border: 1px solid #dd6e60;
+  transition: 0.2s ease;
+  cursor: pointer;
+}
+
+.cross1 {
+  position: relative;
+  left: 83%;
+  height: 30px;
+  top: 256px;
+}
+
+.cross2 {
+  position: relative;
+  left: 83%;
+  height: 30px;
+  top: 256px;
+}
+
+.cross2:hover {
+  border: 1px solid #dd6e60;
+  transition: 0.2s ease;
+  cursor: pointer;
+}
+
+.cross1:hover {
+  border: 1px solid #dd6e60;
+  transition: 0.2s ease;
+  cursor: pointer;
+}
+
+.othersee {
+  background: #ffffff;
+  box-shadow: 0px 9px 18px #cdcdcd;
+  border-radius: 9px;
+  position: relative;
+  height: 55px;
+  top: 330px;
+  width: 58px;
+  left: 5%;
+  z-index: 0;
+}
+
+.otherseetext {
+  background-color: #f5f9ff;
+  position: relative;
+  top: 286px;
+  left: 8%;
+  z-index: -1;
+
+  width: 26%;
+}
+
+.otherseetext p {
+  padding: 10px;
+  padding-left: 42px;
+}
+
+.sliders {
+  background-color: black;
+  color: white;
+  height: 250px;
+  position: relative;
+  top: 370px;
+  width: 90%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.sliders h1 {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 55%;
+}
+
+.recommendcats {
+  background: #ffffff;
+  box-shadow: 0px 9px 18px #cdcdcd;
+  border-radius: 9px;
+  position: relative;
+  height: 55px;
+  top: 480px;
+  width: 58px;
+  left: 5%;
+  z-index: 1;
+}
+
+.recommendcatstext {
+  background-color: #f5f9ff;
+  position: relative;
+  top: 433px;
+  left: 8%;
+  width: 26%;
+}
+
+.recommendcatstext p {
+  padding: 10px;
+  padding-left: 42px;
+}
+
+.catslist {
+  position: relative;
+  top: 509px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 75%;
+  height: 65px;
+  padding: 4px;
+}
+
+.catslist li {
+  display: inline;
+  margin-left: 35px;
+}
+
+.catslist li button {
+  padding: 15px;
+  width: 204px;
+  border: none;
+  background-color: #fafafa;
+  font-size: 16px;
+  box-shadow: 0px 6px 12px rgba(145, 135, 135, 0.25);
+  border-radius: 50px;
+  height: 53px;
+}
+
+.catslist li button:hover {
+  background-color: rgb(243, 243, 243);
+  transition: 0.5s ease;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+}

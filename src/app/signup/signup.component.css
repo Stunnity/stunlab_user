@@ -5,11 +5,41 @@
 .first-form-group {
   margin-top: 30px;
 }
+.close {
+  top: 6px;
+}
+.is-valid {
+  border-color: #4caf50 !important;
+}
+.fa-exclamation-circle {
+  color: #f44336 !important;
+}
+.fa-check {
+  color: #4caf50 !important;
+}
+.is-invalid {
+  border-color: #f44336 !important;
+}
+.close:hover {
+  color: white;
+}
+.alert {
+  font-size: 15px;
+}
+#email_msg {
+  position: absolute;
+  right: 7px;
+  top: 6px;
+}
 .isOnline {
   position: fixed;
   top: 0;
 }
-
+#password_validation {
+  position: absolute;
+  top: 6px;
+  right: 10px;
+}
 .card-title {
   font-family: "Khula" !important;
   font-size: 24px;

@@ -24,20 +24,32 @@
         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
-            href="#"
             id="navbarDropdown"
             role="button"
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
           >
-            <i class="fa fa-align-left"></i> &nbsp;&nbsp;Categories
+            <i class="fa fa-list-ul"></i> &nbsp;Categories
           </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Sciences</a>
-            <a class="dropdown-item" href="#">Sciences</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
+          <div
+            class="dropdown-menu category-area"
+            aria-labelledby="navbarDropdown"
+          >
+            <a
+              class="dropdown-item"
+              #{{category}}
+              (click)="searchBook(category, true)"
+              *ngFor="let category of categories"
+              >{{ category }}</a
+            >
+
+            <a class="dropdown-item" *ngIf="!categoriesAvailable"
+              >Loading
+              <img
+                style="width: 40px; margin-top: 0px;"
+                src="../../assets/images/spinner.gif"
+            /></a>
           </div>
         </li>
 
@@ -56,32 +68,31 @@
           </div>
         </li>
       </ul>
-      <li class="nav-item about-link" *ngIf="!isLoggenIn">
+
+      <li class="nav-item about-link" *ngIf="!isLoggedIn">
         <a class="nav-link" [routerLink]="['/', 'about']"
           >About <span class="sr-only">(current)</span></a
         >
       </li>
-      <form class="form-inline" *ngIf="!isLoggenIn; else loggedInTemplate">
+      <form class="form-inline" *ngIf="!isLoggedIn; else loggedInTemplate">
         <button class="login" type="button" [routerLink]="['/', 'login']">
           Log In
         </button>
         <button class="signin btn-danger" [routerLink]="['/', 'signup']">
           Sign Up
         </button>
-        <!-- <button class="login-btn btn btn-outline-dark" type="button">
-            Sign In
-          </button>
-          <button class="signup-btn btn btn-danger" id="signup" type="button">
-            Sign Up
-          </button> -->
       </form>
       <ng-template #loggedInTemplate>
         <div class="user-details">
+          <div class="liked-books" (click)="bookNavigate(false)">
+            <i class="fa fa-book"></i>
+          </div>
           <div class="book-shelf">
             <img
               src="../../../assets/images/likeHeart.png"
               style="width: 25px;"
               alt=""
+              (click)="bookNavigate(true)"
             />
           </div>
           <div class="user-profile">
@@ -89,7 +100,6 @@
               <li class="nav-item dropdown">
                 <a
                   class="nav-link dropdown-toggle"
-                  href="#"
                   id="navbarDropdown"
                   role="button"
                   data-toggle="dropdown"

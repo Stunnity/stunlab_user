@@ -9,9 +9,13 @@
   font-weight: bolder;
   transform: translateY(-50%);
 }
+.dropdown-item .fa::before {
+  vertical-align: super;
+}
 .search-navbar {
   top: 0;
   position: fixed;
+  z-index: 1;
 }
 .isOnline {
   position: fixed;
@@ -128,7 +132,88 @@
   top: 50%;
   transform: translateY(-50%);
 }
+.col-5 {
+  left: 86%;
+  z-index: 1;
+  position: absolute;
+}
+.loader-area-category {
+  position: relative;
+  width: 100px;
+  margin-left: 45%;
+  margin-top: 130px;
+}
+navbar-nav a {
+  color: white !important;
+}
 
+.spinner {
+  border: 6px solid silver;
+  border-top: 8px solid #dc3545;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 350ms linear infinite;
+  left: 50%;
+  position: relative;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+.nav-item input.form-control {
+  border: 1px solid #ced4da;
+  padding: 16px;
+  box-shadow: none !important;
+}
+.navbar-collapse .navbar-nav {
+  margin-left: 80px;
+}
+.dropdown-item:hover,
+.dropdown-item:focus {
+  /* box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(255, 255, 255, 0.4); */
+  background-color: none;
+  cursor: pointer;
+}
+
+.dropdown-menu .dropdown-item:hover,
+.dropdown-menu .dropdown-item:focus,
+.dropdown-menu a:hover,
+.dropdown-menu a:focus,
+.dropdown-menu a:active {
+  box-shadow: none !important;
+  background-color: transparent !important;
+  color: black !important;
+}
+.bg-dropdown {
+  background-color: white;
+  width: 89px;
+  left: -9px;
+  border-radius: 3px;
+  height: 39px;
+  position: absolute;
+}
+
+.dropdown-item {
+  padding: 0.27rem 1.5rem !important;
+  margin: 0;
+  font-size: 14px !important;
+}
+.navbar-nav .dropdown a {
+  font-size: 16px;
+  text-transform: initial;
+  color: rgba(0, 0, 0, 0.5);
+}
+.navbar-nav .dropdown a:hover {
+  color: #1c232e;
+}
+.navbar-nav .dropdown a:hover .dropdown-item {
+  color: #fff;
+}
 .navbar {
   height: 70px;
   position: fixed;
@@ -142,8 +227,7 @@
 .contents1 {
   position: relative;
   margin-top: 5%;
-  width: 100%;
-  z-index: -17;
+  width: 103%;
   background-color: #1c3044;
   padding: 54px;
 }
@@ -187,13 +271,35 @@
 .filterdiv2 {
   position: relative;
   right: 0px;
+  z-index: 0;
   width: 54%;
   border-bottom: 4px solid;
-  margin-left: 29%;
+  margin-left: 28%;
   margin-bottom: 3%;
   margin-top: 3%;
   padding: 21px;
   border-color: #0e0d0d33;
+}
+.book-actions {
+  position: absolute;
+}
+.bookinfo .fa {
+  position: absolute;
+  font-size: 24px;
+  cursor: pointer;
+}
+.bookinfo .fa.fa-thumbs-up {
+  left: 265px;
+}
+.bookinfo .fa.fa-thumbs-up:hover {
+  color: green;
+}
+.bookinfo .fa.fa-thumbs-down {
+  left: 312px;
+}
+
+.bookinfo .fa.fa-thumbs-down:hover {
+  color: #ca6356;
 }
 
 .booktext {
@@ -211,6 +317,7 @@
   color: white;
   border: none;
   font-weight: 800;
+  font-size: 13px;
 }
 
 .bookinfo {
@@ -397,4 +504,8 @@
 }
 .scrolled {
   height: 60px !important;
+}
+.contents {
+  z-index: 0;
+  position: relative;
 }

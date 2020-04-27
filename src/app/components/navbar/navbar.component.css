@@ -12,6 +12,10 @@
   list-style: none;
   margin-left: 742px;
 }
+.user-details .fa,
+.user-details .book-shelf img {
+  cursor: pointer;
+}
 .about-link a {
   color: rgba(0, 0, 0, 0.5);
   font-size: 17px;
@@ -94,7 +98,10 @@
 .form-inline .signup-btn:hover {
   background: #dc3545;
 }
-
+.fa-list-ul {
+  font-size: 18px !important;
+  vertical-align: unset !important;
+}
 .mainlist {
   position: relative;
   left: -32%;
@@ -106,13 +113,19 @@
 
   width: 100%;
 }
+.area {
+  position: relative;
+}
 input.search-input::placeholder {
   color: rgba(0, 0, 0, 0.7);
 }
 .search-container {
   position: relative;
 }
-
+.header {
+  position: absolute;
+  top: 0;
+}
 .searchin {
   border: 1px solid rgb(184, 181, 181);
   position: absolute;
@@ -216,6 +229,12 @@ input.search-input::placeholder {
   /* box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(255, 255, 255, 0.4); */
   background-color: none;
 }
+.navbar-nav {
+  cursor: pointer;
+}
+.category-area .dropdown-item {
+  cursor: pointer;
+}
 
 .user-details .dropdown-menu .dropdown-item:hover,
 .user-details .dropdown-menu .dropdown-item:focus,
@@ -225,4 +244,43 @@ input.search-input::placeholder {
   box-shadow: none !important;
   background-color: transparent !important;
   color: black !important;
+}
+
+.loggegIn {
+  background-color: #dc3545;
+}
+
+.liked-books {
+  margin-top: 3px;
+  margin-right: 27px;
+  position: relative;
+  font-size: 24px;
+}
+.fa-book {
+  vertical-align: -webkit-baseline-middle;
+}
+.fa-book:hover {
+  color: #ee6f83 !important;
+}
+.banner {
+  position: relative;
+  height: 162px;
+  width: 1348px;
+}
+.banner .banner-area h3 {
+  position: absolute;
+  bottom: 7px;
+  right: 203px;
+  color: white;
+  font-size: 45px;
+  font-family: Khula, sans-serif;
+}
+.signin.btn-danger {
+  background-color: #ec5246 !important;
+}
+
+.signin.btn-danger:hover {
+  background-color: #ed523a !important;
+  box-shadow: 0 14px 26px -12px rgba(244, 67, 54, 0.42),
+    0 4px 23px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(244, 67, 54, 0.2);
 }

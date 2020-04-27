@@ -10,6 +10,9 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+html {
+  overflow-x: hidden;
+}
 ul,
 ol {
   margin: 0px;

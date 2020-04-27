@@ -17,6 +17,8 @@ import { FooterComponent } from "./components/footer/footer.component";
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { IsOnlineComponent } from "./components/is-online/is-online.component";
 import { HttpClientModule } from "@angular/common/http";
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { UserbooksComponent } from './userbooks/userbooks.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { HttpClientModule } from "@angular/common/http";
     FooterComponent,
     NavbarComponent,
     IsOnlineComponent,
+    DashboardComponent,
+    UserbooksComponent,
   ],
   imports: [
     BrowserModule,

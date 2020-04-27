@@ -2,25 +2,34 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { HttpHeaders } from "@angular/common/http";
+import { environment } from "./../../../environments/environment";
 
 @Injectable({
   providedIn: "root",
 })
 export class UserDataService {
   constructor(private httpClient: HttpClient) {}
+  private BASE_URL: string = environment.BASE_API;
   signUp(user: Object) {
-    return this.httpClient.post(
-      "https://quiet-escarpment-74371.herokuapp.com/api/auth/register",
-      user
+    return this.httpClient.post(`${this.BASE_URL}/api/auth/register`, user);
+  }
+  usernameIsAvailable(username: String) {
+    return this.httpClient.get(
+      `${this.BASE_URL}/api/user/exists/username/${username}`
     );
   }
-  usernameIsAvailable(username: String): Boolean {
-    return false;
+  emailIsAvailbable(email: String) {
+    return this.httpClient.get(
+      `${this.BASE_URL}/api/user/exists/email/${email}`
+    );
   }
   login(user: Object) {
-    return this.httpClient.post(
-      "https://quiet-escarpment-74371.herokuapp.com/api/auth/login",
-      user
-    );
+    return this.httpClient.post(`${this.BASE_URL}/api/auth/login`, user);
+  }
+  subscribeToNewsLetter(email) {
+    return this.httpClient.post(`${this.BASE_URL}/api/auth/login`, email);
+  }
+  loggedIn() {
+    return !!localStorage.getItem("token");
   }
 }

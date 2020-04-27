@@ -1,45 +1,5 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="!isLoggedIn; else dashboard">
   <div class="allPage">
-    <!-- NAVBAR -->
-    <!-- <div class="main-nav">
-      <div class="navbar  navbar-expand-lg">
-        <a class="navbar-brand" [routerLink]="['/']">
-          <img
-            class="navbar-logo"
-            src="../../assets/images/stunlab.png"
-            alt="Logo"
-          />
-        </a>
-
-        <ul class="mainlist">
-          <li>
-            <img src="assets/images/1.png" class="category-img" alt="" />
-            <span class="category-list"> Categories </span>
-            <ul class="sublist">
-              <li class="text-success">Science</li>
-              <li>Science</li>
-              <li>Science</li>
-              <li>Science</li>
-              <li>Science</li>
-            </ul>
-          </li>
-        </ul>
-        <input
-          type="text"
-          placeholder="Search for any book"
-          class="searchin"
-          #search
-        /><i
-          (click)="searchBook(search.value)"
-          class="fa fa-search"
-          id="search"
-        ></i>
-        <div class="user-logs" *ngIf="!loginStatus; else userData">
-          <button class="login"><a routerLink="/login"> Log In</a></button>
-          <button class="signin"><a routerLink="/signup"> Sign Up</a></button>
-        </div>
-      </div>
-    </div> -->
     <div class="home-navbar">
       <app-navbar></app-navbar>
     </div>
@@ -51,9 +11,6 @@
       <div class="section-content">
         <h1>Digital Transformation of Education</h1>
         <br />
-        <!-- <span>
-            STUNLAB provides the easiest way of reading books via the Internet
-          </span> -->
         <p>
           Stunlab is is one of the Rwanda’s l free learning platforms for
           education and book reading. It is a for-profit social enterprise
@@ -68,7 +25,7 @@
           type="button"
           [routerLink]="['/', 'signup']"
         >
-          Join Stunlab
+          Enroll to Stunlab
         </button>
       </div>
       <!-- <img src="assets/images/1.jpg" alt="Slider" /> -->
@@ -77,200 +34,30 @@
     <!-- BOOK NAV -->
     <section class="book-nav-slider" id="book-nav-slider">
       <div class="bookdiv">
-        <ul class="booknav">
-          <li class="active navlist"><a href="#"> Science</a></li>
-          <li class="navlist"><a href="#"> Technology</a></li>
-          <li class="navlist"><a href="#"> Humanities</a></li>
-          <li class="navlist"><a href="#"> Language</a></li>
+        <ul class="booknav" id="booknav">
+          <li
+            class="navlist"
+            *ngFor="let category of mostViewedCategories; let first = first"
+            [class.active]="first"
+            (click)="getCategoryBooks(category, $event)"
+          >
+            <a #{{category}}>{{ category }}</a>
+          </li>
+          <!-- <li class="navlist">
+            <a (click)="getCategoryBooks()"> Technology</a>
+          </li>
+          <li class="navlist">
+            <a (click)="getCategoryBooks()"> Humanities</a>
+          </li>
+          <li class="navlist">
+            <a (click)="getCategoryBooks()"> Language</a>
+          </li> -->
           <li class="slide"></li>
         </ul>
       </div>
-
-      <!-- BOOK SLIDER -->
-      <!-- <div class="booksliderdiv1">
-        <div class="page-wrapper">
-          <div class="post-slider">
-            <i class="fa fa-chevron-left prev"></i>
-            <i class="fa fa-chevron-right next"></i>
-            <div class="post-wrapper">
-              <div class="post">
-                <img src="assets/images/aa.jpg" alt="" class="slider-image" />
-                <div class="post-info">
-                  <p id="para">
-                    Miraculous Boy runs alot from the
-                    buildingfsfdadsfafafasdfasdf
-                  </p>
-                  <span>Adventure</span>
-                  <br />
-                  <span>REB</span>
-                  <br />
-                  <span style="font-weight: bold;">45</span>&nbsp;
-                  <span>Readers</span>
-                  <br />
-                  <img src="assets/images/like.png" alt="" class="imge1" /><span
-                    class="likes"
-                    >23</span
-                  >
-
-                  <img src="assets/images/dislike.png" alt="" class="imge2" />
-                  <span class="diss">45</span>
-                  <button class="bookopen">Read</button>
-                </div>
-              </div>
-              <div class="post">
-                <img src="assets/images/bb.jpg" alt="" class="slider-image" />
-                <div class="post-info">
-                  <p id="para">
-                    Miraculous Boy runs alot from the
-                    buildingfsfdadsfafafasdfasdf
-                  </p>
-                  <span>Adventure</span>
-                  <br />
-                  <span style="font-weight: bold;">REB</span>
-                  <br />
-                  <span>45</span>&nbsp;<span>Readers</span>
-                  <br />
-
-                  <img src="assets/images/like.png" alt="" class="imge1" />
-                  <span class="likes">23</span>
-                  <img src="assets/images/dislike.png" alt="" class="imge2" />
-                  <span class="diss">45</span>
-                  <button class="bookopen">Read</button>
-                </div>
-              </div>
-              <div class="post">
-                <img src="assets/images/bb.jpg" alt="" class="slider-image" />
-                <div class="post-info">
-                  <p id="para">
-                    Miraculous Boy runs alot from the
-                    buildingfsfdadsfafafasdfasdf
-                  </p>
-                  <span>Adventure</span>
-                  <br />
-                  <span>REB</span>
-                  <br />
-                  <span>45</span>&nbsp;<span>Readers</span>
-                  <br />
-                  <img src="assets/images/like.png" alt="" class="imge1" />
-                  <span class="likes">23</span>
-                  <img src="assets/images/dislike.png" alt="" class="imge2" />
-                  <span class="diss">45</span>
-                  <button class="bookopen">Read</button>
-                </div>
-              </div>
-              <div class="post">
-                <img src="assets/images/bb.jpg" alt="" class="slider-image" />
-                <div class="post-info">
-                  <p id="para">
-                    Miraculous Boy runs alot from the
-                    buildingfsfdadsfafafasdfasdf
-                  </p>
-                  <span>Adventure</span>
-                  <br />
-                  <span>REB</span>
-                  <br />
-                  <span style="font-weight: bold;">45</span>&nbsp;<span
-                    >Readers</span
-                  >
-                  <br />
-                  <img src="assets/images/like.png" alt="" class="imge1" />
-                  <span class="likes">23</span>
-                  <img src="assets/images/dislike.png" alt="" class="imge2" />
-                  <span class="diss">45</span>
-                  <button class="bookopen">Read</button>
-                </div>
-              </div>
-              <div class="post">
-                <img src="assets/images/bb.jpg" alt="" class="slider-image" />
-                <div class="post-info">
-                  <p id="para">
-                    Miraculous Boy runs alot from the
-                    buildingfsfdadsfafafasdfasdf
-                  </p>
-                  <span>Adventure</span>
-                  <br />
-                  <span>REB</span>
-                  <br />
-                  <span style="font-weight: bold;">45</span>&nbsp;<span
-                    >Readers</span
-                  >
-                  <br />
-                  <img src="assets/images/like.png" alt="" class="imge1" />
-                  <span class="likes">23</span>
-                  <img src="assets/images/dislike.png" alt="" class="imge2" />
-                  <span class="diss">45</span>
-                  <button class="bookopen">Read</button>
-                </div>
-              </div>
-              <div class="post">
-                <img src="assets/images/cc.jpg" alt="" class="slider-image" />
-                <div class="post-info">
-                  <p id="para">
-                    Miraculous Boy runs alot from the
-                    buildingfsfdadsfafafasdfasdf
-                  </p>
-                  <span>Adventure</span>
-                  <br />
-                  <span>REB</span>
-                  <br />
-                  <span style="font-weight: bold;">45</span>&nbsp;&nbsp;<span
-                    >Readers</span
-                  >
-                  <br />
-                  <img src="assets/images/like.png" alt="" class="imge1" />
-                  <span class="likes">23</span>
-                  <img src="assets/images/dislike.png" alt="" class="imge2" />
-                  <span class="diss">45</span>
-                  <button class="bookopen">Read</button>
-                </div>
-              </div>
-              <div class="post">
-                <img src="assets/images/aa.jpg" alt="" class="slider-image" />
-                <div class="post-info">
-                  <p id="para">
-                    Miraculous Boy runs alot from the
-                    buildingfsfdadsfafafasdfasdf
-                  </p>
-                  <span>Adventure</span>
-                  <br />
-                  <span>REB</span>
-                  <br />
-                  <span>45</span>&nbsp;&nbsp;&nbsp;&nbsp; <span>Readers</span>
-                  <br />
-                  <img src="assets/images/like.png" alt="" class="imge1" />
-                  <span class="likes">23</span>
-                  <img src="assets/images/dislike.png" alt="" class="imge2" />
-                  <span class="diss">45</span>
-                  <button class="bookopen">Read</button>
-                </div>
-              </div>
-              <div class="post">
-                <img src="assets/images/aa.jpg" alt="" class="slider-image" />
-                <div class="post-info">
-                  <p id="para">
-                    Miraculous Boy runs alot from the
-                    buildingfsfdadsfafafasdfasdf
-                  </p>
-                  <span>Adventure</span>
-                  <br />
-                  <span>REB</span>
-                  <br />
-                  <span>45</span>&nbsp;&nbsp;&nbsp;&nbsp; <span>Readers</span>
-                  <br />
-                  <img src="assets/images/like.png" alt="" class="imge1" />
-                  <span class="likes">23</span>
-                  <img src="assets/images/dislike.png" alt="" class="imge2" />
-                  <span class="diss">45</span>
-                  <button class="bookopen">Read</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>-->
     </section>
     <!-- Swiper -->
-    <div class="booksliderdiv1">
+    <div class="booksliderdiv1" *ngIf="gotBookResponse; else loadBooks">
       <div class="swiper-container">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
@@ -280,20 +67,130 @@
                 <p id="para">
                   Miraculous Boy runs alot from the buildingfsfdadsfafafasdfasdf
                 </p>
-                <span>Adventure</span>
-                <br />
-                <span>REB</span>
-                <br />
-                <span style="font-weight: bold;">45</span>&nbsp;
-                <span>Readers</span>
-                <br />
-                <img src="assets/images/like.png" alt="" class="imge1" /><span
-                  class="likes"
-                  >23</span
-                >
+                <div class="post-meta">
+                  <p class="book-category text-left">Adventure</p>
+                  <p class="book-provider text-left">REB</p>
+                  <p class="book-readers text-left">45&nbsp;&nbsp;Readers</p>
+                  <div class="row text-left">
+                    <div class="col-5">
+                      <i class="fa fa-thumbs-up" (click)="likeBook()"></i
+                      ><span class="likes">&nbsp;23</span>
+                    </div>
+                    <div class="col-5">
+                      <i class="fa fa-thumbs-down" (click)="dislikeBook()"></i>
+                      <span class="diss">&nbsp;45</span>
+                    </div>
+                  </div>
+                </div>
+                <button class="bookopen" (click)="readBook()">Read</button>
+                <button class="pop" id="pop" (click)="bookmark()">
+                  Bookmark
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="post">
+              <img src="assets/images/bb.jpg" alt="" class="slider-image" />
+              <div class="post-info">
+                <p id="para">
+                  Miraculous Boy runs alot from the buildingfsfdadsfafafasdfasdf
+                </p>
+                <div class="post-meta">
+                  <p class="book-category text-left">Adventure</p>
+                  <p class="book-provider text-left">REB</p>
+                  <p class="book-readers text-left">45&nbsp;&nbsp;Readers</p>
+                  <div class="row text-left">
+                    <div class="col-5">
+                      <img
+                        src="assets/images/like.png"
+                        alt=""
+                        class="imge1"
+                      /><span class="likes">&nbsp;23</span>
+                    </div>
+                    <div>
+                      <img
+                        src="assets/images/dislike.png"
+                        alt=""
+                        class="imge2"
+                      />
 
-                <img src="assets/images/dislike.png" alt="" class="imge2" />
-                <span class="diss">45</span>
+                      <span class="diss">&nbsp;45</span>
+                    </div>
+                  </div>
+                </div>
+                <button class="bookopen">Read</button>
+                <button class="pop" id="pop" (click)="bookmark()">
+                  Bookmark
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="post">
+              <img src="assets/images/bb.jpg" alt="" class="slider-image" />
+              <div class="post-info">
+                <p id="para">
+                  Miraculous Boy runs alot from the buildingfsfdadsfafafasdfasdf
+                </p>
+                <div class="post-meta">
+                  <p class="book-category text-left">Adventure</p>
+                  <p class="book-provider text-left">REB</p>
+                  <p class="book-readers text-left">45&nbsp;&nbsp;Readers</p>
+                  <div class="row text-left">
+                    <div class="col-5">
+                      <img
+                        src="assets/images/like.png"
+                        alt=""
+                        class="imge1"
+                        (click)="likeBook()"
+                      /><span class="likes">&nbsp;23</span>
+                    </div>
+                    <div class="col-5">
+                      <img
+                        src="assets/images/dislike.png"
+                        alt=""
+                        (click)="dislikeBook()"
+                        class="imge2"
+                      />
+                      <span class="diss">&nbsp;45</span>
+                    </div>
+                  </div>
+                </div>
+                <button class="bookopen" (click)="readBook()">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="post">
+              <img src="assets/images/bb.jpg" alt="" class="slider-image" />
+              <div class="post-info">
+                <p id="para">
+                  Miraculous Boy runs alot from the buildingfsfdadsfafafasdfasdf
+                </p>
+                <div class="post-meta">
+                  <p class="book-category text-left">Adventure</p>
+                  <p class="book-provider text-left">REB</p>
+                  <p class="book-readers text-left">45&nbsp;&nbsp;Readers</p>
+                  <div class="row text-left">
+                    <div class="col-5">
+                      <img
+                        src="assets/images/like.png"
+                        alt=""
+                        (click)="likeBook()"
+                        class="imge1"
+                      /><span class="likes">&nbsp;23</span>
+                    </div>
+                    <div class="col-5">
+                      <img
+                        src="assets/images/dislike.png"
+                        alt=""
+                        class="imge2"
+                      />
+                      <span class="diss">&nbsp;45</span>
+                    </div>
+                  </div>
+                </div>
                 <button class="bookopen">Read</button>
               </div>
             </div>
@@ -305,17 +202,132 @@
                 <p id="para">
                   Miraculous Boy runs alot from the buildingfsfdadsfafafasdfasdf
                 </p>
-                <span>Adventure</span>
-                <br />
-                <span style="font-weight: bold;">REB</span>
-                <br />
-                <span>45</span>&nbsp;<span>Readers</span>
-                <br />
+                <div class="post-meta">
+                  <p class="book-category text-left">Adventure</p>
+                  <p class="book-provider text-left">REB</p>
+                  <p class="book-readers text-left">45&nbsp;&nbsp;Readers</p>
+                  <div class="row text-left">
+                    <div class="col-5">
+                      <img
+                        src="assets/images/like.png"
+                        alt=""
+                        (click)="likeBook()"
+                        class="imge1"
+                      /><span class="likes">&nbsp;23</span>
+                    </div>
+                    <div class="col-5">
+                      <img
+                        src="assets/images/dislike.png"
+                        alt=""
+                        class="imge2"
+                      />
+                      <span class="diss">&nbsp;45</span>
+                    </div>
+                  </div>
+                </div>
+                <button class="bookopen">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="post">
+              <img src="assets/images/bb.jpg" alt="" class="slider-image" />
+              <div class="post-info">
+                <p id="para">
+                  Miraculous Boy runs alot from the buildingfsfdadsfafafasdfasdf
+                </p>
+                <div class="post-meta">
+                  <p class="book-category text-left">Adventure</p>
+                  <p class="book-provider text-left">REB</p>
+                  <p class="book-readers text-left">45&nbsp;&nbsp;Readers</p>
+                  <div class="row text-left">
+                    <div class="col-5">
+                      <img
+                        src="assets/images/like.png"
+                        alt=""
+                        class="imge1"
+                      /><span class="likes">&nbsp;23</span>
+                    </div>
+                    <div class="col-5">
+                      <img
+                        src="assets/images/dislike.png"
+                        alt=""
+                        (click)="likeBook()"
+                        class="imge2"
+                      />
+                      <span class="diss">&nbsp;45</span>
+                    </div>
+                  </div>
+                </div>
+                <button class="bookopen">Read</button>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="post">
+              <img src="assets/images/bb.jpg" alt="" class="slider-image" />
+              <div class="post-info">
+                <p id="para">
+                  Miraculous Boy runs alot from the buildingfsfdadsfafafasdfasdf
+                </p>
+                <div class="post-meta">
+                  <p class="book-category text-left">Adventure</p>
+                  <p class="book-provider text-left">REB</p>
+                  <p class="book-readers text-left">45&nbsp;&nbsp;Readers</p>
+                  <div class="row text-left">
+                    <div class="col-5">
+                      <img
+                        src="assets/images/like.png"
+                        alt=""
+                        class="imge1"
+                      /><span class="likes">&nbsp;23</span>
+                    </div>
+                    <div class="col-5">
+                      <img
+                        src="assets/images/dislike.png"
+                        alt=""
+                        (click)="likeBook()"
+                        class="imge2"
+                      />
+                      <span class="diss">&nbsp;45</span>
+                    </div>
+                  </div>
+                </div>
+                <button class="bookopen">Read</button>
+              </div>
+            </div>
+          </div>
 
-                <img src="assets/images/like.png" alt="" class="imge1" />
-                <span class="likes">23</span>
-                <img src="assets/images/dislike.png" alt="" class="imge2" />
-                <span class="diss">45</span>
+          <div class="swiper-slide">
+            <div class="post">
+              <img src="assets/images/bb.jpg" alt="" class="slider-image" />
+              <div class="post-info">
+                <p id="para">
+                  Miraculous Boy runs alot from the buildingfsfdadsfafafasdfasdf
+                </p>
+                <div class="post-meta">
+                  <p class="book-category text-left">Adventure</p>
+                  <p class="book-provider text-left">REB</p>
+                  <p class="book-readers text-left">45&nbsp;&nbsp;Readers</p>
+                  <div class="row text-left">
+                    <div class="col-5">
+                      <img
+                        src="assets/images/like.png"
+                        alt=""
+                        (click)="likeBook()"
+                        class="imge1"
+                      /><span class="likes">&nbsp;23</span>
+                    </div>
+                    <div class="col-5">
+                      <img
+                        src="assets/images/dislike.png"
+                        alt=""
+                        class="imge2"
+                      />
+                      <span class="diss">&nbsp;45</span>
+                    </div>
+                  </div>
+                </div>
                 <button class="bookopen">Read</button>
               </div>
             </div>
@@ -327,108 +339,29 @@
                 <p id="para">
                   Miraculous Boy runs alot from the buildingfsfdadsfafafasdfasdf
                 </p>
-                <span>Adventure</span>
-                <br />
-                <span>REB</span>
-                <br />
-                <span>45</span>&nbsp;<span>Readers</span>
-                <br />
-                <img src="assets/images/like.png" alt="" class="imge1" />
-                <span class="likes">23</span>
-                <img src="assets/images/dislike.png" alt="" class="imge2" />
-                <span class="diss">45</span>
-                <button class="bookopen">Read</button>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="post">
-              <img src="assets/images/bb.jpg" alt="" class="slider-image" />
-              <div class="post-info">
-                <p id="para">
-                  Miraculous Boy runs alot from the buildingfsfdadsfafafasdfasdf
-                </p>
-                <span>Adventure</span>
-                <br />
-                <span>REB</span>
-                <br />
-                <span style="font-weight: bold;">45</span>&nbsp;<span
-                  >Readers</span
-                >
-                <br />
-                <img src="assets/images/like.png" alt="" class="imge1" />
-                <span class="likes">23</span>
-                <img src="assets/images/dislike.png" alt="" class="imge2" />
-                <span class="diss">45</span>
-                <button class="bookopen">Read</button>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="post">
-              <img src="assets/images/bb.jpg" alt="" class="slider-image" />
-              <div class="post-info">
-                <p id="para">
-                  Miraculous Boy runs alot from the buildingfsfdadsfafafasdfasdf
-                </p>
-                <span>Adventure</span>
-                <br />
-                <span>REB</span>
-                <br />
-                <span style="font-weight: bold;">45</span>&nbsp;<span
-                  >Readers</span
-                >
-                <br />
-                <img src="assets/images/like.png" alt="" class="imge1" />
-                <span class="likes">23</span>
-                <img src="assets/images/dislike.png" alt="" class="imge2" />
-                <span class="diss">45</span>
-                <button class="bookopen">Read</button>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="post">
-              <img src="assets/images/bb.jpg" alt="" class="slider-image" />
-              <div class="post-info">
-                <p id="para">
-                  Miraculous Boy runs alot from the buildingfsfdadsfafafasdfasdf
-                </p>
-                <span>Adventure</span>
-                <br />
-                <span>REB</span>
-                <br />
-                <span style="font-weight: bold;">45</span>&nbsp;<span
-                  >Readers</span
-                >
-                <br />
-                <img src="assets/images/like.png" alt="" class="imge1" />
-                <span class="likes">23</span>
-                <img src="assets/images/dislike.png" alt="" class="imge2" />
-                <span class="diss">45</span>
-                <button class="bookopen">Read</button>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="post">
-              <img src="assets/images/bb.jpg" alt="" class="slider-image" />
-              <div class="post-info">
-                <p id="para">
-                  Miraculous Boy runs alot from the buildingfsfdadsfafafasdfasdf
-                </p>
-                <span>Adventure</span>
-                <br />
-                <span>REB</span>
-                <br />
-                <span style="font-weight: bold;">45</span>&nbsp;<span
-                  >Readers</span
-                >
-                <br />
-                <img src="assets/images/like.png" alt="" class="imge1" />
-                <span class="likes">23</span>
-                <img src="assets/images/dislike.png" alt="" class="imge2" />
-                <span class="diss">45</span>
+                <div class="post-meta">
+                  <p class="book-category text-left">Adventure</p>
+                  <p class="book-provider text-left">REB</p>
+                  <p class="book-readers text-left">45&nbsp;&nbsp;Readers</p>
+                  <div class="row text-left">
+                    <div class="col-5">
+                      <img
+                        src="assets/images/like.png"
+                        alt=""
+                        class="imge1"
+                        (click)="likeBook()"
+                      /><span class="likes">&nbsp;23</span>
+                    </div>
+                    <div class="col-5">
+                      <img
+                        src="assets/images/dislike.png"
+                        alt=""
+                        class="imge2"
+                      />
+                      <span class="diss">&nbsp;45</span>
+                    </div>
+                  </div>
+                </div>
                 <button class="bookopen">Read</button>
               </div>
             </div>
@@ -440,6 +373,12 @@
       <div class="swiper-button-next"></div>
       <div class="swiper-button-prev"></div>
     </div>
+    <ng-template #loadBooks>
+      <div class="loader-area-category">
+        <div class="spinner"></div>
+      </div>
+    </ng-template>
+
     <app-mostviewed></app-mostviewed>
     <!-- COUNTER UP -->
     <div class="middle">
@@ -447,7 +386,14 @@
         <div class="inner-width">
           <div class="col">
             <img src="assets/images/book.png" alt="" />
-            <div class="num">1246</div>
+            <div *ngIf="isNotConnected"></div>
+            <div class="num" *ngIf="!isNotConnected">{{ number_books }}</div>
+            <img
+              *ngIf="isNotConnected"
+              style="width: 50px; margin-top: -4px;"
+              title="Checking"
+              src="../../assets/images/spinner.gif"
+            />
             Books
           </div>
         </div>
@@ -456,7 +402,14 @@
         <div class="inner-width">
           <div class="col">
             <img src="assets/images/user.png" alt="" />
-            <div class="num">30</div>
+            <div *ngIf="isNotConnected"></div>
+            <div class="num" *ngIf="!isNotConnected">{{ number_readers }}</div>
+            <img
+              *ngIf="isNotConnected"
+              style="width: 50px; margin-top: -4px;"
+              title="Checking"
+              src="../../assets/images/spinner.gif"
+            />
             Readers
           </div>
         </div>
@@ -465,7 +418,16 @@
         <div class="inner-width">
           <div class="col">
             <img src="assets/images/down1.png" alt="" />
-            <div class="num">1000</div>
+            <div *ngIf="isNotConnected"></div>
+            <div class="num" *ngIf="!isNotConnected">
+              {{ number_downloads }}
+            </div>
+            <img
+              *ngIf="isNotConnected"
+              style="width: 50px; margin-top: -4px;"
+              title="Checking"
+              src="../../assets/images/spinner.gif"
+            />
             Downloads
           </div>
         </div>
@@ -475,7 +437,7 @@
     <!-- TOP CATEGORIES -->
     <section class="top-categories">
       <div class="lineCateg"></div>
-      <h5 class="topcategHead">* Top categories</h5>
+      <h5 class="topcategHead">* Our categories</h5>
 
       <div class="categ">
         <button>
@@ -495,10 +457,9 @@
           />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Language
         </button>
         <button>
-          &nbsp;&nbsp;&nbsp;<img
-            src="assets/images/sci.png"
-            alt=""
-          />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Literature
+          &nbsp;&nbsp;&nbsp;
+          <i class="fa fa-newspaper-o"></i>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Literature
         </button>
         <button>
           &nbsp;&nbsp;&nbsp;<img
@@ -569,6 +530,9 @@
             ></textarea>
           </div>
           <button>CONTACT NOW</button>
+          <div class="report-section">
+            <a click="report()">Report a technical problem !</a>
+          </div>
         </div>
       </div>
     </section>
@@ -620,3 +584,7 @@
     </section> -->
   </div>
 </div>
+
+<ng-template #dashboard>
+  <app-dashboard></app-dashboard>
+</ng-template>

@@ -8,6 +8,9 @@ import { ProfileComponent } from "./profile/profile.component";
 import { LoginComponent } from "./login/login.component";
 import { SignupComponent } from "./signup/signup.component";
 import { AppComponent } from "./app.component";
+import { DashboardComponent } from "./dashboard/dashboard.component";
+import { UserbooksComponent } from "./userbooks/userbooks.component";
+
 const routes: Routes = [
   {
     path: "home",
@@ -15,12 +18,17 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
+    path: "dashboard",
+    pathMatch: "full",
+    component: DashboardComponent,
+  },
+  {
     path: "",
     pathMatch: "full",
     redirectTo: "home",
   },
   {
-    path: "search/:query",
+    path: "search",
     pathMatch: "full",
     component: SearchComponent,
   },
@@ -38,6 +46,11 @@ const routes: Routes = [
     path: "login",
     pathMatch: "full",
     component: LoginComponent,
+  },
+  {
+    path: "books",
+    pathMatch: "full",
+    component: UserbooksComponent,
   },
   {
     path: "signup",

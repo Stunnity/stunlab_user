@@ -1,6 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import * as $ from "jquery";
-
+import { AppDataService } from "../services/app-data/app-data.service";
+import { BookDataService } from "../services/book-data/book-data.service";
+import { TransferDataService } from "../services/shared-data/transfer-data.service";
+import { HttpErrorResponse } from "@angular/common/http";
+import { Data, Router, ActivatedRoute, ParamMap } from "@angular/router";
 
 @Component({
   selector: "app-home",
@@ -8,8 +12,127 @@ import * as $ from "jquery";
   styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
-  constructor() {}
+  constructor(
+    private appData: AppDataService,
+    private bookData: BookDataService,
+    private transferDataService: TransferDataService,
+    private _router: Router,
+    private route: ActivatedRoute
+  ) {}
+  user_id: string;
+  isNotConnected: boolean = true;
+  isLoggedIn: boolean;
+  gotBookResponse: boolean = false;
+  mostViewedCategories: any[];
+  number_books: number;
+  number_readers: number;
+  number_downloads: number;
   ngOnInit() {
+    setTimeout(() => {
+      this.getStats();
+    }, 3000);
+
+    this.getMostViewedCategories();
+
+    this.isLoggedIn = this.transferDataService.isLoggedIn();
+    // if (!this.isLoggedIn) {
+    //   this.user_id = "";
+    //   // this.getMostViewedCategories();
+    //   this.jqueryPresets();
+    //   const element: any = document.querySelector(".booknav > .active");
+    //   const category: string = element.childNodes[0].innerHTML.trim();
+    // }
+  }
+
+  getMostViewedCategories() {
+    setTimeout(() => {
+      this.mostViewedCategories = this.transferDataService.getMostViewedCategories();
+      this.getCategoryBooks(this.mostViewedCategories[0]);
+    }, 1000);
+  }
+  getCategoryBooks(category, event?) {
+    this.gotBookResponse = false;
+    this.bookData.getCategoryBooks(category).subscribe(
+      (res) => {},
+      (err) => {
+        setTimeout(() => {
+          this.gotBookResponse = true;
+        }, 3000);
+      }
+    );
+    setTimeout(() => {
+      $(".navlist").on("click", function () {
+        $(this).siblings().removeClass("active");
+        $(this).addClass("active");
+      });
+    }, 1000);
+  }
+
+  likeBook(book) {
+    if (!this.isLoggedIn) this._router.navigate(["/login"]);
+    this.bookData.likeBook(this.user_id, book).subscribe(
+      (res) => {},
+      (err) => {}
+    );
+  }
+  dislikeBook(book) {
+    if (!this.isLoggedIn) this._router.navigate(["/login"]);
+
+    this.bookData.dislikeBook(this.user_id, book).subscribe(
+      (res) => {},
+      (err) => {}
+    );
+  }
+  hasClass(element: Element, _class: string): boolean {
+    return element.classList.contains(_class);
+  }
+
+  readBook(book) {
+    if (!this.isLoggedIn) this._router.navigate(["/login"]);
+    this.bookData.readBook(this.user_id, book).subscribe(
+      (res) => {},
+      (err) => {}
+    );
+  }
+  bookmark(book, user) {
+    if (!this.isLoggedIn) {
+      this._router.navigate(["/login"], { queryParams: { logged_in: false } });
+    }
+
+    const button: Element = document.getElementById("pop");
+    button.innerHTML = "...";
+    this.bookData.bookmarkBooks(book, user).subscribe(
+      (res) => {},
+      (err) => {
+        setTimeout(() => {
+          if (!this.hasClass(button, "bg-success")) {
+            button.innerHTML = "Bookmarked";
+            button.classList.add("bg-success");
+            button.classList.remove("bg-danger");
+          } else {
+            button.innerHTML = "Bookmark";
+            button.classList.remove("bg-success");
+            button.classList.add("bg-danger");
+          }
+        }, 4000);
+      }
+    );
+  }
+  getStats() {
+    console.log(this.isNotConnected);
+    this.appData.getStatistics().subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (error: HttpErrorResponse) => {
+        this.isNotConnected = false;
+        this.number_books = 1000;
+        this.number_downloads = 450;
+        this.number_readers = 10300;
+      }
+    );
+  }
+  jqueryPresets() {
     $(document).ready(function () {
       $(".navlist").on("click", function () {
         $(this).siblings().removeClass("active");
@@ -17,97 +140,20 @@ export class HomeComponent implements OnInit {
       });
     });
 
-    $(document).ready(function () {
-      $(".navlist1").on("click", function () {
-        $(this).siblings().removeClass("active");
-        $(this).addClass("active");
-      });
-    });
     $(function () {
       $(document).scroll(function () {
         var $nav = $(".navbar");
         $nav.toggleClass("scrolled", $(this).scrollTop() > $nav.height());
       });
     });
-    //   $(document).ready(function () {
-    //     $(".post-wrapper1").slick({
-    //       dots: false,
-    //       infinite: false,
-    //       speed: 300,
-    //       slidesToShow: 3,
-    //       slidesToScroll: 3,
-    //       nextArrow: $(".next1"),
-    //       prevArrow: $(".prev1"),
-    //       responsive: [
-    //         {
-    //           breakpoint: 1024,
-    //           settings: {
-    //             slidesToShow: 2,
-    //             slidesToScroll: 2,
-    //             infinite: true,
-    //             dots: false,
-    //           },
-    //         },
-    //         {
-    //           breakpoint: 600,
-    //           settings: {
-    //             slidesToShow: 1,
-    //             slidesToScroll: 1,
-    //           },
-    //         },
-    //         {
-    //           breakpoint: 480,
-    //           settings: {
-    //             slidesToShow: 0,
-    //             slidesToScroll: 0,
-    //           },
-    //         },
-    //         // You can unslick at a given breakpoint now by adding:
-    //         // settings: "unslick"
-    //         // instead of a settings object
-    //       ],
-    //     });
-    //   });
-    //   setTimeout(() => {
-    //     $(document).ready(function () {
-    //       $(".post-wrapper").slick({
-    //         dots: false,
-    //         infinite: false,
-    //         speed: 300,
-    //         slidesToShow: 4,
-    //         slidesToScroll: 4,
-    //         nextArrow: $(".next"),
-    //         prevArrow: $(".prev"),
-    //         responsive: [
-    //           {
-    //             breakpoint: 1024,
-    //             settings: {
-    //               slidesToShow: 3,
-    //               slidesToScroll: 3,
-    //               infinite: true,
-    //               dots: false,
-    //             },
-    //           },
-    //           {
-    //             breakpoint: 600,
-    //             settings: {
-    //               slidesToShow: 2,
-    //               slidesToScroll: 2,
-    //             },
-    //           },
-    //           {
-    //             breakpoint: 480,
-    //             settings: {
-    //               slidesToShow: 1,
-    //               slidesToScroll: 1,
-    //             },
-    //           },
-    //           // You can unslick at a given breakpoint now by adding:
-    //           // settings: "unslick"
-    //           // instead of a settings object
-    //         ],
-    //       });
-    //     });
-    //   }, 10000);
+
+    setTimeout(() => {
+      $(document).ready(function () {
+        $(".navlist1").on("click", function () {
+          $(this).siblings().removeClass("active");
+          $(this).addClass("active");
+        });
+      });
+    }, 3000);
   }
 }

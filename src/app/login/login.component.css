@@ -16,6 +16,9 @@
 .alert-dismissible .close {
   top: 5px;
 }
+strong {
+  font-weight: bolder !important;
+}
 .alert-dismissible .close:hover {
   color: white;
 }
@@ -69,7 +72,12 @@ form {
   margin-left: 23%;
   margin-top: 8%;
 }
-
+.alert-secondary {
+  background-color: #f3f3f3 !important;
+}
+.alert-secondary .close:hover {
+  color: black !important;
+}
 .isOnline {
   position: fixed;
   top: 0;

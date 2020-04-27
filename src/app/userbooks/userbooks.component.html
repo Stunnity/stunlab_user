@@ -1,0 +1,208 @@
+<!-- NAVBAR -->
+<div class="search-navbar">
+  <app-navbar></app-navbar>
+</div>
+<div class="isOnline">
+  <app-is-online></app-is-online>
+</div>
+<!-- CONTENT -->
+<div class="contents">
+  <div class="contents1">
+    <p class="searchtext">
+      {{possession}} {{ page }} <br />
+      <span class="book_total">{{ total }} Books</span>
+    </p>
+    <div class="row">
+      <div class="col-5">
+        <div class="bg-dropdown"></div>
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Sort
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a
+                class="dropdown-item"
+                id="readers"
+                (click)="filterBooks($event)"
+                >Most Popular
+              </a>
+              <a
+                class="dropdown-item"
+                id="downloads"
+                (click)="filterBooks($event)"
+                >Most Downloads</a
+              >
+              <a class="dropdown-item" id="name" (click)="filterBooks($event)"
+                >Most Liked</a
+              >
+            </div>
+          </li>
+        </ul>
+        <!-- <button class="sort" onclick="show_hide1()">
+        Sort &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-sort-down"></i>
+      </button>
+      <div id="drop-content1" style="display: none;">
+        <a href="#">Pages</a>
+        <a href="#">Views </a>
+        <a href="#">Downloads </a>
+        <a href="#">Most Popular </a>
+        <a href="#">Most Liked </a>
+      </div> -->
+      </div>
+      <!-- <div class="col-5">
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Sort
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" [routerLink]="['/', 'user']">Profile</a>
+                <a class="dropdown-item" [routerLink]="['/', '']">Invite</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" [routerLink]="['/', 'login']">Logout</a>
+              </div>
+            </li>
+          </ul>
+        </div> -->
+    </div>
+  </div>
+  <div class="filter">
+    <div class="filterdiv">
+      <!-- <button class="filterbook" onclick="show_hide2()">Filter By &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-sort-down"></i></button><br>
+                 <div id="drop-content2" style="display: none;">
+                      <a href="#">Publisher</a>
+                      <a href="#">Pages </a>
+                     
+                  </div> -->
+    </div>
+  </div>
+  <!-- <div class="filterdiv2" *ngFor="let book of books">
+      <img src="{{ BASE_URL }}{{ book.cover }}" alt="" height="200" width="200" />
+      <p class="booktext">Book</p>
+      <button class="pop">Popular</button> <br />
+      <div class="bookinfo">
+        <span class="bookhead">{{ book.name }}</span> <br />
+        <span class="booktitle">Provider :</span> &nbsp;&nbsp;
+        <span>{{ book.provider_providerName }}</span> <br />
+        <span class="booktitle">Category : </span> &nbsp;&nbsp;
+        <span>{{ book.category_categoryName }}</span> <br />
+        <span>455 views</span><br />
+        <button class="bookopen" [routerLink]="['/view/book', book.ISBN]">
+          Enroll Book
+        </button>
+      </div>
+    </div> -->
+  <div class="books" *ngIf="!isNotConnected; else loadBooks">
+    <div class="filterdiv2" *ngFor="let book of books">
+      <!-- <img src="{{ BASE_URL }}{{ book.cover }}" alt="" height="200" width="200" /> -->
+      <img src="../../assets/images/aa.jpg" alt="" height="200" width="200" />
+      <p class="booktext">Book</p>
+      <button class="pop" (click)="bookmark(1, 1, $event)" id="pop">
+        Bookmark
+      </button>
+      <br />
+      <div class="bookinfo">
+        <span class="bookhead">{{ book.name }}</span> <br />
+        <span class="booktitle">Provider :</span> &nbsp;&nbsp;
+        <span>{{ book.provider }}</span> <br />
+        <span class="booktitle">Category : </span> &nbsp;&nbsp;
+        <span>{{ book.category }}</span> <br />
+        <span>{{ book.readers }} views</span><br />
+        <span>{{ book.Downloads }} views</span><br />
+
+        <i class="fa fa-thumbs-up" (click)="likeBook()"></i>
+        <i class="fa fa-thumbs-down" (click)="dislikeBook()"></i>
+
+        <button class="bookopen" [routerLink]="['/view/book', book.ISBN]">
+          Read Book
+        </button>
+      </div>
+    </div>
+    <!-- <div class="filterdiv2">
+        <img src="../../assets/images/aa.jpg" alt="" height="200" width="200" />
+        <p class="booktext">Book</p>
+        <button class="pop">Popular</button> <br />
+        <div class="bookinfo">
+          <span class="bookhead">Hello</span> <br />
+          <span class="booktitle">Provider :</span> &nbsp;&nbsp; <span>REB</span>
+          <br />
+          <span class="booktitle">Category : </span> &nbsp;&nbsp;
+          <span>Sciences</span> <br />
+          <span>455 views</span><br />
+          <button class="bookopen" [routerLink]="['/view/book', book.ISBN]">
+            Enroll Book
+          </button>
+        </div>
+      </div>
+      <div class="filterdiv2">
+        <img src="../../assets/images/aa.jpg" alt="" height="200" width="200" />
+        <p class="booktext">Book</p>
+        <button class="pop">Popular</button> <br />
+        <div class="bookinfo">
+          <span class="bookhead">Hello</span> <br />
+          <span class="booktitle">Provider :</span> &nbsp;&nbsp; <span>REB</span>
+          <br />
+          <span class="booktitle">Category : </span> &nbsp;&nbsp;
+          <span>Sciences</span> <br />
+          <span>455 views</span><br />
+          <button class="bookopen" [routerLink]="['/view/book', book.ISBN]">
+            Enroll Book
+          </button>
+        </div>
+      </div>
+      <div class="filterdiv2">
+        <img src="../../assets/images/aa.jpg" alt="" height="200" width="200" />
+        <p class="booktext">Book</p>
+        <button class="pop">Popular</button> <br />
+        <div class="bookinfo">
+          <span class="bookhead">Hello</span> <br />
+          <span class="booktitle">Provider :</span> &nbsp;&nbsp; <span>REB</span>
+          <br />
+          <span class="booktitle">Category : </span> &nbsp;&nbsp;
+          <span>Sciences</span> <br />
+          <span>455 views</span><br />
+          <button class="bookopen" [routerLink]="['/view/book', book.ISBN]">
+            Enroll Book
+          </button>
+        </div>
+      </div>
+      <div class="filterdiv2">
+        <img src="../../assets/images/aa.jpg" alt="" height="200" width="200" />
+        <p class="booktext">Book</p>
+        <button class="pop">Popular</button> <br />
+        <div class="bookinfo">
+          <span class="bookhead">Hello</span> <br />
+          <span class="booktitle">Provider :</span> &nbsp;&nbsp; <span>REB</span>
+          <br />
+          <span class="booktitle">Category : </span> &nbsp;&nbsp;
+          <span>Sciences</span> <br />
+          <span>455 views</span><br />
+          <button class="bookopen" [routerLink]="['/view/book', book.ISBN]">
+            Enroll Book
+          </button>
+        </div>
+      </div> -->
+  </div>
+  <ng-template #loadBooks>
+    <div class="loader-area-category">
+      <div class="spinner"></div>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,105 @@
+<div class="main">
+  <app-navbar></app-navbar>
+  <div class="isOnline">
+    <app-is-online></app-is-online>
+  </div>
+  <div class="greetings">
+    <img src="assets/images/alert.png" alt="" class="alert" />
+  </div>
+
+  <div class="greetingstext">
+    <p>Hello username continue reading ?</p>
+  </div>
+  <button class="mybooks" (click)="bookNavigate(false)">My books</button>
+
+  <div class="booksviewed" *ngIf="total_books < 1">
+    <P>No read books yet !</P>
+    <button (click)="bookNavigate(true)">Our books</button>
+  </div>
+
+  <div class="recommendedbooks">
+    <img src="assets/images/book1.png" alt="" class="alert" />
+  </div>
+  <div class="recommendedbookstext">
+    <p>Recommended For you</p>
+  </div>
+
+  <img src="assets/images/cross.png" alt="" class="cross" />
+  <div class="book">
+    <img src="assets/images/bookcover.jpg" alt="" class="bookcover" />
+    <p class="bookdes">
+      This book is the best of all it provides techniques on how you can travel
+      through different portals withoutt using the flash speed but with only the
+      dphone ring.
+    </p>
+    <h4 class="adv">Adventure</h4>
+    <h4 class="category">REB</h4>
+    <img src="assets/images/like.png" alt="" class="like" />
+    <p class="likes">203</p>
+    <img src="assets/images/dislike.png" class="dislike" />
+    <p class="dislikes">304</p>
+    <button class="readbook">Read Book</button>
+  </div>
+
+  <img src="assets/images/cross.png" alt="" class="cross1" />
+  <div class="book">
+    <img src="assets/images/bookcover.jpg" alt="" class="bookcover" />
+    <p class="bookdes">
+      This book is the best of all it provides techniques on how you can travel
+      through different portals withoutt using the flash speed but with only the
+      dphone ring.
+    </p>
+    <h4 class="adv">Adventure</h4>
+    <h4 class="category">REB</h4>
+    <img src="assets/images/like.png" alt="" class="like" />
+    <p class="likes">203</p>
+    <img src="assets/images/dislike.png" class="dislike" />
+    <p class="dislikes">304</p>
+    <button class="readbook">Read Book</button>
+  </div>
+
+  <img src="assets/images/cross.png" alt="" class="cross2" />
+  <div class="book">
+    <img src="assets/images/bookcover.jpg" alt="" class="bookcover" />
+    <p class="bookdes">
+      This book is the best of all it provides techniques on how you can travel
+      through different portals withoutt using the flash speed but with only the
+      dphone ring.
+    </p>
+    <h4 class="adv">Adventure</h4>
+    <h4 class="category">REB</h4>
+    <img src="assets/images/like.png" alt="" class="like" />
+    <p class="likes">203</p>
+    <img src="assets/images/dislike.png" class="dislike" />
+    <p class="dislikes">304</p>
+    <button class="readbook">Read Book</button>
+  </div>
+
+  <div class="othersee">
+    <img src="assets/images/trending.png" alt="" class="alert" />
+  </div>
+
+  <div class="otherseetext">
+    <p>See what Others are reading !</p>
+  </div>
+  <div class="sliders">
+    <h1>This is where you will put the sliders !!!!</h1>
+  </div>
+
+  <div class="recommendcats">
+    <img src="assets/images/categories.png" alt="" class="alert" />
+  </div>
+
+  <div class="recommendcatstext">
+    <p>Categories recommended for you</p>
+  </div>
+  <ul class="catslist">
+    <li><Button>Science</Button></li>
+    <li><Button>Science</Button></li>
+    <li><Button>Science</Button></li>
+    <li><Button>Science</Button></li>
+  </ul>
+</div>
+<div class="footer">
+  <!-- <app-footer></app-footer> -->
+</div>

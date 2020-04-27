@@ -1,8 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { UserModel } from "./user.model";
-import { Data, Router } from "@angular/router";
+import { Data, Router, ActivatedRoute } from "@angular/router";
 import { HttpErrorResponse } from "@angular/common/http";
 import { UserDataService } from "../services/user-data/user-data.service";
+import { TransferDataService } from "../services/shared-data/transfer-data.service";
+
+import { interval } from "rxjs";
 
 @Component({
   selector: "app-login",
@@ -10,22 +13,52 @@ import { UserDataService } from "../services/user-data/user-data.service";
   styleUrls: ["./login.component.css"],
 })
 export class LoginComponent implements OnInit {
-  password: any;
-  constructor(private _router: Router, private userData: UserDataService) {}
+  navigateKey: any;
+  constructor(
+    private _router: Router,
+    private userData: UserDataService,
+    private route: ActivatedRoute,
+    private transferDataService: TransferDataService
+  ) {}
+
   user: UserModel = new UserModel();
+  password: any;
   responseStatusCode: any;
   errorOccurred: boolean = false;
   isLoading = false;
+  invalidData: boolean = true;
   showTopAlert = false;
   error_message: string;
 
-  ngOnInit() {}
-
+  ngOnInit() {
+    this.route.queryParams.subscribe((params) => {
+      this.navigateKey = params["logged_in"] || null;
+    });
+    interval(1000).subscribe((val) => this.disableLogin());
+  }
+  login() {
+    this.toogleLoading(true);
+    this.userData.login(this.user).subscribe(
+      (res: any) => {
+        let authToken: string = res.accessToken;
+        // this.transferDataService.setupUser(authToken);
+      },
+      (error: HttpErrorResponse) => {
+        this.toogleLoading(false);
+        this.errorHandler(error.status);
+      }
+    );
+  }
+  disableLogin(): void {
+    if (Object.keys(this.user).length == 2) {
+      this.invalidData = false;
+      return;
+    }
+  }
   toogleLoading(value: boolean) {
     const button = document.getElementById("button-text");
     this.isLoading = value;
-
-    button.innerHTML = this.isLoading ? "Signin In" : "Sign in";
+    button.innerHTML = this.isLoading ? "Signing In" : "Sign in";
   }
 
   tooglePassword() {
@@ -50,36 +83,12 @@ export class LoginComponent implements OnInit {
     console.log(status);
     if (status == 0) {
       this.errorOccurred = true;
+      this.navigateKey = false;
       this.error_message = "Address unreachable";
+    } else if (status == 404) {
+      this.errorOccurred = true;
+      this.navigateKey = false;
+      this.error_message = "Invalid Username and Password";
     }
-  }
-  login() {
-    this.toogleLoading(true);
-    const temp: any = document.getElementById("username");
-    this.userData.login(this.user).subscribe(
-      (res) => {
-        let authToken: any = res;
-        localStorage.setItem("token", authToken.body.token);
-        this.isLoading = false;
-        this._router.navigate(["/dashboard"]);
-      },
-      (error: HttpErrorResponse) => {
-        this.toogleLoading(false);
-        // if (error.error instanceof ErrorEvent)
-        //   console.log("An error occurred:", error.error.message);
-        //   this.isLoading = false;
-        // } else {
-        //   this.isLoading = false;
-        //   this.responseStatusCode = error.status;
-        //   console.log(error.status);
-        //   this.responseStatusCode == 404
-        //     ? (this.errorOccurred = true)
-        //     : (this.errorOccurred = false);
-        //   temp.focus();
-        //   this.isLoading = false;
-        // }
-        this.errorHandler(error.status);
-      }
-    );
   }
 }

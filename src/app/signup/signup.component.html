@@ -6,6 +6,24 @@
     <div class="container">
       <div class="row">
         <div class="col-md-8">
+          <div
+            *ngIf="errorOccurred"
+            class="alert alert-danger alert-dismissible fade show"
+            role="alert"
+          >
+            <button
+              type="button"
+              class="close"
+              data-dismiss="alert"
+              aria-label="Close"
+              (click)="setToFalse()"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <strong class="text-bold">Login Failed </strong>&nbsp;&nbsp;{{
+              error_message
+            }}
+          </div>
           <div class="card">
             <div class="card-header card-header-danger">
               <h4 class="card-title">Create New Account</h4>
@@ -33,22 +51,44 @@
                     <div class="form-group">
                       <input
                         type="email"
+                        #email
                         placeholder="Email (Optional)"
-                        class="form-control input"
-                        (keyup)="checkEmailOrPhoneNumber()"
+                        class="form-control email"
+                        (keyup)="validateEmail(email.value)"
                         name="email"
                         maxlength="30"
                         id="email"
                         [(ngModel)]="user.email"
                       />
+                      <span id="email_msg" *ngIf="showErrorState"
+                        ><i
+                          class="fa fa-check"
+                          title="Email is available"
+                          *ngIf="emailPass && gotResponse; else emailFailed"
+                        ></i>
+                        <img
+                          *ngIf="isNotConnected"
+                          style="width: 24px; margin-top: -4px;"
+                          title="Checking"
+                          src="../../assets/images/spinner.gif"
+                        />
+                        <ng-template #emailFailed>
+                          <i
+                            *ngIf="gotResponse"
+                            class="fa fa-exclamation-circle"
+                            title="Email is already taken"
+                          ></i>
+                        </ng-template>
+                      </span>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
                       <input
                         type="text"
+                        #phonenumber
                         class="form-control input"
-                        (keyup)="checkEmailOrPhoneNumber()"
+                        (keyup)="validatePhone(phonenumber.value)"
                         placeholder="Phone Number (Optional)"
                         name="phone-number"
                         id="phone-number"
@@ -71,6 +111,7 @@
                         (keyup)="checkPassStrength(password.value)"
                         [(ngModel)]="user.password"
                       />
+                      <span id="password_validation"></span>
                     </div>
                   </div>
                   <div class="col-md-6">
@@ -83,7 +124,7 @@
                         name="confirm_password"
                         id="confirm_password"
                         maxlength="20"
-                        [(ngModel)]="re_password"
+                        [(ngModel)]="user.c_password"
                       />
                     </div>
                   </div>
@@ -101,7 +142,7 @@
                     <button
                       id="button"
                       class="btn btn-danger submit-button"
-                      [disabled]="isLoading"
+                      [disabled]="isLoading || invalidData"
                     >
                       <img
                         *ngIf="isLoading"

@@ -23,6 +23,61 @@
   -webkit-align-items: center;
   align-items: center;
 }
+.container-fluid {
+  overflow: hidden;
+}
+.loader-area-category {
+  position: relative;
+  height: 200px;
+  width: 100px;
+  margin-left: 46%;
+  margin-top: 290px;
+  margin-bottom: 10px;
+}
+.text-left .col-5 .fa:before {
+  font-size: 23px;
+  vertical-align: sub;
+}
+.text-left .col-5 .fa-thumbs-up:hover {
+  color: green;
+}
+.text-left .col-5 .fa-thumbs-down:hover {
+  color: #ca6356;
+}
+.pop {
+  position: absolute;
+  top: 21.5%;
+  border: none;
+  padding: 1px;
+  font-size: 13px;
+  left: 65%;
+  width: 47%;
+  background-color: #f1523b;
+  color: white;
+  border: none;
+}
+.spinner {
+  border: 6px solid silver;
+  border-top: 8px solid #dc3545;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 350ms linear infinite;
+  left: 50%;
+  position: relative;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+.navlist a {
+  pointer-events: none !important;
+}
 .main-nav {
   position: relative;
 }
@@ -138,13 +193,15 @@
   margin-right: 11px;
 }
 
-.form-inline .signup-btn {
-  background: #ec5252;
-}
 .form-inline .signup-btn:hover {
   background: #dc3545;
 }
-
+.section-guider .btn.btn-danger {
+  background-color: #ec5246 !important;
+}
+.section-guider .btn.btn-danger:hover {
+  background-color: #ed523a !important;
+}
 .mainlist {
   position: relative;
   left: -32%;
@@ -455,14 +512,17 @@ input.search-input::placeholder {
 }
 
 .post .post-info {
-  height: 130px;
   width: 194px;
-  margin: 11px;
-  position: absolute;
-  top: 164px;
+  margin-left: 10px;
+  position: relative;
   padding: 5px;
+  font-size: 16px;
 }
-
+.book-category,
+.book-provider,
+.book-readers {
+  margin-bottom: 0 !important;
+}
 .post .post-info p {
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -472,31 +532,28 @@ input.search-input::placeholder {
 }
 
 .imge1 {
-  width: 12%;
+  height: 26px;
   padding: 0px;
   margin: 0px;
+  cursor: pointer;
   color: #f1523b;
 }
 
 .imge2 {
-  width: 11%;
-  padding: 0px;
-  margin: 0px;
-  position: absolute;
-  top: 95.5%;
-  left: 31%;
+  cursor: pointer;
+  position: relative;
+  height: 24px;
+  vertical-align: -webkit-baseline-middle;
 }
 
 .likes {
-  position: absolute;
-  left: 17%;
-  top: 93.5%;
+  position: relative;
+  vertical-align: sub;
 }
 
 .diss {
-  position: absolute;
-  left: 48.5%;
-  top: 93.5%;
+  position: relative;
+  vertical-align: sub;
 }
 
 .bookopen {
@@ -535,11 +592,11 @@ input.search-input::placeholder {
   width: 70% !important;
 }
 .swiper-button-prev {
-  left: 165px !important;
+  left: 150px !important;
   right: auto !important;
 }
 .swiper-button-next {
-  right: 141px !important;
+  right: 148px !important;
   left: auto !important;
 }
 /* END OF BOOK SLIDER CSS */
@@ -581,7 +638,7 @@ input.search-input::placeholder {
 }
 
 .num {
-  font-size: 26px;
+  font-size: 18px;
   margin-top: 5px;
 }
 
@@ -592,7 +649,10 @@ input.search-input::placeholder {
 /* END OF COUNTER CSS */
 
 /* TOP CATEGORIES CSS */
-
+.fa-newspaper-o {
+  font-size: 22px;
+  vertical-align: middle;
+}
 .top-categories {
   position: relative;
   margin-left: 16%;
@@ -604,6 +664,20 @@ input.search-input::placeholder {
   left: 10%;
 }
 
+.report-section {
+  position: absolute;
+  bottom: 105px;
+  right: 64px;
+}
+.report-section a {
+  color: #ef7464;
+  font-family: Khula, sans-serif;
+}
+.report-section a:hover {
+  color: #ec5252;
+  text-decoration: underline;
+  cursor: pointer;
+}
 .lineCateg {
   width: 6%;
   height: 2px;
@@ -1130,7 +1204,9 @@ input.search-input::placeholder {
   }
   /* END OF FOOTER QUERIES */
 }
-
+.navlist1 {
+  cursor: pointer;
+}
 .scrolled {
   height: 65px;
   transition: all 200ms ease-in-out;
