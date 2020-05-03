@@ -12,7 +12,6 @@ export class IsOnlineComponent implements OnInit {
   isOnline: boolean;
   ngOnInit(): void {
     this.createOnline$().subscribe((isOnline) => (this.isOnline = isOnline));
-    console.log(this.isOnline);
   }
 
   createOnline$() {

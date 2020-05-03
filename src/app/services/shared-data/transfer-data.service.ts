@@ -9,7 +9,7 @@ export class TransferDataService {
   private mostViewedCategories: any[];
   private mostViewedLevels: any[];
   private userBooks: any[];
-
+  private loggedIn: any = false;
   private auth_user: Object;
 
   constructor() {}
@@ -46,12 +46,16 @@ export class TransferDataService {
   }
   setUserBooks(data: any[]) {
     this.userBooks = data;
-    console.log(this.userBooks);
+    
   }
   getUserBooks() {
     return this.userBooks;
   }
-  isLoggedIn() {
-    return true;
+  isLoggedIn(value) {
+    this.loggedIn = value;
+    // return value;
+  }
+  getLoggedIn() {
+    return this.loggedIn;
   }
 }

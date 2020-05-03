@@ -17,9 +17,10 @@ import { FooterComponent } from "./components/footer/footer.component";
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { IsOnlineComponent } from "./components/is-online/is-online.component";
 import { HttpClientModule } from "@angular/common/http";
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { UserbooksComponent } from './userbooks/userbooks.component';
-
+import { DashboardComponent } from "./dashboard/dashboard.component";
+import { UserbooksComponent } from "./userbooks/userbooks.component";
+import { PdfJsViewerModule } from "ng2-pdfjs-viewer";
+import { ReadBookComponent } from "./read-book/read-book.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,14 +36,17 @@ import { UserbooksComponent } from './userbooks/userbooks.component';
     FooterComponent,
     NavbarComponent,
     IsOnlineComponent,
+
     DashboardComponent,
     UserbooksComponent,
+    ReadBookComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
+    PdfJsViewerModule,
     BrowserAnimationsModule,
     RecaptchaModule.forRoot(),
     ReactiveFormsModule,

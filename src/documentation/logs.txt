@@ -1,0 +1,56 @@
+STUNLAB GENERAL
+        -  Preload All modules*
+        -  Resolve Data*
+        -  Angular Cors
+        -  Keyboard Pressing
+
+STUNLAB USER {
+    STUNLAB LANDING PAGE /home -> Not Logged In User     
+        - Report Technical Problems
+        - Link to our social Media Accounts
+    STUNLAB SIGNUP PAGE
+        - A successful signup redirect to dashboard 
+    
+    STUNLAB LOGIN PAGE
+        - Cache Authentification
+        - User Object
+
+    STUNLAB SEARCH PAGE 
+        - 404 Area
+
+    LOGGED IN USER {
+            - User Avatars*  
+            - Profile: {
+                - Update User Data *Nationality
+            }
+            - Implement Logout
+        }
+    }
+}
+
+
+STUNLAB ADMIN {
+    _ User Session End
+    - Change Login Page
+    - Change Signup Page
+    - Centralise Some Data
+    - Get assests offline
+    - Great App Flow
+    - Test apis
+    - Update Profiles
+    - Statistics
+
+    STUNLAB SIGNUP PAGE
+        - A successful signup redirect to dashboard 
+    
+    STUNLAB LOGIN PAGE
+        - Cache Authentification
+        - User Object
+}
+
+
+Bugs: {
+    Download Popper JS
+}
+
+FINALLY WE NEED REAL DATA

@@ -4,6 +4,9 @@
   width: 100%;
   height: 100%;
 }
+.levels-link {
+  pointer-events: none;
+}
 .swiper-slide {
   text-align: center;
   font-size: 18px;
@@ -22,8 +25,30 @@
   -webkit-align-items: center;
   align-items: center;
 }
+.text-left .col-5 .fa:before {
+  font-size: 23px;
+  vertical-align: sub;
+}
+.text-left .col-5 .fa-thumbs-up:hover {
+  color: green;
+}
+.text-left .col-5 .fa-thumbs-down:hover {
+  color: #ca6356;
+}
 .navlist1 {
   cursor: pointer;
+}
+.pop {
+  position: absolute;
+  top: 21.5%;
+  border: none;
+  padding: 1px;
+  font-size: 13px;
+  left: 65%;
+  width: 47%;
+  background-color: #f1523b;
+  color: white;
+  border: none;
 }
 
 .bookdiv {

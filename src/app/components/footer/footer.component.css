@@ -16,6 +16,12 @@
   cursor: pointer;
   background-color: #ef7464;
 }
+.error_msg {
+  color: white;
+  margin-top: 4px;
+  margin-left: -136px;
+  font-size: 14px;
+}
 
 .footer-header-content h4 {
   text-transform: uppercase;

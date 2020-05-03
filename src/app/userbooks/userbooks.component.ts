@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { BookDataService } from "../services/book-data/book-data.service";
 import { TransferDataService } from "../services/shared-data/transfer-data.service";
-
 import * as _ from "lodash";
 @Component({
   selector: "app-userbooks",
@@ -22,7 +21,6 @@ export class UserbooksComponent implements OnInit {
   possession: string = "My";
   user_id: string;
   _level: string;
-
   _category: string;
   isNotConnected: boolean = true;
   _provider: string;
@@ -31,9 +29,10 @@ export class UserbooksComponent implements OnInit {
   page: string;
   books: any[];
   ngOnInit() {
-    this.isLoggedIn = this.transferDataService.isLoggedIn();
+    this.isLoggedIn = this.transferDataService.getLoggedIn();
     this.books = [
       {
+        ISBN: "8423-432-1",
         name: "A",
         provider: "REB",
         publisher: "Admin",
@@ -41,6 +40,7 @@ export class UserbooksComponent implements OnInit {
         downloads: 12,
       },
       {
+        ISBN: "8413-532-1",
         name: "B",
         provider: "TTC",
         publisher: "Divin",
@@ -48,6 +48,7 @@ export class UserbooksComponent implements OnInit {
         downloads: 20,
       },
       {
+        ISBN: "8423-4334-1",
         name: "F",
         provider: "WDA",
         publisher: "Aim",
@@ -55,6 +56,7 @@ export class UserbooksComponent implements OnInit {
         downloads: 312,
       },
       {
+        ISBN: "84212-432-1",
         name: "Z",
         provider: "REB",
         publisher: "Byose",
@@ -88,17 +90,24 @@ export class UserbooksComponent implements OnInit {
     this.total = this.books.length || this.None;
   }
 
-  filterBooks(event, method) {
+  filterBooks(event) {
     const key = event.target.id;
-    console.log(key);
-    this.books = this.sort(this.books, key, method);
+  
+    this.books = this.sort(this.books, key);
   }
-  sort(array, key, method) {
+  sort(array, key) {
     return _.orderBy(array, [key], ["desc"]);
   }
   likeBook(book) {
     if (!this.isLoggedIn) this._router.navigate(["/login"]);
     this.bookData.likeBook(this.user_id, book).subscribe(
+      (res) => {},
+      (err) => {}
+    );
+  }
+  readBook(book) {
+    this._router.navigate(["/read/book"], { queryParams: { ISBN: book } });
+    this.bookData.readBook(this.user_id, book).subscribe(
       (res) => {},
       (err) => {}
     );

@@ -19,18 +19,30 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": false,
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "node_modules/ng2-pdfjs-viewer/pdfjs",
+                "output": "/assets/pdfjs"
+              }
+            ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css",
-              "./node_modules/bootstrap/dist/css/bootstrap.css",
-              "./node_modules/font-awesome/css/font-awesome.css",
+              "node_modules/bootstrap/dist/css/bootstrap.css",
+              "node_modules/font-awesome/css/font-awesome.css",
               "src/assets/scss/stunlab.scss"
             ],
             "scripts": [
-              "./node_modules/jquery/dist/jquery.js",
-              "./node_modules/slick-carousel/slick/slick.min.js",
-              "./node_modules/bootstrap/dist/js/bootstrap.js"
+              "node_modules/jquery/dist/jquery.min.js",
+              "src/assets/js/popper/popper.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "src/assets/js/swiper/package/js/swiper.min.js",
+              "src/assets/js/waypoints/jquery.waypoints.min.js",
+              "src/assets/js/Counter-Up/jquery.counterup.min.js",
+              "src/assets/js/main/script.js"
             ]
           },
           "configurations": {
@@ -53,13 +65,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
+                  "maximumWarning": "5mb",
                   "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "30kb",
+                  "maximumError": "30kb"
                 }
               ]
             }
@@ -90,18 +102,8 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.css",
-              "./node_modules/bootstrap/dist/css/bootstrap.css",
-              "./node_modules/font-awesome/css/font-awesome.css",
-              "src/assets/scss/stunlab.scss"
-            ],
-            "scripts": [
-              "./node_modules/jquery/dist/jquery.js",
-              "./node_modules/slick-carousel/slick/slick.min.js",
-              "./node_modules/bootstrap/dist/js/bootstrap.js"
-            ]
+            "styles": ["src/styles.css"],
+            "scripts": []
           }
         },
         "lint": {

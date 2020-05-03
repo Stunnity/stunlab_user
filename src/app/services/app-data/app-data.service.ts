@@ -1,7 +1,5 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Router } from "@angular/router";
-import { HttpHeaders } from "@angular/common/http";
 import { environment } from "./../../../environments/environment";
 @Injectable({
   providedIn: "root",
@@ -12,10 +10,6 @@ export class AppDataService {
   getCategories() {
     return this.httpClient.get(`${this.BASE_URL}/api/getstats/category`);
   }
-
-  // getTrendingCategories() {
-  //   return this.httpClient.get(`${this.BASE_URL}/api/get/category`);
-  // }
   getMostViewedLevels() {
     return this.httpClient.get(`${this.BASE_URL}/api/mostviewed/level`);
   }
@@ -25,5 +19,11 @@ export class AppDataService {
   }
   getMostViewedCategories() {
     return this.httpClient.get(`${this.BASE_URL}/api/mostviewed/category`);
+  }
+  contactUs(details: Object) {
+    return this.httpClient.post(
+      `${this.BASE_URL}/api/mostviewed/level`,
+      details
+    );
   }
 }

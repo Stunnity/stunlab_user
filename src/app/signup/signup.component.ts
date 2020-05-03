@@ -3,6 +3,7 @@ import { UserModel } from "./user.model";
 import { UserDataService } from "../services/user-data/user-data.service";
 import { interval } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-signup",
@@ -23,7 +24,7 @@ export class SignupComponent implements OnInit {
   error_message: string;
   emailPass: boolean;
 
-  constructor(private userData: UserDataService) {}
+  constructor(private userData: UserDataService, private _router: Router) {}
 
   ngOnInit() {
     this.user.email = "";
@@ -35,7 +36,8 @@ export class SignupComponent implements OnInit {
     this.toogleLoading(true);
     this.userData.signUp(this.user).subscribe(
       (res) => {
-        // this.toogleLoading(false);
+        this.toogleLoading(false);
+        this._router.navigate(["/login"]);
       },
       (error: HttpErrorResponse) => {
         this.toogleLoading(false);

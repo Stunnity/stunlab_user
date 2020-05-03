@@ -1,5 +1,10 @@
 import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
+import {
+  Routes,
+  RouterModule,
+  PreloadAllModules,
+  PreloadingStrategy,
+} from "@angular/router";
 import { HomeComponent } from "./home/home.component";
 import { AboutComponent } from "./about/about.component";
 import { SearchComponent } from "./search/search.component";
@@ -10,17 +15,13 @@ import { SignupComponent } from "./signup/signup.component";
 import { AppComponent } from "./app.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { UserbooksComponent } from "./userbooks/userbooks.component";
-
-const routes: Routes = [
+import { HomeDataResolverService } from "./resolvers/home-data-resolver.service";
+import { ReadBookComponent } from "./read-book/read-book.component";
+const ROUTES: Routes = [
   {
     path: "home",
     pathMatch: "full",
     component: HomeComponent,
-  },
-  {
-    path: "dashboard",
-    pathMatch: "full",
-    component: DashboardComponent,
   },
   {
     path: "",
@@ -53,6 +54,11 @@ const routes: Routes = [
     component: UserbooksComponent,
   },
   {
+    path: "read/book",
+    pathMatch: "full",
+    component: ReadBookComponent,
+  },
+  {
     path: "signup",
     pathMatch: "full",
     component: SignupComponent,
@@ -65,7 +71,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(ROUTES, { preloadingStrategy: PreloadAllModules }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

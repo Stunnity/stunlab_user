@@ -1,4 +1,0 @@
-Make an api 
-    - I will give you an email-address for newsletter subscription and you just store the email for the time being
-      Nubwo twazabikoresha nyuma ark tukaba tubitse email zaba subscribinze.
-      

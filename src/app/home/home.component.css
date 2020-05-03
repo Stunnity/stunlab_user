@@ -1,4 +1,3 @@
-/* CSS OF THE NAVBAR */
 @import "../../assets/js/swiper/package/css/swiper.min.css";
 .swiper-container {
   width: 100%;
@@ -43,6 +42,9 @@
 }
 .text-left .col-5 .fa-thumbs-down:hover {
   color: #ca6356;
+}
+#submit-button {
+  text-transform: capitalize;
 }
 .pop {
   position: absolute;
@@ -638,6 +640,7 @@ input.search-input::placeholder {
 }
 
 .num {
+  font-weight: bold;
   font-size: 18px;
   margin-top: 5px;
 }
@@ -937,273 +940,8 @@ input.search-input::placeholder {
 
 /* FOR TABLETS */
 
-@media only screen and (max-width: 768px) {
-  /* NAVBAR MEDIA QUERIES */
-  #search {
-    position: absolute;
-
-    height: 34px;
-    left: 63.9%;
-    top: 17px;
-  }
-  .navbar-logo {
-    height: 37px;
-  }
-  .mainlist {
-    margin-left: 0px;
-  }
-
-  /* END OF NAVBAR MEDIA QUERIES */
-  /* HOME IMG MEDIA QUERIES */
-  .home img {
-    height: 38vh;
-  }
-  .home h4 {
-    top: 18%;
-    font-size: 33px;
-  }
-  .home span {
-    top: 28%;
-    font-size: 19px;
-    left: 19px;
-  }
-  /* END OF HOME IMG MEDIA QUERIES */
-  /* BOOKNAV QUERIES */
-  .booknav li {
-    width: 152px;
-    padding-left: 44px;
-  }
-  .bookdiv {
-    left: 12%;
-  }
-  .booknav li:nth-child(2).active ~ .slide {
-    left: 160px;
-  }
-  .booknav li:nth-child(3).active ~ .slide {
-    left: 320px;
-  }
-  .booknav li:nth-child(4).active ~ .slide {
-    left: 457px;
-  }
-  /* END OF BOOKNAV QUERIES */
-  /* BOOKSLIDER QUERIES */
-  .post-slider {
-    top: 52.5%;
-  }
-  .post-slider .post-wrapper {
-    margin-top: 0;
-  }
-  .post-slider .post-wrapper .post .post-info p {
-    width: 146px;
-    margin-left: -8px;
-  }
-  .post-slider .next {
-    right: 43px;
-    top: 36%;
-  }
-  .post-slider .prev {
-    top: 36%;
-    left: 43px;
-  }
-  .post-slider .post-wrapper .post .slider-image {
-    height: 153px;
-  }
-  .post-slider .post-wrapper .post .post-info {
-    width: 148px;
-    top: 142px;
-  }
-  .post-slider .post-wrapper .post {
-    margin: 0px 9px;
-    height: 363px;
-  }
-  .bookopen {
-    left: -4px;
-  }
-  .booksliderdiv1 {
-    top: 140px;
-  }
-  /* END OF BOOKSLIDER QUERIES */
-  /* SECOND BOOKSLIDER QUERIES */
-  .mostviewed {
-    top: 89%;
-  }
-  /* END SECOND BOOKSLIDER QUERIES */
-  /* COUNTER QUERIES */
-  .middle {
-    top: 159%;
-  }
-  /* END OF COUNTER QUERIES */
-  /* TOP CATEGORIES QUERIES */
-  .categ button {
-    width: 18%;
-  }
-  .categ {
-    left: 0%;
-  }
-  .topcategHead {
-    top: 176%;
-  }
-  .lineCateg {
-    width: 6%;
-    height: 2px;
-    position: absolute;
-    top: 176.7%;
-  }
-  .categ {
-    top: 183%;
-    left: 0%;
-  }
-  /* END OF TOP CATEGORIES QUERIES */
-  /* PATTERNS MEDIA QUERIES */
-  .pat {
-    top: 208%;
-  }
-  .paterns {
-    top: 216%;
-  }
-  .paterns button {
-    width: 35%;
-  }
-  /* END OF PATTERNS MEDIA QUERIES */
-  /* CONTACT QUERIES*/
-  .contact h2 {
-    top: 316%;
-  }
-  .contact-info {
-    top: 326%;
-    height: 30%;
-  }
-  .contact-info input {
-    width: 43%;
-  }
-  .contact-info button {
-    top: 68%;
-  }
-  .contact-list {
-    top: 33%;
-  }
-  /* END OF CONTACT QUERIES*/
-  /* FOOTER QUERIES */
-  .myFooter {
-    height: 38vh;
-    top: 360%;
-  }
-  .footer {
-    right: 134px;
-  }
-  .foot {
-    left: 134px;
-  }
-  /* END OF FOOTER QUERIES */
-}
-
 /* FOR IPADS */
 
-@media only screen and (min-width: 992px) and (max-width: 1024px) {
-  /* NAVBAR MEDIA QUERIES */
-  #search {
-    position: absolute;
-    left: 59.6%;
-    height: 34px;
-    top: 17px;
-  }
-  .login {
-    right: 13%;
-  }
-  /* END OF NAVBAR MEDIA QUERIES */
-  /* HOME IMG MEDIA QUERIES */
-  .home img {
-    height: 34vh;
-  }
-  .home h4 {
-    top: 16%;
-    font-size: 43px;
-  }
-  .home span {
-    top: 24%;
-    font-size: 21px;
-    left: 25px;
-  }
-  /* END OF HOME IMG MEDIA QUERIES */
-  /* BOOKNAV QUERIES */
-  .bookdiv {
-    left: 11%;
-  }
-  /* END OF BOOKNAV QUERIES */
-  /* BOOKSLIDER QUERIES */
-  .post-slider {
-    top: 40%;
-  }
-  .post-slider .next {
-    right: 43px;
-  }
-  .post-slider .prev {
-    left: 43px;
-  }
-  .post-slider .post-wrapper .post .post-info p {
-    width: 156px;
-    margin-left: -7px;
-  }
-  .post-slider .post-wrapper .post .post-info {
-    width: 151px;
-  }
-  .post-slider .post-wrapper .post {
-    margin: 0px 9px;
-  }
-  /* END OF BOOKSLIDER QUERIES */
-  /* SECOND BOOKSLIDER QUERIES */
-  .mostviewed {
-    top: 77%;
-  }
-  /* END OF SECOND BOOKSLIDER QUERIES */
-  /* COUNTER QUERIES */
-  .middle {
-    top: 129%;
-  }
-  /* END OF COUNTER QUERIS */
-  /* TOP CATEGORIES QUERIES */
-  .topcategHead {
-    top: 143%;
-  }
-  .lineCateg {
-    top: 143.5%;
-  }
-  .categ {
-    top: 151%;
-    left: 2%;
-  }
-  .categ button {
-    width: 19%;
-  }
-  /* END OF TOP CATEGORIES QUERIES */
-  /* PATTERNS MEDIA QUERIES */
-  .pat {
-    top: 170%;
-  }
-  .paterns {
-    top: 179%;
-  }
-  .paterns button {
-    width: 23%;
-  }
-  /* END OF PATTERNS MEDIA QUERIES */
-  /* CONTACT QUERIES*/
-  .contact h2 {
-    position: absolute;
-    top: 232%;
-  }
-  .contact-info {
-    top: 242%;
-    height: 26%;
-  }
-  /* END OF CONTACT QUERIES*/
-  /* FOOTER QUERIES */
-  .myFooter {
-    height: 28vh;
-    top: 272%;
-  }
-  /* END OF FOOTER QUERIES */
-}
 .navlist1 {
   cursor: pointer;
 }

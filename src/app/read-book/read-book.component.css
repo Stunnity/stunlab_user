@@ -1,0 +1,8 @@
+.loader {
+  position: absolute;
+  top: 40%;
+  left: 43%;
+}
+.loader h3 {
+  font-family: Khula, sans-serif;
+}

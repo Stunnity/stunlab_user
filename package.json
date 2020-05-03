@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build.prod": "ng build --environment=prod && tar -zcvf archive.tar.gz dist/prod/*"
   },
   "private": true,
   "dependencies": {
@@ -29,6 +30,7 @@
     "jquery": "^3.4.1",
     "ng-recaptcha": "^5.0.0",
     "primeicons": "^2.0.0",
+    "ng2-pdfjs-viewer": "^5.0.5",
     "jwt-decode": "^2.2.0",
     "primeng": "^9.0.0-rc.4",
     "rxjs": "~6.4.0",

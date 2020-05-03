@@ -95,22 +95,7 @@
                 </div> -->
     </div>
   </div>
-  <!-- <div class="filterdiv2" *ngFor="let book of books">
-    <img src="{{ BASE_URL }}{{ book.cover }}" alt="" height="200" width="200" />
-    <p class="booktext">Book</p>
-    <button class="pop">Popular</button> <br />
-    <div class="bookinfo">
-      <span class="bookhead">{{ book.name }}</span> <br />
-      <span class="booktitle">Provider :</span> &nbsp;&nbsp;
-      <span>{{ book.provider_providerName }}</span> <br />
-      <span class="booktitle">Category : </span> &nbsp;&nbsp;
-      <span>{{ book.category_categoryName }}</span> <br />
-      <span>455 views</span><br />
-      <button class="bookopen" [routerLink]="['/view/book', book.ISBN]">
-        Enroll Book
-      </button>
-    </div>
-  </div> -->
+
   <div class="books" *ngIf="!isNotConnected; else loadBooks">
     <div class="filterdiv2" *ngFor="let book of books">
       <!-- <img src="{{ BASE_URL }}{{ book.cover }}" alt="" height="200" width="200" /> -->
@@ -129,78 +114,17 @@
         <span>{{ book.readers }} views</span><br />
         <span>{{ book.Downloads }} views</span><br />
 
-        <i class="fa fa-thumbs-up" (click)="likeBook()"></i>
-        <i class="fa fa-thumbs-down" (click)="dislikeBook()"></i>
+        <i class="fa fa-thumbs-up" (click)="likeBook(book.ISBN)"></i>
+        <i
+          class="fa fa-thumbs-down"
+          (click)="dislikeBook(book.ISBN)"
+        ></i>
 
-        <button class="bookopen" [routerLink]="['/view/book', book.ISBN]">
+        <button class="bookopen" (click)="readBook(book.ISBN)">
           Read Book
         </button>
       </div>
     </div>
-    <!-- <div class="filterdiv2">
-      <img src="../../assets/images/aa.jpg" alt="" height="200" width="200" />
-      <p class="booktext">Book</p>
-      <button class="pop">Popular</button> <br />
-      <div class="bookinfo">
-        <span class="bookhead">Hello</span> <br />
-        <span class="booktitle">Provider :</span> &nbsp;&nbsp; <span>REB</span>
-        <br />
-        <span class="booktitle">Category : </span> &nbsp;&nbsp;
-        <span>Sciences</span> <br />
-        <span>455 views</span><br />
-        <button class="bookopen" [routerLink]="['/view/book', book.ISBN]">
-          Enroll Book
-        </button>
-      </div>
-    </div>
-    <div class="filterdiv2">
-      <img src="../../assets/images/aa.jpg" alt="" height="200" width="200" />
-      <p class="booktext">Book</p>
-      <button class="pop">Popular</button> <br />
-      <div class="bookinfo">
-        <span class="bookhead">Hello</span> <br />
-        <span class="booktitle">Provider :</span> &nbsp;&nbsp; <span>REB</span>
-        <br />
-        <span class="booktitle">Category : </span> &nbsp;&nbsp;
-        <span>Sciences</span> <br />
-        <span>455 views</span><br />
-        <button class="bookopen" [routerLink]="['/view/book', book.ISBN]">
-          Enroll Book
-        </button>
-      </div>
-    </div>
-    <div class="filterdiv2">
-      <img src="../../assets/images/aa.jpg" alt="" height="200" width="200" />
-      <p class="booktext">Book</p>
-      <button class="pop">Popular</button> <br />
-      <div class="bookinfo">
-        <span class="bookhead">Hello</span> <br />
-        <span class="booktitle">Provider :</span> &nbsp;&nbsp; <span>REB</span>
-        <br />
-        <span class="booktitle">Category : </span> &nbsp;&nbsp;
-        <span>Sciences</span> <br />
-        <span>455 views</span><br />
-        <button class="bookopen" [routerLink]="['/view/book', book.ISBN]">
-          Enroll Book
-        </button>
-      </div>
-    </div>
-    <div class="filterdiv2">
-      <img src="../../assets/images/aa.jpg" alt="" height="200" width="200" />
-      <p class="booktext">Book</p>
-      <button class="pop">Popular</button> <br />
-      <div class="bookinfo">
-        <span class="bookhead">Hello</span> <br />
-        <span class="booktitle">Provider :</span> &nbsp;&nbsp; <span>REB</span>
-        <br />
-        <span class="booktitle">Category : </span> &nbsp;&nbsp;
-        <span>Sciences</span> <br />
-        <span>455 views</span><br />
-        <button class="bookopen" [routerLink]="['/view/book', book.ISBN]">
-          Enroll Book
-        </button>
-      </div>
-    </div> -->
   </div>
   <ng-template #loadBooks>
     <div class="loader-area-category">

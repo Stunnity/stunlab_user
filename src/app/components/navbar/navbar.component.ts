@@ -3,6 +3,8 @@ import { AppDataService } from "../../services/app-data/app-data.service";
 import { TransferDataService } from "../.././services/shared-data/transfer-data.service";
 import { UserDataService } from "../../services/user-data/user-data.service";
 import { Data, Router, ActivatedRoute, ParamMap } from "@angular/router";
+import * as $ from "jquery";
+import { DomSanitizer } from "@angular/platform-browser";
 @Component({
   selector: "app-navbar",
   templateUrl: "./navbar.component.html",
@@ -14,16 +16,28 @@ export class NavbarComponent implements OnInit {
     private userData: UserDataService,
     private transferService: TransferDataService,
     private _router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer
   ) {}
-  isLoggedIn: boolean = true;
+  isLoggedIn: boolean;
   categoriesAvailable: boolean;
+  thumbnail: any;
   categories: any[];
   name: any;
   ngOnInit() {
-    this.isLoggedIn = this.transferService.isLoggedIn();
+    $(document).scroll(function () {
+      var $nav = $(".navbar");
+      $nav.toggleClass("scrolled", $(this).scrollTop() > $nav.height());
+    });
+    this.isLoggedIn = this.transferService.getLoggedIn();
+    if (this.isLoggedIn) {
+      // this.userData.userAvatar("active user").subscribe((baseImage: any) => {
+      //   let ObjectUrl = "data:image/jpeg;base64," + baseImage.image;
+      //   this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(ObjectUrl);
+      // });
+    }
     this.fetchCategories();
-    console.log(this.userData.loggedIn());
+
     // this.route.queryParams.subscribe((params) => {
     //   this.name = params["name"];
     //   console.log(this.name);
@@ -41,7 +55,6 @@ export class NavbarComponent implements OnInit {
     setTimeout(() => {
       this.categories = this.transferService.getCategories();
       this.categoriesAvailable = this.categories ? true : false;
-      console.log(this.categories);
     }, 1000);
   }
   searchBook(search: string, fromCategory?: boolean) {

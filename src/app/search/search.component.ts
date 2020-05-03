@@ -29,9 +29,10 @@ export class SearchComponent implements OnInit {
   searchKey: string;
   books: any[];
   ngOnInit() {
-    this.isLoggedIn = this.transferDataService.isLoggedIn();
+    this.isLoggedIn = this.transferDataService.getLoggedIn();
     this.books = [
       {
+        ISBN: "8423-432-1",
         name: "A",
         provider: "REB",
         publisher: "Admin",
@@ -39,6 +40,7 @@ export class SearchComponent implements OnInit {
         downloads: 12,
       },
       {
+        ISBN: "8413-532-1",
         name: "B",
         provider: "TTC",
         publisher: "Divin",
@@ -46,6 +48,7 @@ export class SearchComponent implements OnInit {
         downloads: 20,
       },
       {
+        ISBN: "8423-4334-1",
         name: "F",
         provider: "WDA",
         publisher: "Aim",
@@ -53,6 +56,7 @@ export class SearchComponent implements OnInit {
         downloads: 312,
       },
       {
+        ISBN: "84212-432-1",
         name: "Z",
         provider: "REB",
         publisher: "Byose",
@@ -70,7 +74,6 @@ export class SearchComponent implements OnInit {
       for (const param in params)
         this.query += param + "=" + params[param] + "&";
 
-      console.log(this.query);
       this.query = this.query.substring(0, this.query.length - 1);
       this.bookData.searchBooks(this.query).subscribe(
         (res) => {},
@@ -83,52 +86,68 @@ export class SearchComponent implements OnInit {
     });
     this.total = this.books.length || this.None;
   }
-  filterBooks(event, method) {
+  filterBooks(event) {
     const key = event.target.id;
-    console.log(key);
-    this.books = this.sort(this.books, key, method);
+ 
+    this.books = this.sort(this.books, key);
   }
-  sort(array, key, method) {
+  sort(array, key) {
     return _.orderBy(array, [key], ["desc"]);
   }
   likeBook(book) {
-    if (!this.isLoggedIn) this._router.navigate(["/login"]);
-    this.bookData.likeBook(this.user_id, book).subscribe(
-      (res) => {},
-      (err) => {}
-    );
+    if (!this.isLoggedIn)
+      this._router.navigate(["/login"], { queryParams: { logged_in: false } });
+    else {
+      this.bookData.likeBook(this.user_id, book).subscribe(
+        (res) => {},
+        (err) => {}
+      );
+    }
   }
   dislikeBook(book) {
-    if (!this.isLoggedIn) this._router.navigate(["/login"]);
-
-    this.bookData.dislikeBook(this.user_id, book).subscribe(
-      (res) => {},
-      (err) => {}
-    );
+    if (!this.isLoggedIn)
+      this._router.navigate(["/login"], { queryParams: { logged_in: false } });
+    else {
+      this.bookData.dislikeBook(this.user_id, book).subscribe(
+        (res) => {},
+        (err) => {}
+      );
+    }
+  }
+  readBook(book) {
+    if (!this.isLoggedIn)
+      this._router.navigate(["/login"], { queryParams: { logged_in: false } });
+    else {
+      this._router.navigate(["/read/book"], { queryParams: { ISBN: book } });
+      this.bookData.readBook(this.user_id, book).subscribe(
+        (res) => {},
+        (err) => {}
+      );
+    }
   }
   bookmark(book, user, event?) {
     if (!this.isLoggedIn) {
       this._router.navigate(["/login"], { queryParams: { logged_in: false } });
+    } else {
+      const button = event.target;
+      button.innerHTML = "...";
+      this.bookData.bookmarkBooks(book, user).subscribe(
+        (res) => {},
+        (err) => {
+          setTimeout(() => {
+            if (!this.hasClass(button, "bg-success")) {
+              button.innerHTML = "Bookmarked";
+              button.classList.add("bg-success");
+              button.classList.remove("bg-danger");
+            } else {
+              button.innerHTML = "Bookmark";
+              button.classList.remove("bg-success");
+              button.classList.add("bg-danger");
+            }
+          }, 4000);
+        }
+      );
     }
-
-    const button = event.target;
-    button.innerHTML = "...";
-    this.bookData.bookmarkBooks(book, user).subscribe(
-      (res) => {},
-      (err) => {
-        setTimeout(() => {
-          if (!this.hasClass(button, "bg-success")) {
-            button.innerHTML = "Bookmarked";
-            button.classList.add("bg-success");
-            button.classList.remove("bg-danger");
-          } else {
-            button.innerHTML = "Bookmark";
-            button.classList.remove("bg-success");
-            button.classList.add("bg-danger");
-          }
-        }, 4000);
-      }
-    );
   }
   hasClass(element: Element, _class: string): boolean {
     return element.classList.contains(_class);

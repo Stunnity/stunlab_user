@@ -1,25 +1,48 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, HostListener, Inject } from "@angular/core";
 import { AppDataService } from "./services/app-data/app-data.service";
 import { TransferDataService } from "./services/shared-data/transfer-data.service";
 import { UserDataService } from "./services/user-data/user-data.service";
-
+import {
+  Router,
+  RouterEvent,
+  NavigationStart,
+  NavigationEnd,
+} from "@angular/router";
+import { HttpErrorResponse } from "@angular/common/http";
+import * as $ from "jquery";
+import { DOCUMENT } from "@angular/common";
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"],
 })
 export class AppComponent implements OnInit {
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private _router: Router,
+    private appService: AppDataService,
+    private transferService: TransferDataService,
+    private userService: UserDataService
+  ) {}
+
   title = "stunlab";
   isOnline: boolean;
   categories: any[];
   mostViewedCategories: any[];
   mostViewedLevels: any[];
   userBooks: any[];
+  windowWidth: number;
+
+  isLoader: boolean;
+
   ngOnInit(): void {
+    if ($(window).width() < 450) {
+      this.mobileApp();
+    }
     this.getCategories();
     this.getMostViewedCategories();
 
-    const isAuthentificated: boolean = this.transferService.isLoggedIn();
+    const isAuthentificated: boolean = this.transferService.getLoggedIn();
     if (isAuthentificated) {
       this.getUserBooks();
       this.getUserState();
@@ -28,53 +51,67 @@ export class AppComponent implements OnInit {
     }
   }
 
-  constructor(
-    private appService: AppDataService,
-    private transferService: TransferDataService,
-    private userService: UserDataService
-  ) {}
+  mobileApp() {
+    this.document.location.href = "https://stunlabmobile.heroku.com";
+  }
+
+  routerEvents() {
+    this._router.events.subscribe((event: RouterEvent) => {
+      switch (true) {
+        case event instanceof NavigationStart: {
+          this.isLoader = true;
+          break;
+        }
+        case event instanceof NavigationEnd: {
+          this.isLoader = false;
+          break;
+        }
+      }
+    });
+  }
+
+  getCategories() {
+    this.appService.getCategories().subscribe(
+      (res: any[]) => {
+        this.transferService.setCategories(res);
+      },
+      (err: HttpErrorResponse) => {
+        this.transferService.setCategories([
+          "Sciences",
+          "Language",
+          "Technology",
+          "Fiction",
+        ]);
+      }
+    );
+  }
+
   getMostViewedCategories() {
     this.appService.getMostViewedCategories().subscribe(
       (res: any[]) => {
-        if (!res)
-          this.mostViewedCategories = ["Science", "Language", "ICT", "Fiction"];
-        else this.mostViewedCategories = res;
+        this.transferService.setMostViewedCategories(res);
       },
       (err) => {
-        this.mostViewedCategories = ["Science", "Language", "ICT", "Fiction"];
+        this.mostViewedCategories = this.transferService.getCategories() || [
+          "Sciences",
+          "Language",
+          "Technology",
+          "Fiction",
+        ];
+        this.transferService.setMostViewedCategories(this.mostViewedCategories);
       }
     );
-    setTimeout(() => {
-      this.transferService.setMostViewedCategories(this.mostViewedCategories);
-    }, 1000);
   }
   getMostViewedLevels() {
     this.appService.getMostViewedLevels().subscribe(
       (res: any[]) => {
-        if (!res)
-          this.mostViewedLevels = ["Nursery", "Primary", "Secondary", "Others"];
-        else this.mostViewedLevels = res;
+        this.transferService.setMostViewedLevels(res);
       },
       (err) => {
         this.mostViewedLevels = ["Nursery", "Primary", "Secondary", "Others"];
+        this.transferService.setMostViewedLevels(this.mostViewedLevels);
       }
     );
-    setTimeout(() => {
-      this.transferService.setMostViewedLevels(this.mostViewedLevels);
-    }, 1000);
-  }
-  getCategories() {
-    this.appService.getCategories().subscribe(
-      (res: any[]) => {
-        this.categories = res;
-      },
-      (err) => {
-        this.categories = ["Science", "Language", "ICT", "Fiction"];
-      }
-    );
-    setTimeout(() => {
-      this.transferService.setCategories(this.categories);
-    }, 1000);
   }
 
   getUserBooks() {
@@ -91,6 +128,6 @@ export class AppComponent implements OnInit {
     }, 1000);
   }
   getUserState() {
-    console.log(this.userService.loggedIn());
+    this.userService.loggedIn()
   }
 }

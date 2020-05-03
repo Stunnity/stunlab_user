@@ -32,4 +32,9 @@ export class UserDataService {
   loggedIn() {
     return !!localStorage.getItem("token");
   }
+  userAvatar(username: string) {
+    return this.httpClient.get(`https://ui-avatars.com/api/?name=${username}`, {
+      responseType: "blob",
+    });
+  }
 }

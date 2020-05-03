@@ -3,7 +3,7 @@
     <a class="navbar-brand" [routerLink]="['/']">
       <img
         class="navbar-logo"
-        src="../../assets/images/stunlab.png"
+        src="assets/images/stunlab_logo/SVG/stunlab_logo_corrected_1.svg"
         alt="Logo"
       />
     </a>
@@ -84,10 +84,14 @@
       </form>
       <ng-template #loggedInTemplate>
         <div class="user-details">
-          <div class="liked-books" (click)="bookNavigate(false)">
+          <div
+            class="liked-books"
+            (click)="bookNavigate(false)"
+            title="Bookmarks"
+          >
             <i class="fa fa-book"></i>
           </div>
-          <div class="book-shelf">
+          <div class="book-shelf" title="Favourites">
             <img
               src="../../../assets/images/likeHeart.png"
               style="width: 25px;"
@@ -107,7 +111,7 @@
                   aria-expanded="false"
                 >
                   <img
-                    src="../../../assets/images/download.png"
+                    src="assets/images/Screenshot from 2020-05-01 18-58-56.png"
                     style="width: 27px; margin: 0 4px;"
                     alt=""
                   />

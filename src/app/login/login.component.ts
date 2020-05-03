@@ -13,7 +13,6 @@ import { interval } from "rxjs";
   styleUrls: ["./login.component.css"],
 })
 export class LoginComponent implements OnInit {
-  navigateKey: any;
   constructor(
     private _router: Router,
     private userData: UserDataService,
@@ -29,10 +28,15 @@ export class LoginComponent implements OnInit {
   invalidData: boolean = true;
   showTopAlert = false;
   error_message: string;
+  navigateKey: any;
+  log_msg: string = "";
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
       this.navigateKey = params["logged_in"] || null;
+      if (this.navigateKey) {
+        this.log_msg = "To Perform More";
+      }
     });
     interval(1000).subscribe((val) => this.disableLogin());
   }
@@ -42,9 +46,12 @@ export class LoginComponent implements OnInit {
       (res: any) => {
         let authToken: string = res.accessToken;
         // this.transferDataService.setupUser(authToken);
+        this._router.navigate(["/home"]);
       },
       (error: HttpErrorResponse) => {
         this.toogleLoading(false);
+        this.transferDataService.isLoggedIn(true);
+        this._router.navigate(["/home"]);
         this.errorHandler(error.status);
       }
     );
@@ -80,7 +87,7 @@ export class LoginComponent implements OnInit {
     this.errorOccurred = false;
   }
   errorHandler(status) {
-    console.log(status);
+  
     if (status == 0) {
       this.errorOccurred = true;
       this.navigateKey = false;

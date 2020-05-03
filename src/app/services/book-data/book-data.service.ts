@@ -47,4 +47,17 @@ export class BookDataService {
   bookmarkBooks(book, user) {
     return this.httpClient.get(`${this.BASE_URL}/api/bookmark/${book}${user}`);
   }
+
+  getRecommendedBooks(user) {
+    return this.httpClient.get(`${this.BASE_URL}/api/bookmark/${user}`);
+  }
+  getItems() {
+    setTimeout(() => {
+      return [1, 2, 3, 4, 5, 6];
+    }, 6000);
+    // return this.httpClient.get(`${this.BASE_URL}/api/bookmark/${user}`);
+  }
+  getRecentBooks(user) {
+    return this.httpClient.get(`${this.BASE_URL}/api/bookmark/${user}`);
+  }
 }
