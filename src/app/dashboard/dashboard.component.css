@@ -1,5 +1,4 @@
 @import "../../assets/js/swiper/package/css/swiper.min.css";
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -29,16 +28,6 @@
   -ms-flex-align: center;
   -webkit-align-items: center;
   align-items: center;
-}
-ul,
-ol {
-  margin: 0px;
-  padding: 0px;
-  list-style-type: none;
-}
-
-body {
-  font-family: "Duru Sans", sans-serif;
 }
 
 .navbar {

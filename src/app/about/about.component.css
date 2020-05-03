@@ -455,49 +455,6 @@
   }
 }
 
-@media only screen and (min-width: 992px) and (max-width: 1024px) {
-  .hometext {
-    position: absolute;
-    top: 16%;
-  }
-  .hometext h1 {
-    font-size: 64px;
-  }
-  .secimg {
-    height: 508px;
-  }
-  .content {
-    height: 508px;
-  }
-  .text {
-    width: 34%;
-    font-size: 19px;
-    left: 9%;
-    top: 100px;
-  }
-  .text3 {
-    width: 31%;
-  }
-  .slideone {
-    height: 508px;
-  }
-  .slideshow {
-    height: 508px;
-  }
-  .text2 {
-    top: 25%;
-  }
-  .myFooter {
-    height: 29vh;
-    top: 174%;
-  }
-  .footer {
-    right: 187px;
-  }
-  .foot {
-    left: 187px;
-  }
-}
 .scrolled {
   height: 62px !important;
 }

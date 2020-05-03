@@ -115,158 +115,59 @@ select {
   border: none;
 }
 
-/* FOOTER CSS */
-
-.foot h5 {
-  border-bottom: 4px solid #0091c7;
-  color: white;
-}
-
-.mainfoot {
-  position: relative;
-}
-
-.footer {
-  position: absolute;
-  right: 268px;
-  top: 0px;
-  padding-top: 66px;
-}
-
-.footer h5 {
-  border-bottom: 4px solid #0091c7;
-  color: white;
-}
-
-.foot {
-  position: absolute;
-  left: 268px;
-  padding-top: 66px;
-  color: white;
-}
-
-.downfoot {
-  width: 100%;
-  background-color: #1c232e;
-  color: #505960;
-  position: absolute;
-  top: 330px;
-  display: flex;
-  padding: 20px;
-}
-
-.myFooter {
-  background-color: #2e3942;
-  height: 52vh;
-  margin-top: 2%;
-  position: absolute;
-  bottom: 0;
-  top: 196%;
-  width: 100%;
-}
-
-.foot a {
-  color: white;
-  margin-bottom: 0px;
-  padding-top: 17px;
-}
-
-.footer a:hover {
-  transition: 0.9s ease;
-}
-
-.footer a {
-  color: white;
-  margin-bottom: 0px;
-  padding-top: 17px;
-}
-
-.downfoot h4 {
-  color: white;
-}
-
-.downfoot span {
-  margin-left: 11%;
-  border-right: 1px solid;
-  padding: 7px;
-}
-
-/* END OF FOOTER CSS */
+/*
 
 @media only screen and (max-width: 768px) {
   /* NAV BAR MEDIA QUERIES */
-  #search {
-    position: absolute;
-    left: 58.5%;
-  }
-  .navbar-logo {
-    height: 37px;
-  }
-  .mainlist {
-    margin-left: 0px;
-  }
-  .login {
-    right: 16%;
-  }
-  /* END OF NAV BAR MEDIA QUERIES */
-  .profile {
-    width: 70%;
-  }
-  .details {
-    height: 35vh;
-  }
-  .labelname {
-    left: 53px;
-  }
-  .inputfield {
-    left: 147px;
-    width: 27%;
-  }
-  .labelname1 {
-    left: 57%;
-  }
-  .labelname3 {
-    left: 53px;
-  }
-  .inputfield3 {
-    left: 147px;
-    width: 27%;
-  }
-  .savebut {
-    left: 87%;
-  }
-  .myFooter {
-    height: 38vh;
-    top: 111%;
-  }
-  .footer {
-    right: 134px;
-  }
-  .foot {
-    left: 134px;
-  }
+#search {
+  position: absolute;
+  left: 58.5%;
 }
-
-@media only screen and (min-width: 992px) and (max-width: 1024px) {
-  /* NAVBAR MEDIA QUERIES */
-  #search {
-    position: absolute;
-    left: 59.6%;
-  }
-  .login {
-    right: 13%;
-  }
-  /* END OF NAVBAR MEDIA QUERIES */
-  .details {
-    height: 27vh;
-  }
-  .savebut {
-    left: 89%;
-  }
-  .myFooter {
-    height: 29vh;
-    top: 88%;
-  }
+.navbar-logo {
+  height: 37px;
+}
+.mainlist {
+  margin-left: 0px;
+}
+.login {
+  right: 16%;
+}
+/* END OF NAV BAR MEDIA QUERIES */
+.profile {
+  width: 70%;
+}
+.details {
+  height: 35vh;
+}
+.labelname {
+  left: 53px;
+}
+.inputfield {
+  left: 147px;
+  width: 27%;
+}
+.labelname1 {
+  left: 57%;
+}
+.labelname3 {
+  left: 53px;
+}
+.inputfield3 {
+  left: 147px;
+  width: 27%;
+}
+.savebut {
+  left: 87%;
+}
+.myFooter {
+  height: 38vh;
+  top: 111%;
+}
+.footer {
+  right: 134px;
+}
+.foot {
+  left: 134px;
 }
 
 .scrolled {

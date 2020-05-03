@@ -1,10 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { AppDataService } from "../../services/app-data/app-data.service";
 import { TransferDataService } from "../.././services/shared-data/transfer-data.service";
-import { UserDataService } from "../../services/user-data/user-data.service";
-import { Data, Router, ActivatedRoute, ParamMap } from "@angular/router";
+import { Router } from "@angular/router";
 import * as $ from "jquery";
-import { DomSanitizer } from "@angular/platform-browser";
 @Component({
   selector: "app-navbar",
   templateUrl: "./navbar.component.html",
@@ -12,12 +9,8 @@ import { DomSanitizer } from "@angular/platform-browser";
 })
 export class NavbarComponent implements OnInit {
   constructor(
-    private appData: AppDataService,
-    private userData: UserDataService,
     private transferService: TransferDataService,
-    private _router: Router,
-    private route: ActivatedRoute,
-    private sanitizer: DomSanitizer
+    private _router: Router
   ) {}
   isLoggedIn: boolean;
   categoriesAvailable: boolean;
@@ -31,17 +24,8 @@ export class NavbarComponent implements OnInit {
     });
     this.isLoggedIn = this.transferService.getLoggedIn();
     if (this.isLoggedIn) {
-      // this.userData.userAvatar("active user").subscribe((baseImage: any) => {
-      //   let ObjectUrl = "data:image/jpeg;base64," + baseImage.image;
-      //   this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(ObjectUrl);
-      // });
     }
     this.fetchCategories();
-
-    // this.route.queryParams.subscribe((params) => {
-    //   this.name = params["name"];
-    //   console.log(this.name);
-    // });
   }
   bookNavigate(bookmark: boolean) {
     if (!bookmark)
