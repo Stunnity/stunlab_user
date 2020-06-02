@@ -1,41 +1,43 @@
-import { Component, OnInit } from "@angular/core";
-import { UserModel } from "./user.model";
-import { Data, Router, ActivatedRoute } from "@angular/router";
-import { HttpErrorResponse } from "@angular/common/http";
-import { UserDataService } from "../services/user-data/user-data.service";
-import { TransferDataService } from "../services/shared-data/transfer-data.service";
-
-import { interval } from "rxjs";
+import { Component, OnInit } from '@angular/core';
+import { UserModel } from './user.model';
+import { Data, Router, ActivatedRoute } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
+import { UserDataService } from '../services/user-data/user-data.service';
+import { TransferDataService } from '../services/shared-data/transfer-data.service';
+import { interval } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
+import { authenticate, decodeToken } from 'src/utils/common';
 
 @Component({
-  selector: "app-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
   constructor(
     private _router: Router,
     private userData: UserDataService,
     private route: ActivatedRoute,
+    private cookieService: CookieService,
     private transferDataService: TransferDataService
-  ) {}
+  ) { }
 
   user: UserModel = new UserModel();
   password: any;
   responseStatusCode: any;
-  errorOccurred: boolean = false;
+  errorOccurred = false;
   isLoading = false;
-  invalidData: boolean = true;
+  invalidData = true;
   showTopAlert = false;
   error_message: string;
   navigateKey: any;
-  log_msg: string = "";
+  log_msg = '';
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
-      this.navigateKey = params["logged_in"] || null;
+      this.navigateKey = params.logged_in || null;
       if (this.navigateKey) {
-        this.log_msg = "To Perform More";
+        this.log_msg = 'To Perform More';
       }
     });
     interval(1000).subscribe((val) => this.disableLogin());
@@ -44,14 +46,18 @@ export class LoginComponent implements OnInit {
     this.toogleLoading(true);
     this.userData.login(this.user).subscribe(
       (res: any) => {
-        let authToken: string = res.accessToken;
-        // this.transferDataService.setupUser(authToken);
-        this._router.navigate(["/home"]);
+        const token = res['token'];
+        if (authenticate(this.cookieService, token, this.transferDataService)) {
+          const { sub } = decodeToken(token);
+          this.userData.authUser().subscribe((res) => {
+            console.log(res);
+            this.transferDataService.setUser(res);
+            this._router.navigate(['/home']);
+          });
+        }
       },
       (error: HttpErrorResponse) => {
         this.toogleLoading(false);
-        this.transferDataService.isLoggedIn(true);
-        this._router.navigate(["/home"]);
         this.errorHandler(error.status);
       }
     );
@@ -62,24 +68,25 @@ export class LoginComponent implements OnInit {
       return;
     }
   }
+
   toogleLoading(value: boolean) {
-    const button = document.getElementById("button-text");
+    const button = document.getElementById('button-text');
     this.isLoading = value;
-    button.innerHTML = this.isLoading ? "Signing In" : "Sign in";
+    button.innerHTML = this.isLoading ? 'Signing In' : 'Sign in';
   }
 
   tooglePassword() {
-    var temp: any = document.getElementById("float-input-password");
-    const icon = document.getElementById("icon");
-    if (temp.type === "password") {
-      temp.type = "text";
-      icon.classList.remove("fa-eye");
-      icon.classList.add("fa-eye-slash");
+    const temp: any = document.getElementById('float-input-password');
+    const icon = document.getElementById('icon');
+    if (temp.type === 'password') {
+      temp.type = 'text';
+      icon.classList.remove('fa-eye');
+      icon.classList.add('fa-eye-slash');
       temp.focus();
     } else {
-      temp.type = "password";
-      icon.classList.add("fa-eye");
-      icon.classList.remove("fa-eye-slash");
+      temp.type = 'password';
+      icon.classList.add('fa-eye');
+      icon.classList.remove('fa-eye-slash');
       temp.focus();
     }
   }
@@ -87,15 +94,14 @@ export class LoginComponent implements OnInit {
     this.errorOccurred = false;
   }
   errorHandler(status) {
-  
     if (status == 0) {
       this.errorOccurred = true;
       this.navigateKey = false;
-      this.error_message = "Address unreachable";
+      this.error_message = 'Address unreachable';
     } else if (status == 404) {
       this.errorOccurred = true;
       this.navigateKey = false;
-      this.error_message = "Invalid Username and Password";
+      this.error_message = 'Invalid Username and Password';
     }
   }
 }

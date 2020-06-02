@@ -1,13 +1,15 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { BookDataService } from "../services/book-data/book-data.service";
-import { TransferDataService } from "../services/shared-data/transfer-data.service";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BookDataService } from '../services/book-data/book-data.service';
+import { TransferDataService } from '../services/shared-data/transfer-data.service';
 
-import * as _ from "lodash";
+import * as _ from 'lodash';
+import { sanitize } from 'src/utils/common';
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
-  selector: "app-search",
-  templateUrl: "./search.component.html",
-  styleUrls: ["./search.component.css"],
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.css'],
 })
 export class SearchComponent implements OnInit {
   total: string | number;
@@ -17,132 +19,108 @@ export class SearchComponent implements OnInit {
     private route: ActivatedRoute,
     private _router: Router,
     private bookData: BookDataService,
-    private transferDataService: TransferDataService
-  ) {}
+    private transferDataService: TransferDataService,
+    private sanitizer: DomSanitizer
+  ) { }
   _book: string;
   _level: string;
   _category: string;
-  isNotConnected: boolean = true;
+  isNotConnected = true;
   _provider: string;
-  query: string = "";
-  None: string = "No";
+  query = '';
+  None = 'No';
   searchKey: string;
   books: any[];
-  ngOnInit() {
-    this.isLoggedIn = this.transferDataService.getLoggedIn();
-    this.books = [
-      {
-        ISBN: "8423-432-1",
-        name: "A",
-        provider: "REB",
-        publisher: "Admin",
-        readers: 500,
-        downloads: 12,
-      },
-      {
-        ISBN: "8413-532-1",
-        name: "B",
-        provider: "TTC",
-        publisher: "Divin",
-        readers: 200,
-        downloads: 20,
-      },
-      {
-        ISBN: "8423-4334-1",
-        name: "F",
-        provider: "WDA",
-        publisher: "Aim",
-        readers: 1500,
-        downloads: 312,
-      },
-      {
-        ISBN: "84212-432-1",
-        name: "Z",
-        provider: "REB",
-        publisher: "Byose",
-        readers: 500,
-        downloads: 122,
-      },
-    ];
 
+  ngOnInit() {
+    this.isLoggedIn = this.transferDataService.loggedIn();
     this.route.queryParams.subscribe((params) => {
+
       this.searchKey =
-        params["q"] ||
-        params["category"] ||
-        params["level"] ||
-        params["provider"];
-      for (const param in params)
-        this.query += param + "=" + params[param] + "&";
+        params.q ||
+        params.category ||
+        params.level ||
+        params.provider;
+      for (const param in params) {
+        this.query += param + '=' + params[param] + '&';
+      }
 
       this.query = this.query.substring(0, this.query.length - 1);
       this.bookData.searchBooks(this.query).subscribe(
-        (res) => {},
-        (error) => {
-          setTimeout(() => {
-            this.isNotConnected = false;
-          }, 5000);
-        }
+        (res: any) => {
+          let array = [];
+          for (const book of res) {
+            array.push(book.book)
+          }
+          this.books = array;
+          console.log(this.books);
+          this.total = this.books.length || this.None;
+
+          this.isNotConnected = false;
+        },
+        (error) => { }
       );
     });
-    this.total = this.books.length || this.None;
   }
   filterBooks(event) {
     const key = event.target.id;
- 
     this.books = this.sort(this.books, key);
   }
   sort(array, key) {
-    return _.orderBy(array, [key], ["desc"]);
+    return _.orderBy(array, [key], ['desc']);
+  }
+  sanitizeUrl(url) {
+    return sanitize(this.sanitizer, url)
   }
   likeBook(book) {
-    if (!this.isLoggedIn)
-      this._router.navigate(["/login"], { queryParams: { logged_in: false } });
-    else {
+    if (!this.isLoggedIn) {
+      this._router.navigate(['/login'], { queryParams: { logged_in: false } });
+    } else {
       this.bookData.likeBook(this.user_id, book).subscribe(
-        (res) => {},
-        (err) => {}
+        (res) => { },
+        (err) => { }
       );
     }
   }
   dislikeBook(book) {
-    if (!this.isLoggedIn)
-      this._router.navigate(["/login"], { queryParams: { logged_in: false } });
-    else {
+    if (!this.isLoggedIn) {
+      this._router.navigate(['/login'], { queryParams: { logged_in: false } });
+    } else {
       this.bookData.dislikeBook(this.user_id, book).subscribe(
-        (res) => {},
-        (err) => {}
+        (res) => { },
+        (err) => { }
       );
     }
   }
   readBook(book) {
-    if (!this.isLoggedIn)
-      this._router.navigate(["/login"], { queryParams: { logged_in: false } });
-    else {
-      this._router.navigate(["/read/book"], { queryParams: { ISBN: book } });
+    if (!this.isLoggedIn) {
+      this._router.navigate(['/login'], { queryParams: { logged_in: false } });
+    } else {
+      this._router.navigate(['/read/book'], { queryParams: { ISBN: book } });
       this.bookData.readBook(this.user_id, book).subscribe(
-        (res) => {},
-        (err) => {}
+        (res) => { },
+        (err) => { }
       );
     }
   }
-  bookmark(book, user, event?) {
+  bookmark(book, event?) {
     if (!this.isLoggedIn) {
-      this._router.navigate(["/login"], { queryParams: { logged_in: false } });
+      this._router.navigate(['/login'], { queryParams: { logged_in: false } });
     } else {
       const button = event.target;
-      button.innerHTML = "...";
-      this.bookData.bookmarkBooks(book, user).subscribe(
-        (res) => {},
+      button.innerHTML = '...';
+      this.bookData.bookmarkBooks(book, this.user_id).subscribe(
+        (res) => { },
         (err) => {
           setTimeout(() => {
-            if (!this.hasClass(button, "bg-success")) {
-              button.innerHTML = "Bookmarked";
-              button.classList.add("bg-success");
-              button.classList.remove("bg-danger");
+            if (!this.hasClass(button, 'bg-success')) {
+              button.innerHTML = 'Bookmarked';
+              button.classList.add('bg-success');
+              button.classList.remove('bg-danger');
             } else {
-              button.innerHTML = "Bookmark";
-              button.classList.remove("bg-success");
-              button.classList.add("bg-danger");
+              button.innerHTML = 'Bookmark';
+              button.classList.remove('bg-success');
+              button.classList.add('bg-danger');
             }
           }, 4000);
         }

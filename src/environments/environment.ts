@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  BASE_API: "https://stunlabapis.herokuapp.com",
+  BASE_API: 'https://stunlabapis.herokuapp.com',
 };
 
 /*

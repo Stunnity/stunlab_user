@@ -1,4 +1,4 @@
-export class UserModel{
+export class UserModel {
     username: String;
     email: String;
     phone: String;

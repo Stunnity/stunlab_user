@@ -1,0 +1,51 @@
+1. API api/report yanze
+  Request body: {
+                  "name": "githubuser",
+                  "message": "Hello I have an issue reading the book"
+                }
+  Response: SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'name' cannot be null 
+          (SQL: insert into `reports` (`name`, `message`, `updated_at`, `created_at`) values 
+          (?, Hello I have an issue reading the book, 2020-06-02 16:04:06, 2020-06-02 16:04:06))
+
+  
+2. Subscribe 
+      https://stunlabapis.herokuapp.com/api/subscribe/{username} DOCUMENTATION
+     -  https://stunlabapis.herokuapp.com/api/subscribe/ntwari@gmail.com 
+     - https://stunlabapis.herokuapp.com/api/subscribe/ntwari_liberi 
+  I GET A 404.
+
+3. API to get logged User 
+The GET method is not supported for this route. Supported methods: PUT, PATCH, DELETE
+
+4. Searching urebe neza !!! param yitwa category=value ntabwo ikora 
+ex: https://stunlabapis.herokuapp.com/api/search/query?category=Literature
+Izana Heroku application error
+
+5. API api/statistics/{username} imaze iki 
+For https://stunlabapis.herokuapp.com/api/statistics/dukundane_daniel
+I get 
+      {
+          totalBooks	26
+          books	0
+          totalDownloads	0
+          downloads	0
+          reports	0
+          newReports	0
+          users	30
+      },  ase ubundi dufite 30 users ????? cyangwa ni bug?????
+
+6. Yo, Ubu noneho tugiye ku implementinga byabintu biri srx ukuntu, an authenticated user, urumva token nzajya
+nyiguha muri authorization then umenye user wawe. Nuko umpe izi statistics ze umpe 
+[
+  total_reads(number), bookmarks, likes}  
+]
+I need just numbers. Nuko umpe nindi api noneho yo kubona a user's [reads, bookmarks, likes]; 
+ibi nibirangira wenda like by tonight cg ejo i think wednesday night tuzakora kuri recommendations 
+nibindi bijyanye nabyo
+
+7. Ahubwo umva se umfashije kuri api za bookmarking, reading, liking, disliking wakuraho
+/api/books/like/{user}/{book-isbn} bikaba /api/books/like/{book-isbn} kuko user umubona muri Authorization token nyine nkuko wakozr
+iriya ya user details. 
+
+Ewan courage kbx nshaka kurangiza umu user vubavuba by sunday nkakora final touches za two apps
+

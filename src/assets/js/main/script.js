@@ -1,5 +1,10 @@
 function statisticsCounter() {
-  $(".num").counterUp({});
+  try {
+    $(".num").counterUp({});
+
+  } catch (error) {
+    console.log("ok")
+  }
 }
 function bookSwiper() {
   setTimeout(() => {
@@ -13,5 +18,6 @@ function bookSwiper() {
         prevEl: ".swiper-button-prev",
       },
     });
-  }, 1000);
+  }, 500)
+
 }

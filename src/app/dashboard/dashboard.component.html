@@ -10,7 +10,7 @@
         <img src="assets/images/alert.png" alt="" class="alert" />
       </div>
       <div class="greetingstext">
-        <p>Hello username continue reading ?</p>
+        <p>Hello {{username}} continue reading ?</p>
       </div>
       <button class="mybooks" (click)="bookNavigate(false)">BOOK SHELF</button>
     </div>
@@ -41,33 +41,19 @@
                     </p>
                     <div class="row text-left">
                       <div class="col-5">
-                        <i
-                          class="fa fa-thumbs-up"
-                          (click)="likeBook(recent_read.ISBN)"
-                        ></i
-                        ><span class="likes"
-                          >&nbsp; {{ recent_read.likes }}</span
-                        >
+                        <i class="fa fa-thumbs-up" (click)="likeBook(recent_read.ISBN)"></i><span class="likes">&nbsp;
+                          {{ recent_read.likes }}</span>
                       </div>
                       <div class="col-5">
-                        <i
-                          class="fa fa-thumbs-down"
-                          (click)="dislikeBook(recent_read.ISBN)"
-                        ></i>
-                        <span class="diss"
-                          >&nbsp; {{ recent_read.dislikes }}</span
-                        >
+                        <i class="fa fa-thumbs-down" (click)="dislikeBook(recent_read.ISBN)"></i>
+                        <span class="diss">&nbsp; {{ recent_read.dislikes }}</span>
                       </div>
                     </div>
                   </div>
                   <button class="bookopen" (click)="readBook(recent_read.ISBN)">
                     Read
                   </button>
-                  <button
-                    class="pop"
-                    id="{{ recent_read.ISBN }}"
-                    (click)="bookmark(recent_read.ISBN, $event)"
-                  >
+                  <button class="pop" id="{{ recent_read.ISBN }}" (click)="bookmark(recent_read.ISBN, $event)">
                     Bookmark
                   </button>
                 </div>
@@ -101,17 +87,8 @@
       <p>Recommended For you</p>
     </div>
     <div *ngIf="gotRecommendationResponse; else loadRecommendedBooks">
-      <div
-        class="recommendedbooks_body"
-        *ngFor="let recommended_book of recommended_books; let i = index"
-      >
-        <img
-          src="assets/images/cross.png"
-          alt=""
-          class="cross"
-          id="{{ i }}"
-          (click)="hideBook($event)"
-        />
+      <div class="recommendedbooks_body" *ngFor="let recommended_book of recommended_books; let i = index">
+        <img src="assets/images/cross.png" alt="" class="cross" id="{{ i }}" (click)="hideBook($event)" />
         <div class="book row">
           <img src="assets/images/bookcover.jpg" alt="" class="bookcover" />
           <div class="bookdes">
@@ -125,16 +102,10 @@
           <h4 class="book-reads">340 Reads</h4>
           <h4 class="adv">Adventure</h4>
           <h4 class="category">REB</h4>
-          <i
-            class="fa fa-thumbs-up like"
-            (click)="likeBook(recommended_book.ISBN)"
-          ></i>
+          <i class="fa fa-thumbs-up like" (click)="likeBook(recommended_book.ISBN)"></i>
 
           <p class="likes">203</p>
-          <i
-            class="fa fa-thumbs-down dislike"
-            (click)="dislikeBook(recommended_book.ISBN)"
-          ></i>
+          <i class="fa fa-thumbs-down dislike" (click)="dislikeBook(recommended_book.ISBN)"></i>
           <p class="dislikes">304</p>
           <button class="readbook" (click)="readBook(recommended_book.ISBN)">
             Read Book
@@ -154,10 +125,7 @@
       </div>
     </div>
     <div class="other-books">
-      <div
-        class="booksliderdiv1"
-        *ngIf="gotOtherUserReadsResponse; else loadOtherSeeBooks"
-      >
+      <div class="booksliderdiv1" *ngIf="gotOtherUserReadsResponse; else loadOtherSeeBooks">
         <div class="swiper-container">
           <div class="swiper-wrapper">
             <div class="swiper-slide" *ngFor="let others_feed of others_feeds">
@@ -179,33 +147,19 @@
                     </p>
                     <div class="row text-left">
                       <div class="col-5">
-                        <i
-                          class="fa fa-thumbs-up"
-                          (click)="likeBook(others_feed.ISBN)"
-                        ></i
-                        ><span class="likes"
-                          >&nbsp; {{ others_feed.likes }}</span
-                        >
+                        <i class="fa fa-thumbs-up" (click)="likeBook(others_feed.ISBN)"></i><span class="likes">&nbsp;
+                          {{ others_feed.likes }}</span>
                       </div>
                       <div class="col-5">
-                        <i
-                          class="fa fa-thumbs-down"
-                          (click)="dislikeBook(others_feed.ISBN)"
-                        ></i>
-                        <span class="diss"
-                          >&nbsp; {{ others_feed.disliked }}</span
-                        >
+                        <i class="fa fa-thumbs-down" (click)="dislikeBook(others_feed.ISBN)"></i>
+                        <span class="diss">&nbsp; {{ others_feed.disliked }}</span>
                       </div>
                     </div>
                   </div>
                   <button class="bookopen" (click)="readBook(others_feed.ISBN)">
                     Read
                   </button>
-                  <button
-                    class="pop"
-                    id="{{ others_feed.ISBN }}"
-                    (click)="bookmark(others_feed.ISBN, $event)"
-                  >
+                  <button class="pop" id="{{ others_feed.ISBN }}" (click)="bookmark(others_feed.ISBN, $event)">
                     Bookmark
                   </button>
                 </div>
@@ -236,11 +190,8 @@
       </div>
       <ul class="catslist">
         <li *ngFor="let recommended_category of recommended_categories">
-          <Button
-            #{{recommended_category}}
-            (click)="searchBook(recommended_category, true)"
-            >{{ recommended_category }}</Button
-          >
+          <Button #{{recommended_category}}
+            (click)="searchBook(recommended_category, true)">{{ recommended_category }}</Button>
         </li>
       </ul>
     </div>

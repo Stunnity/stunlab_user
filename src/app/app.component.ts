@@ -1,20 +1,20 @@
-import { Component, OnInit, HostListener, Inject } from "@angular/core";
-import { AppDataService } from "./services/app-data/app-data.service";
-import { TransferDataService } from "./services/shared-data/transfer-data.service";
-import { UserDataService } from "./services/user-data/user-data.service";
+import { Component, OnInit, HostListener, Inject } from '@angular/core';
+import { AppDataService } from './services/app-data/app-data.service';
+import { TransferDataService } from './services/shared-data/transfer-data.service';
+import { UserDataService } from './services/user-data/user-data.service';
 import {
   Router,
   RouterEvent,
   NavigationStart,
   NavigationEnd,
-} from "@angular/router";
-import { HttpErrorResponse } from "@angular/common/http";
-import * as $ from "jquery";
-import { DOCUMENT } from "@angular/common";
+} from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
+import * as $ from 'jquery';
+import { DOCUMENT } from '@angular/common';
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"],
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
   constructor(
@@ -23,9 +23,9 @@ export class AppComponent implements OnInit {
     private appService: AppDataService,
     private transferService: TransferDataService,
     private userService: UserDataService
-  ) {}
+  ) { }
 
-  title = "stunlab";
+  title = 'stunlab';
   isOnline: boolean;
   categories: any[];
   mostViewedCategories: any[];
@@ -42,9 +42,11 @@ export class AppComponent implements OnInit {
     this.getCategories();
     this.getMostViewedCategories();
 
-    const isAuthentificated: boolean = this.transferService.getLoggedIn();
+    const isAuthentificated: boolean = this.transferService.loggedIn();
+
     if (isAuthentificated) {
       this.getUserBooks();
+      this.authUser();
       this.getUserState();
     } else {
       this.getMostViewedLevels();
@@ -52,10 +54,15 @@ export class AppComponent implements OnInit {
   }
 
   mobileApp() {
-    this.document.location.href = "https://stunlabmobile.heroku.com";
+    this.document.location.href = 'https://stunlabmobile.herokuapp.com';
   }
-
-  routerEvents() {
+  authUser() {
+    this.userService.authUser().subscribe((res) => {
+      console.log(res);
+      this.transferService.setUser(res);
+      this._router.navigate(['/home']);
+    });
+  } routerEvents() {
     this._router.events.subscribe((event: RouterEvent) => {
       switch (true) {
         case event instanceof NavigationStart: {
@@ -76,12 +83,6 @@ export class AppComponent implements OnInit {
         this.transferService.setCategories(res);
       },
       (err: HttpErrorResponse) => {
-        this.transferService.setCategories([
-          "Sciences",
-          "Language",
-          "Technology",
-          "Fiction",
-        ]);
       }
     );
   }
@@ -89,15 +90,25 @@ export class AppComponent implements OnInit {
   getMostViewedCategories() {
     this.appService.getMostViewedCategories().subscribe(
       (res: any[]) => {
-        this.transferService.setMostViewedCategories(res);
+        if (res.length < 3) {
+          this.mostViewedCategories = [
+            'Science',
+            'Language',
+            'Ict',
+            'Humanity',
+          ];
+          this.transferService.setMostViewedCategories(
+            this.mostViewedCategories
+          );
+        } else { this.transferService.setMostViewedCategories(res); }
       },
       (err) => {
-        this.mostViewedCategories = this.transferService.getCategories() || [
-          "Sciences",
-          "Language",
-          "Technology",
-          "Fiction",
-        ];
+        // this.mostViewedCategories = this.transferService.getCategories() || [
+        //   'Science',
+        //   'Language',
+        //   'Ict',
+        //   'Humanity',
+        // ];
         this.transferService.setMostViewedCategories(this.mostViewedCategories);
       }
     );
@@ -105,12 +116,10 @@ export class AppComponent implements OnInit {
   getMostViewedLevels() {
     this.appService.getMostViewedLevels().subscribe(
       (res: any[]) => {
-        this.transferService.setMostViewedLevels(res);
-      },
-      (err) => {
-        this.mostViewedLevels = ["Nursery", "Primary", "Secondary", "Others"];
+        console.log(res)
+        this.mostViewedLevels = ['A level', 'Primary', 'Secondary', 'All'];
         this.transferService.setMostViewedLevels(this.mostViewedLevels);
-      }
+      },
     );
   }
 
@@ -120,7 +129,7 @@ export class AppComponent implements OnInit {
         this.userBooks = res;
       },
       (err) => {
-        this.userBooks = ["Science", "Language", "ICT", "Fiction"];
+        this.userBooks = ['Science', 'Language', 'ICT', 'Humanity'];
       }
     );
     setTimeout(() => {
@@ -128,6 +137,6 @@ export class AppComponent implements OnInit {
     }, 1000);
   }
   getUserState() {
-    this.userService.loggedIn()
+    this.userService.loggedIn();
   }
 }

@@ -20,11 +20,7 @@
       </div>
 
       <div class="section-guider">
-        <button
-          class="btn btn-danger"
-          type="button"
-          [routerLink]="['/', 'signup']"
-        >
+        <button class="btn btn-danger" type="button" [routerLink]="['/', 'signup']">
           Enroll to Stunlab
         </button>
       </div>
@@ -34,13 +30,8 @@
     <section class="book-nav-slider" id="book-nav-slider">
       <div class="bookdiv">
         <ul class="booknav" id="booknav">
-          <li
-            class="navlist"
-            id="{{ category }}"
-            *ngFor="let category of mostViewedCategories; let first = first"
-            [class.active]="first"
-            (click)="getCategoryBooks(category, $event)"
-          >
+          <li class="navlist" id="{{ category }}" *ngFor="let category of mostViewedCategories; let first = first"
+            [class.active]="first" (click)="getCategoryBooks(category, $event)">
             <a>{{ category }}</a>
           </li>
           <li class="slide"></li>
@@ -52,59 +43,45 @@
     <div class="booksliderdiv1" *ngIf="gotBookResponse; else loadBooks">
       <div class="swiper-container">
         <div class="swiper-wrapper">
-          <div
-            class="swiper-slide"
-            *ngFor="let category_book of category_books"
-          >
+          <div class="swiper-slide" *ngFor="let category_book of category_books">
             <div class="post">
-              <img src="assets/images/bb.jpg" alt="" class="slider-image" />
+              <img [src]="sanitizeUrl( category_book.bookCover)" alt="{{ category_book.bookName }} Cover"
+                class="slider-image" />
               <div class="post-info">
                 <p id="para">
-                  {{ category_book.title }}
+                  {{ category_book.bookName }}
                 </p>
                 <div class="post-meta">
                   <p class="book-category text-left">
-                    {{ category_book.provider }}
+                    {{ category_book.bookProvider }}
                   </p>
                   <p class="book-provider text-left">
-                    {{ category_book.publisher }}
+                    {{ category_book.bookPublisher }}
                   </p>
                   <p class="book-readers text-left">
-                    {{ category_book.readers }}&nbsp;&nbsp;Readers
+                    {{ category_book.bookViews }}
+                    &nbsp;&nbsp;Readers
                   </p>
                   <div class="row text-left">
                     <div class="col-5">
-                      <i
-                        class="fa fa-thumbs-up"
-                        (click)="likeBook(category_book.ISBN)"
-                      ></i
-                      ><span class="likes"
-                        >&nbsp; {{ category_book.likes }}</span
-                      >
+                      <i class="fa fa-thumbs-up" (click)="sendToLogin()"></i><span
+                        class="likes">&nbsp;{{ category_book.bookLikes }}
+                      </span>
                     </div>
                     <div class="col-5">
-                      <i
-                        class="fa fa-thumbs-down"
-                        (click)="dislikeBook(category_book.ISBN)"
-                      ></i>
-                      <span class="diss"
-                        >&nbsp; {{ category_book.dislikes }}</span
-                      >
+                      <i class="fa fa-thumbs-down" (click)="sendToLogin()"></i>
+                      <span class="diss">&nbsp; {{ category_book.bookDislikes }}
+                      </span>
                     </div>
                   </div>
                 </div>
-                <button class="bookopen" (click)="readBook(category_book.ISBN)">
+                <button class="bookopen" (click)="sendToLogin()">
                   Read
                 </button>
-                <button
-                  class="pop"
-                  id="pop"
-                  (click)="bookmark(category_book.ISBN, $event)"
-                >
+                <button class="pop" id="pop" (click)="sendToLogin()">
                   Bookmark
                 </button>
               </div>
-              $
             </div>
           </div>
         </div>
@@ -129,12 +106,8 @@
             <img src="assets/images/book.png" alt="" />
             <div *ngIf="isNotConnected"></div>
             <div class="num" *ngIf="!isNotConnected">{{ number_books }}</div>
-            <img
-              *ngIf="isNotConnected"
-              style="width: 50px; margin-top: -4px;"
-              title="Checking"
-              src="../../assets/images/spinner.gif"
-            />
+            <img *ngIf="isNotConnected" style="width: 50px; margin-top: -4px;" title="Checking"
+              src="assets/images/spinner.gif" />
             Books
           </div>
         </div>
@@ -145,12 +118,8 @@
             <img src="assets/images/user.png" alt="" />
             <div *ngIf="isNotConnected"></div>
             <div class="num" *ngIf="!isNotConnected">{{ number_readers }}</div>
-            <img
-              *ngIf="isNotConnected"
-              style="width: 50px; margin-top: -4px;"
-              title="Checking"
-              src="../../assets/images/spinner.gif"
-            />
+            <img *ngIf="isNotConnected" style="width: 50px; margin-top: -4px;" title="Checking"
+              src="assets/images/spinner.gif" />
             Readers
           </div>
         </div>
@@ -163,12 +132,8 @@
             <div class="num" *ngIf="!isNotConnected">
               {{ number_downloads }}
             </div>
-            <img
-              *ngIf="isNotConnected"
-              style="width: 50px; margin-top: -4px;"
-              title="Checking"
-              src="../../assets/images/spinner.gif"
-            />
+            <img *ngIf="isNotConnected" style="width: 50px; margin-top: -4px;" title="Checking"
+              src="assets/images/spinner.gif" />
             Downloads
           </div>
         </div>
@@ -186,16 +151,10 @@
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sciences
         </button>
         <button>
-          &nbsp;&nbsp;&nbsp;<img
-            src="assets/images/text.png"
-            alt=""
-          />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Technoloy
+          &nbsp;&nbsp;&nbsp;<img src="assets/images/text.png" alt="" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Technoloy
         </button>
         <button>
-          &nbsp;&nbsp;&nbsp;<img
-            src="assets/images/lng.png"
-            alt=""
-          />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Language
+          &nbsp;&nbsp;&nbsp;<img src="assets/images/lng.png" alt="" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Language
         </button>
         <button>
           &nbsp;&nbsp;&nbsp;
@@ -203,28 +162,16 @@
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Literature
         </button>
         <button>
-          &nbsp;&nbsp;&nbsp;<img
-            src="assets/images/muntu.png"
-            alt=""
-          />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Humanities
+          &nbsp;&nbsp;&nbsp;<img src="assets/images/muntu.png" alt="" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Humanities
         </button>
         <button>
-          &nbsp;&nbsp;&nbsp;<img
-            src="assets/images/ict.png"
-            alt=""
-          />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ict
+          &nbsp;&nbsp;&nbsp;<img src="assets/images/ict.png" alt="" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ict
         </button>
         <button>
-          &nbsp;&nbsp;&nbsp;<img
-            src="assets/images/pro.png"
-            alt=""
-          />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Programming
+          &nbsp;&nbsp;&nbsp;<img src="assets/images/pro.png" alt="" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Programming
         </button>
         <button>
-          &nbsp;&nbsp;&nbsp;<img
-            src="assets/images/sci.png"
-            alt=""
-          />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sports
+          &nbsp;&nbsp;&nbsp;<img src="assets/images/sci.png" alt="" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sports
         </button>
       </div>
       <!-- section title -->
@@ -261,38 +208,20 @@
             </li>
           </ul>
           <div class="forminputs">
-            <input
-              type="text"
-              name="Name"
-              id="contact-name"
-              [(ngModel)]="contact.name"
-              placeholder="Enter Your Name "
-            />
-            <input
-              type="text"
-              name=""
-              id="contact-email"
-              [(ngModel)]="contact.email"
-              placeholder="Enter Your Email"
-            />
+            <input type="text" name="Name" id="contact-name" [(ngModel)]="contact.fullnames"
+              placeholder="Enter Your Name " />
+            <input type="text" name="" id="contact-email" [(ngModel)]="contact.email" placeholder="Enter Your Email" />
             <br />
-            <textarea
-              class="textareaform"
-              [(ngModel)]="contact.message"
-              id="contact-message"
-              placeholder="Enter Your Message"
-            ></textarea>
+            <textarea class="textareaform" [(ngModel)]="contact.message" id="contact-message"
+              placeholder="Enter Your Message"></textarea>
           </div>
-          <button
-            (click)="contactUs()"
-            id="submit-button"
-            [disabled]="invalidContactData"
-          >
+          <button (click)="contactUs()" id="submit-button" [disabled]="invalidContactData">
             Contact Us
           </button>
           <div class="report-section">
-            <a (click)="report()">Report a technical problem !</a>
+            <a data-toggle="modal" data-target="#exampleModalCenter">Report a technical problem !</a>
           </div>
+          <!-- Button trigger modal -->
         </div>
       </div>
     </section>
@@ -348,3 +277,30 @@
 <ng-template #dashboard>
   <app-dashboard></app-dashboard>
 </ng-template>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">
+          REPORT A TECHNICAL PROBLEM
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="text" name="" class="form-control" [(ngModel)]="report_message" placeholder="Report !!!" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clearReport()">
+          Cancel
+        </button>
+        <button type="button" class="btn btn-danger" (click)="report()">
+          Send
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,14 +1,17 @@
-import { Component, OnInit } from "@angular/core";
-import { UserModel } from "./user.model";
-import { UserDataService } from "../services/user-data/user-data.service";
-import { interval } from "rxjs";
-import { HttpErrorResponse } from "@angular/common/http";
-import { Router } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { UserModel } from './user.model';
+import { UserDataService } from '../services/user-data/user-data.service';
+import { interval } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { authenticate, decodeToken } from 'src/utils/common';
+import { TransferDataService } from '../services/shared-data/transfer-data.service';
 
 @Component({
-  selector: "app-signup",
-  templateUrl: "./signup.component.html",
-  styleUrls: ["./signup.component.css"],
+  selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent implements OnInit {
   isNotConnected: boolean;
@@ -18,26 +21,33 @@ export class SignupComponent implements OnInit {
   _recaptcha = false;
   isLoading = false;
   gotResponse: boolean;
-  invalidData: boolean = true;
+  invalidData = true;
   errorOccurred: boolean;
-  showErrorState: boolean = false;
+  showErrorState = false;
   error_message: string;
   emailPass: boolean;
+  usernameisNotConnected: boolean;
 
-  constructor(private userData: UserDataService, private _router: Router) {}
+  constructor(private userData: UserDataService, private transferService: TransferDataService, private _router: Router, private cookieService: CookieService) { }
 
   ngOnInit() {
-    this.user.email = "";
-    this.user.phone = "";
     interval(100).subscribe((val) => this.disableSubmit());
   }
 
   signUp(): void {
     this.toogleLoading(true);
+    console.log(this.user);
     this.userData.signUp(this.user).subscribe(
       (res) => {
-        this.toogleLoading(false);
-        this._router.navigate(["/login"]);
+        const token = res['token'];
+        if (authenticate(this.cookieService, token, this.transferService)) {
+          const { sub } = decodeToken(token);
+          this.userData.authUser(sub).subscribe((res) => {
+            console.log(res);
+            this.transferService.setUser(res);
+            this._router.navigate(['/home']);
+          });
+        }
       },
       (error: HttpErrorResponse) => {
         this.toogleLoading(false);
@@ -47,19 +57,18 @@ export class SignupComponent implements OnInit {
   }
 
   validateEmail(email): void {
-    const _email = document.getElementById("email");
+    const _email = document.getElementById('email');
     const regex = /\S+@\S+\.\S+/;
     if (regex.test(email)) {
-      _email.classList.add("is-valid");
-      _email.classList.remove("is-invalid");
+      _email.classList.add('is-valid');
+      _email.classList.remove('is-invalid');
       let emailExists;
       this.userData.usernameIsAvailable(email).subscribe(
         (res: any) => {
           this.gotResponse = true;
           this.showErrorState = true;
           emailExists = res.exists;
-          if (!emailExists) this.emailPass = true;
-          else this.emailPass = false;
+          if (!emailExists) { this.emailPass = true; } else { this.emailPass = false; }
         },
         (err) => {
           this.gotResponse = false;
@@ -68,54 +77,57 @@ export class SignupComponent implements OnInit {
         }
       );
     } else {
-      _email.classList.remove("is-valid");
-      _email.classList.add("is-invalid");
+      _email.classList.remove('is-valid');
+      _email.classList.add('is-invalid');
       return;
     }
   }
 
   validatePhone(phone: string): void {
-    const _phone = document.getElementById("phone-number");
+    const _phone = document.getElementById('phone-number');
     const regex = /^([0-9 \(\)\/\+ \-]*)$/;
     if (regex.test(phone) && phone.length >= 10) {
-      _phone.classList.remove("is-invalid");
-      _phone.classList.add("is-valid");
+      _phone.classList.remove('is-invalid');
+      _phone.classList.add('is-valid');
     } else {
-      _phone.classList.remove("is-valid");
-      _phone.classList.add("is-invalid");
+      _phone.classList.remove('is-valid');
+      _phone.classList.add('is-invalid');
     }
   }
 
   validateUsername(username: String): void {
     let username_available;
-    const id_username = document.getElementById("username");
-    const available_status = document.getElementById("available-status");
+    this.usernameisNotConnected = true;
+    const id_username = document.getElementById('username');
+    const available_status = document.getElementById('available-status');
     if (username.length > 5) {
       this.userData.usernameIsAvailable(username).subscribe((res: any) => {
         username_available = res.exists;
+
+        this.usernameisNotConnected = false;
       });
       if (!username_available) {
-        if (this.hasClass(id_username, "is-invalid")) {
-          id_username.classList.remove("is-invalid");
-          available_status.classList.add("text-danger");
+        if (this.hasClass(id_username, 'is-invalid')) {
+          id_username.classList.remove('is-invalid');
+          available_status.classList.add('text-danger');
         }
-        id_username.classList.add("is-valid");
-        available_status.classList.add("text-success");
-        available_status.innerHTML = "Username is available";
+        id_username.classList.add('is-valid');
+        available_status.classList.add('text-success');
+        available_status.innerHTML = 'Username is available';
       } else {
-        if (this.hasClass(id_username, "is-valid")) {
-          id_username.classList.remove("is-valid");
-          available_status.classList.add("text-success");
+        if (this.hasClass(id_username, 'is-valid')) {
+          id_username.classList.remove('is-valid');
+          available_status.classList.add('text-success');
         }
-        id_username.classList.add("is-invalid");
-        available_status.classList.add("text-danger");
-        available_status.innerHTML = "Username already taken";
+        id_username.classList.add('is-invalid');
+        available_status.classList.add('text-danger');
+        available_status.innerHTML = 'Username already taken';
       }
     } else {
-      id_username.classList.add("is-invalid");
-      id_username.classList.remove("is-valid");
-      available_status.classList.add("text-danger");
-      available_status.innerHTML = "Username too short";
+      id_username.classList.add('is-invalid');
+      id_username.classList.remove('is-valid');
+      available_status.classList.add('text-danger');
+      available_status.innerHTML = 'Username too short';
     }
   }
 
@@ -125,25 +137,26 @@ export class SignupComponent implements OnInit {
   }
 
   checkPassword(): void {
-    const c_password = document.getElementById("confirm_password");
+    const c_password = document.getElementById('confirm_password');
     if (this.user.c_password === this.user.password) {
-      c_password.classList.add("is-valid");
-      c_password.classList.remove("is-invalid");
+      c_password.classList.add('is-valid');
+      c_password.classList.remove('is-invalid');
     } else {
-      c_password.classList.add("is-invalid");
-      c_password.classList.remove("is-valid");
+      c_password.classList.add('is-invalid');
+      c_password.classList.remove('is-valid');
     }
   }
 
   isEmailPhoneNull(): boolean {
-    if (this.user.email == "" && this.user.phone == "") return false;
+    if (this.user.email == '' && this.user.phone == '') { return false; }
     return true;
   }
 
   hasNull(object: Object): boolean {
+    // tslint:disable-next-line: forin
     for (const key in object) {
-      if (key == "email" || key == "phone") return false;
-      if (object[key] == "") return true;
+      if (key == 'email' || key == 'phone') { return false; }
+      if (object[key] == '') { return true; }
     }
     return false;
   }
@@ -151,13 +164,13 @@ export class SignupComponent implements OnInit {
   errorHandler(status: number): void {
     if (status == 0) {
       this.errorOccurred = true;
-      this.error_message = "Address unreachable";
+      this.error_message = 'Address unreachable';
     }
   }
   toogleLoading(value: boolean): void {
-    const button = document.getElementById("button-text");
+    const button = document.getElementById('button-text');
     this.isLoading = value;
-    button.innerHTML = this.isLoading ? "Creating Account" : "Create Account";
+    button.innerHTML = this.isLoading ? 'Creating Account' : 'Create Account';
   }
 
   hasClass(element: Element, _class: string): boolean {
@@ -165,18 +178,18 @@ export class SignupComponent implements OnInit {
   }
 
   scorePassword(password): number {
-    var score = 0;
-    if (!password) return score;
+    let score = 0;
+    if (!password) { return score; }
 
     // award every unique letter until 5 repetitions
-    var letters = new Object();
-    for (var i = 0; i < password.length; i++) {
+    const letters = new Object();
+    for (let i = 0; i < password.length; i++) {
       letters[password[i]] = (letters[password[i]] || 0) + 1;
       score += 5.0 / letters[password[i]];
     }
 
     // bonus points for mixing it up
-    var variations = {
+    const variations = {
       digits: /\d/.test(password),
       lower: /[a-z]/.test(password),
       upper: /[A-Z]/.test(password),
@@ -184,7 +197,7 @@ export class SignupComponent implements OnInit {
     };
 
     let variationCount = 0;
-    for (var check in variations) {
+    for (const check in variations) {
       variationCount += variations[check] == true ? 1 : 0;
     }
     score += (variationCount - 1) * 10;
@@ -193,25 +206,25 @@ export class SignupComponent implements OnInit {
   }
 
   passwordMeter(score: number): void {
-    const element: Element = document.querySelector("#password_validation");
+    const element: Element = document.querySelector('#password_validation');
     const sibling: any = element.previousSibling;
-    element.removeAttribute("class");
+    element.removeAttribute('class');
     if (score >= 80) {
-      sibling.classList.remove("is-invalid");
-      element.classList.add("text-success");
-      element.innerHTML = "Strong";
+      sibling.classList.remove('is-invalid');
+      element.classList.add('text-success');
+      element.innerHTML = 'Strong';
     } else if (score >= 60) {
-      sibling.classList.remove("is-invalid");
-      element.classList.add("text-secondary");
-      element.innerHTML = "Good";
+      sibling.classList.remove('is-invalid');
+      element.classList.add('text-secondary');
+      element.innerHTML = 'Good';
     } else if (score > 40) {
-      sibling.classList.remove("is-invalid");
-      element.classList.add("text-warning");
-      element.innerHTML = "Weak";
+      sibling.classList.remove('is-invalid');
+      element.classList.add('text-warning');
+      element.innerHTML = 'Weak';
     } else if (score <= 40) {
-      element.classList.add("text-danger");
-      sibling.classList.add("is-invalid");
-      element.innerHTML = "Too Weak";
+      element.classList.add('text-danger');
+      sibling.classList.add('is-invalid');
+      element.innerHTML = 'Too Weak';
     }
   }
 
@@ -234,17 +247,17 @@ export class SignupComponent implements OnInit {
       this.invalidData = true;
       return;
     }
-    if (this.user.email == "") {
-      const _email = document.getElementById("email");
+    if (this.user.email == '') {
+      const _email = document.getElementById('email');
       // const _phone = document.getElementById("phone-number");
-      _email.classList.remove("is-invalid");
+      _email.classList.remove('is-invalid');
       // _phone.classList.remove("is-invalid");
     }
-    if (this.user.phone == "") {
-      const _phone = document.getElementById("phone-number");
-      _phone.classList.remove("is-invalid");
+    if (this.user.phone == '') {
+      const _phone = document.getElementById('phone-number');
+      _phone.classList.remove('is-invalid');
     }
-    const invalid_input = document.querySelector(".is-invalid");
+    const invalid_input = document.querySelector('.is-invalid');
     if (invalid_input) {
       this.invalidData = true;
       return;

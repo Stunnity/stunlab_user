@@ -1,0 +1,11 @@
+{
+  "/api": {
+    "target": "https://stunlabapis.herokuapp.com",
+    "secure": false,
+    "pathRewrite": {
+      "^/api": ""
+    },
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}

@@ -19,33 +19,15 @@
         <div class="bg-dropdown"></div>
         <ul class="navbar-nav">
           <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
               Sort
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a
-                class="dropdown-item"
-                id="readers"
-                (click)="filterBooks($event)"
-                >Most Popular
+              <a class="dropdown-item" id="readers" (click)="filterBooks($event)">Most Popular
               </a>
-              <a
-                class="dropdown-item"
-                id="downloads"
-                (click)="filterBooks($event)"
-                >Most Downloads</a
-              >
-              <a class="dropdown-item" id="name" (click)="filterBooks($event)"
-                >Most Liked</a
-              >
+              <a class="dropdown-item" id="downloads" (click)="filterBooks($event)">Most Downloads</a>
+              <a class="dropdown-item" id="name" (click)="filterBooks($event)">Most Liked</a>
             </div>
           </li>
         </ul>
@@ -59,20 +41,20 @@
   <div class="books" *ngIf="!isNotConnected; else loadBooks">
     <div class="filterdiv2" *ngFor="let book of books">
       <!-- <img src="{{ BASE_URL }}{{ book.cover }}" alt="" height="200" width="200" /> -->
-      <img src="../../assets/images/aa.jpg" alt="" height="200" width="200" />
+      <img [src]="sanitizeUrl( book.bookCover)" alt="{{ book.bookName }} Cover" height="200" width="200" />
       <p class="booktext">Book</p>
-      <button class="pop" (click)="bookmark(1, 1, $event)" id="pop">
+      <button class="pop" (click)="bookmark(book.ISBN, $event)" id="pop">
         Bookmark
       </button>
       <br />
       <div class="bookinfo">
-        <span class="bookhead">{{ book.name }}</span> <br />
+        <span class="bookhead">{{ book.bookName }}</span> <br />
         <span class="booktitle">Provider :</span> &nbsp;&nbsp;
-        <span>{{ book.provider }}</span> <br />
+        <span>{{ book.bookProvider }}</span> <br />
         <span class="booktitle">Category : </span> &nbsp;&nbsp;
-        <span>{{ book.category }}</span> <br />
-        <span>{{ book.readers }} views</span><br />
-        <span>{{ book.Downloads }} views</span><br />
+        <span>{{ book.bookCategory }}</span> <br />
+        <span>{{ book.bookViews }} views</span><br />
+        <span>{{ book.bookDownloads }} downloads</span><br />
 
         <i class="fa fa-thumbs-up" (click)="likeBook(book.ISBN)"></i>
         <i class="fa fa-thumbs-down" (click)="dislikeBook(book.ISBN)"></i>

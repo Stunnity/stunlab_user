@@ -1,40 +1,46 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Router } from "@angular/router";
-import { HttpHeaders } from "@angular/common/http";
-import { environment } from "./../../../environments/environment";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from './../../../environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class UserDataService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
   private BASE_URL: string = environment.BASE_API;
-  signUp(user: Object) {
-    return this.httpClient.post(`${this.BASE_URL}/api/auth/register`, user);
+
+  signUp(user) {
+    return this.httpClient.post(`${this.BASE_URL}/api/user/register`, user);
   }
-  usernameIsAvailable(username: String) {
+  usernameIsAvailable(username) {
     return this.httpClient.get(
       `${this.BASE_URL}/api/user/exists/username/${username}`
     );
   }
-  emailIsAvailbable(email: String) {
+  emailIsAvailbable(email: string) {
     return this.httpClient.get(
       `${this.BASE_URL}/api/user/exists/email/${email}`
     );
   }
-  login(user: Object) {
-    return this.httpClient.post(`${this.BASE_URL}/api/auth/login`, user);
+  login(user) {
+    return this.httpClient.post(`${this.BASE_URL}/api/user/login`, user);
   }
   subscribeToNewsLetter(email) {
-    return this.httpClient.post(`${this.BASE_URL}/api/auth/login`, email);
+    return this.httpClient.post(`${this.BASE_URL}/api/subscribe/${email}`, {});
   }
   loggedIn() {
-    return !!localStorage.getItem("token");
+    return !!localStorage.getItem('token');
   }
-  userAvatar(username: string) {
+  userAvatar(username): Observable<Blob> {
     return this.httpClient.get(`https://ui-avatars.com/api/?name=${username}`, {
-      responseType: "blob",
+      responseType: 'blob',
     });
+  }
+  authUser() {
+    return this.httpClient.get(`${this.BASE_URL}/api/user/me`);
+  }
+  logout() {
+    return this.httpClient.post(`${this.BASE_URL}/api/user/logout`, {})
   }
 }

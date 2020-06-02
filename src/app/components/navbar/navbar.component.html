@@ -1,78 +1,39 @@
 <header class="header">
   <nav class="navbar navbar-expand-lg navbar-light bg-white">
     <a class="navbar-brand" [routerLink]="['/']">
-      <img
-        class="navbar-logo"
-        src="assets/images/stunlab_logo/SVG/stunlab_logo_corrected_1.svg"
-        alt="Logo"
-      />
+      <img class="navbar-logo" src="assets/images/stunlab_logo/SVG/stunlab_logo_corrected_1.svg" alt="Logo" />
     </a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse m-3" id="navbarSupportedContent">
       <ul class="navbar-nav">
         <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            id="navbarDropdown"
-            role="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-list-ul"></i> &nbsp;Categories
           </a>
-          <div
-            class="dropdown-menu category-area"
-            aria-labelledby="navbarDropdown"
-          >
-            <a
-              class="dropdown-item"
-              #{{category}}
-              (click)="searchBook(category, true)"
-              *ngFor="let category of categories"
-              >{{ category }}</a
-            >
+          <div class="dropdown-menu category-area" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" #{{category}} (click)="searchBook(category.categoryName, true)"
+              *ngFor="let category of categories">{{ category.categoryName }}</a>
 
-            <a class="dropdown-item" *ngIf="!categoriesAvailable"
-              >Loading
-              <img
-                style="width: 40px; margin-top: 0px;"
-                src="../../assets/images/spinner.gif"
-            /></a>
+            <a class="dropdown-item" *ngIf="!categoriesAvailable">Loading
+              <img style="width: 40px; margin-top: 0px;" src="assets/images/spinner.gif" /></a>
           </div>
         </li>
 
         <li class="nav-item">
           <div class="search-container">
-            <input
-              type="text"
-              placeholder="Search for any book"
-              class="search-input form-control"
-              #search
-            /><i
-              (click)="searchBook(search.value)"
-              class="fa fa-search"
-              id="search"
-            ></i>
+            <input type="text" placeholder="Search for any book" class="search-input form-control" #search /><i
+              (click)="searchBook(search.value)" class="fa fa-search" id="search"></i>
           </div>
         </li>
       </ul>
 
       <li class="nav-item about-link" *ngIf="!isLoggedIn">
-        <a class="nav-link" [routerLink]="['/', 'about']"
-          >About <span class="sr-only">(current)</span></a
-        >
+        <a class="nav-link" [routerLink]="['/', 'about']">About <span class="sr-only">(current)</span></a>
       </li>
       <form class="form-inline" *ngIf="!isLoggedIn; else loggedInTemplate">
         <button class="login" type="button" [routerLink]="['/', 'login']">
@@ -84,47 +45,24 @@
       </form>
       <ng-template #loggedInTemplate>
         <div class="user-details">
-          <div
-            class="liked-books"
-            (click)="bookNavigate(false)"
-            title="Bookmarks"
-          >
+          <div class="liked-books" (click)="bookNavigate(false)" title="Bookmarks">
             <i class="fa fa-book"></i>
           </div>
           <div class="book-shelf" title="Favourites">
-            <img
-              src="../../../assets/images/likeHeart.png"
-              style="width: 25px;"
-              alt=""
-              (click)="bookNavigate(true)"
-            />
+            <img src="assets/images/likeHeart.png" style="width: 25px;" alt="" (click)="bookNavigate(true)" />
           </div>
           <div class="user-profile">
             <ul class="navbar-nav">
               <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  id="navbarDropdown"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <img
-                    src="assets/images/Screenshot from 2020-05-01 18-58-56.png"
-                    style="width: 27px; margin: 0 4px;"
-                    alt=""
-                  />
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  <img style="width: 27px; margin: 0 4px;" alt="{{username}}" [src]="avatar" />
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" [routerLink]="['/', 'user']"
-                    >Profile</a
-                  >
+                  <a class="dropdown-item" [routerLink]="['/', 'user']">Profile</a>
                   <a class="dropdown-item" [routerLink]="['/', '']">Invite</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" [routerLink]="['/', 'login']"
-                    >Logout</a
-                  >
+                  <a class="dropdown-item" (click)="logout()">Logout</a>
                 </div>
               </li>
             </ul>

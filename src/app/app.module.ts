@@ -1,33 +1,34 @@
-import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
-import { AppRoutingModule } from "./app-routing.module";
-import { AppComponent } from "./app.component";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HomeComponent } from "./home/home.component";
-import { MostviewedComponent } from "./mostviewed/mostviewed.component";
-import { SearchComponent } from "./search/search.component";
-import { RecaptchaModule } from "ng-recaptcha";
-import { AboutComponent } from "./about/about.component";
-import { ProfileComponent } from "./profile/profile.component";
-import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
-import { LoginComponent } from "./login/login.component";
-import { SignupComponent } from "./signup/signup.component";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { FooterComponent } from "./components/footer/footer.component";
-import { NavbarComponent } from "./components/navbar/navbar.component";
-import { IsOnlineComponent } from "./components/is-online/is-online.component";
-import { HttpClientModule } from "@angular/common/http";
-import { DashboardComponent } from "./dashboard/dashboard.component";
-import { UserbooksComponent } from "./userbooks/userbooks.component";
-import { PdfJsViewerModule } from "ng2-pdfjs-viewer";
-import { ReadBookComponent } from "./read-book/read-book.component";
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from './home/home.component';
+import { MostviewedComponent } from './mostviewed/mostviewed.component';
+import { SearchComponent } from './search/search.component';
+import { RecaptchaModule } from 'ng-recaptcha';
+import { AboutComponent } from './about/about.component';
+import { ProfileComponent } from './profile/profile.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FooterComponent } from './components/footer/footer.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { IsOnlineComponent } from './components/is-online/is-online.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { UserbooksComponent } from './userbooks/userbooks.component';
+import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
+import { CookieService } from 'ngx-cookie-service';
+import { ReadBookComponent } from './read-book/read-book.component';
+import { TokenInterceptorService } from './services/interceptors/token-interceptor.service';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     MostviewedComponent,
     SearchComponent,
-
     AboutComponent,
     ProfileComponent,
     PageNotFoundComponent,
@@ -36,7 +37,6 @@ import { ReadBookComponent } from "./read-book/read-book.component";
     FooterComponent,
     NavbarComponent,
     IsOnlineComponent,
-
     DashboardComponent,
     UserbooksComponent,
     ReadBookComponent,
@@ -51,7 +51,13 @@ import { ReadBookComponent } from "./read-book/read-book.component";
     RecaptchaModule.forRoot(),
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true,
+    },
+    CookieService],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

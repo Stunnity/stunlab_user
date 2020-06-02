@@ -1,61 +1,75 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+import * as jwt_decode from "jwt-decode";
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class TransferDataService {
-  private categories: any[];
-  private auth_token: string;
-  private mostViewedCategories: any[];
-  private mostViewedLevels: any[];
-  private userBooks: any[];
-  private loggedIn: any = false;
-  private auth_user: Object;
+  private authToken: string;
+  private mostViewedCategories = new BehaviorSubject({});
+  private mostViewedLevels = new BehaviorSubject({});
+  private userBooks = new BehaviorSubject({});
+  private User = new BehaviorSubject({});
+  private categories = new BehaviorSubject({});
 
-  constructor() {}
+  constructor(private cookieService: CookieService, private router: Router) { }
   setCategories(data: any[]) {
-    this.categories = data;
+    this.categories.next(data);
   }
   getCategories() {
-    return this.categories;
+    return this.categories.asObservable();
   }
   unsetCategories() {
     this.categories = null;
   }
 
   setMostViewedCategories(data: any[]) {
-    this.mostViewedCategories = data;
+    this.mostViewedCategories.next(data);
   }
   getMostViewedCategories() {
-    return this.mostViewedCategories;
+    return this.mostViewedCategories.asObservable();
   }
 
   setMostViewedLevels(data: any[]) {
-    this.mostViewedLevels = data;
+    this.mostViewedLevels.next(data);
   }
   getMostViewedLevels() {
-    return this.mostViewedLevels;
-  }
-
-  setupUser(token: string) {
-    this.auth_token = token;
-    // this.auth_user = jwt.decode(this.auth_token);
-  }
-  getUser() {
-    return this.auth_token, this.auth_user;
+    return this.mostViewedLevels.asObservable();
   }
   setUserBooks(data: any[]) {
-    this.userBooks = data;
-    
+    this.userBooks.next(data);
   }
   getUserBooks() {
-    return this.userBooks;
+    return this.userBooks.asObservable();
   }
-  isLoggedIn(value) {
-    this.loggedIn = value;
-    // return value;
+  loggedIn() {
+    const token = this.cookieService.get(`token`);
+    if (!!token) {
+      try {
+        const user = jwt_decode(token);
+        return true
+      } catch (error) {
+        return false;
+      }
+    }
+    else
+      return false;
   }
-  getLoggedIn() {
-    return this.loggedIn;
+  getToken() {
+    return this.cookieService.get("token");
+  }
+  logoutUser() {
+    this.cookieService.delete(`token`);
+    this.router.navigate(['/login']);
+  }
+  setUser(user) {
+    this.User.next(user);
+  }
+  getUser() {
+    console.log(this.User);
+    return this.User.asObservable();
   }
 }

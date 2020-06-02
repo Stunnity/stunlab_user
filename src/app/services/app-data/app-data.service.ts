@@ -1,29 +1,29 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { environment } from "./../../../environments/environment";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from './../../../environments/environment';
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class AppDataService {
   private BASE_URL: string = environment.BASE_API;
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
   getCategories() {
-    return this.httpClient.get(`${this.BASE_URL}/api/getstats/category`);
+    return this.httpClient.get(`${this.BASE_URL}/api/get/category`);
   }
   getMostViewedLevels() {
     return this.httpClient.get(`${this.BASE_URL}/api/mostviewed/level`);
   }
 
   getStatistics() {
-    return this.httpClient.get(`${this.BASE_URL}/api/get/statistics`);
+    return this.httpClient.get(`${this.BASE_URL}/api/statistics/total`);
   }
   getMostViewedCategories() {
     return this.httpClient.get(`${this.BASE_URL}/api/mostviewed/category`);
   }
-  contactUs(details: Object) {
-    return this.httpClient.post(
-      `${this.BASE_URL}/api/mostviewed/level`,
-      details
-    );
+  contactUs(details) {
+    return this.httpClient.post(`${this.BASE_URL}/api/contact`, details);
+  }
+  report(message: string) {
+    return this.httpClient.post(`${this.BASE_URL}/api/report`, message);
   }
 }

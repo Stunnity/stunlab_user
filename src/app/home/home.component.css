@@ -22,6 +22,18 @@
   -webkit-align-items: center;
   align-items: center;
 }
+.modal-body .form-control {
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  padding: 8px;
+}
+.modal-footer {
+  font-family: "Khula", sans-serif !important;
+}
+.modal-body .form-control:focus {
+  background-image: none !important;
+  border: none !important;
+}
 .container-fluid {
   overflow: hidden;
 }
