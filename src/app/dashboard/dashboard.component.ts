@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Data, Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router } from '@angular/router';
 import { BookDataService } from '../services/book-data/book-data.service';
 import { TransferDataService } from '.././services/shared-data/transfer-data.service';
 import * as _ from 'lodash';
-import { empty } from 'src/utils/common';
+import * as $ from 'jquery';
+import { empty, sanitize } from 'src/utils/common';
+import { UserDataService } from '../services/user-data/user-data.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 declare const bookSwiper: any;
 
@@ -13,328 +16,132 @@ declare const bookSwiper: any;
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
+
   total_books: number;
   user_id: string;
-  recommended_books: {
-    ISBN: string;
-    title: string;
-    provider: string;
-    publisher: string;
-    file: string;
-    likes: number;
-    dislikes: number;
-    readers: number;
-  }[];
+  recommendedBooks: any[];
+  recentReads: any[];
+  otherFeeds: any[];
+  readLoading: any;
+  likeLoading: boolean;
+  dislikeLoading: boolean;
 
-  recent_reads: {
-    ISBN: string;
-    title: string;
-    provider: string;
-    publisher: string;
-    file: string;
-    likes: number;
-    dislikes: number;
-    readers: number;
-  }[];
-  others_feeds: {
-    ISBN: string;
-    title: string;
-    provider: string;
-    publisher: string;
-    file: string;
-    likes: number;
-    dislikes: number;
-    readers: number;
-  }[];
   constructor(
     private _router: Router,
-    private route: ActivatedRoute,
     private bookData: BookDataService,
-    private transferService: TransferDataService
+    private userService: UserDataService,
+    private transferService: TransferDataService,
+    private sanitizer: DomSanitizer
   ) { }
 
-  books: any[];
+  books: any;
   number_books = 0;
   user: {};
   username: any;
+  userTotalReads: number;
   gotBookResponse: boolean;
   gotRecommendationResponse: boolean;
   gotOtherUserReadsResponse: boolean;
-  recommended_categories: any[];
+  recommended_categories: any;
+
+
   ngOnInit() {
     this.getUser();
-    setTimeout(() => {
-      this.recommended_categories = this.transferService.getMostViewedCategories();
-      this.books = this.transferService.getUserBooks();
-      if (this.books) { this.total_books = this.books.length; } else { this.total_books = 0; }
-    }, 100);
-
+    this.getStatistic();
+    this.transferService.getMostViewedCategories().subscribe(res => {
+      this.recommended_categories = ['Science', 'Literature', 'Bussiness', 'Sports'];
+    });
     this.recommendBooks();
-    this.getRecentReads();
     this.getOtherUserReads();
   }
-  /**
-   * Get Recent User Reads
-   */
+
   getUser() {
     this.transferService.getUser().subscribe(res => {
       if (empty(res))
         return;
-      this.user = res;
-      this.username = this.user["username"];
+      this.username = res["firstName"] || res["username"];
     })
+  }
+  sanitizeUrl(url: string) {
+    return sanitize(this.sanitizer, url);
   }
   getRecentReads() {
     this.gotBookResponse = false;
-    this.bookData.getRecentBooks({}).subscribe(
-      (res) => { },
-      (err) => {
-        setTimeout(() => {
+    this.transferService.getIsUserRecentBooksSet().subscribe(res => {
+      if (res === 0) {
+        this.bookData.getRecentBooks().subscribe(
+          (res) => {
+            this.transferService.setUserRecentBooks(res);
+          },
+        );
+      } else {
+        this.transferService.getUserRecentBooks().subscribe(res => {
+          if (empty(res))
+            return;
           this.gotBookResponse = true;
-          this.recent_reads = [
-            {
-              ISBN: '124-3451-3453',
-              title: 'Book',
-              provider: 'MINEDUC',
-              publisher: 'REB',
-              file: 'googledrive/fsdf',
-              likes: 123,
-              dislikes: 435,
-              readers: 0,
-            },
-            {
-              ISBN: '124-3451-3452',
-              title: 'Book',
-              provider: 'MINEDUC',
-              publisher: 'REB',
-              file: 'googledrive/fsdf',
-              likes: 123,
-              dislikes: 435,
-              readers: 0,
-            },
-            {
-              ISBN: '124-3451-3',
-              title: 'Book',
-              provider: 'MINEDUC',
-              publisher: 'REB',
-              file: 'googledrive/fsdf',
-              likes: 123,
-              dislikes: 435,
-              readers: 0,
-            },
-            {
-              ISBN: '124-3451-53',
-              title: 'Book',
-              provider: 'MINEDUC',
-              publisher: 'REB',
-              file: 'googledrive/fsdf',
-              likes: 123,
-              dislikes: 435,
-              readers: 0,
-            },
-            {
-              ISBN: '124-345-453',
-              title: 'Book',
-              provider: 'MINEDUC',
-              publisher: 'REB',
-              file: 'googledrive/fsdf',
-              likes: 123,
-              dislikes: 435,
-              readers: 0,
-            },
-            {
-              ISBN: '124-51-3453',
-              title: 'Book',
-              provider: 'MINEDUC',
-              publisher: 'REB',
-              file: 'googledrive/fsdf',
-              likes: 123,
-              dislikes: 435,
-              readers: 0,
-            },
-            {
-              ISBN: '124-31-3453',
-              title: 'Book',
-              provider: 'MINEDUC',
-              publisher: 'REB',
-              file: 'googledrive/fsdf',
-              likes: 123,
-              dislikes: 435,
-              readers: 0,
-            },
-            {
-              ISBN: '1-3451-3453',
-              title: 'Book',
-              provider: 'MINEDUC',
-              publisher: 'REB',
-              file: 'googledrive/fsdf',
-              likes: 123,
-              dislikes: 435,
-              readers: 0,
-            },
-            {
-              ISBN: '124-3451-3',
-              title: 'Book',
-              provider: 'MINEDUC',
-              publisher: 'REB',
-              file: 'googledrive/fsdf',
-              likes: 123,
-              dislikes: 435,
-              readers: 0,
-            },
-            {
-              ISBN: '124-3453',
-              title: 'Book',
-              provider: 'MINEDUC',
-              publisher: 'REB',
-              file: 'googledrive/fsdf',
-              likes: 123,
-              dislikes: 435,
-              readers: 0,
-            },
-            {
-              ISBN: '1-3453',
-              title: 'Book',
-              provider: 'MINEDUC',
-              publisher: 'REB',
-              file: 'googledrive/fsdf',
-              likes: 123,
-              dislikes: 435,
-              readers: 0,
-            },
-          ];
-          this.number_books = this.recent_reads.length;
+          let array = [];
+          for (const book of res["data"]) {
+            array.push(book.book)
+          }
+          this.recentReads = array;
           bookSwiper();
-        }, 5000);
+        })
       }
-    );
+    })
   }
   /**
    * Get Recent User Reads
    */
+  getStatistic() {
+    this.transferService.getUserStatisticsSet().subscribe(res => {
+      const userStatisticsSet = res;
+      if (userStatisticsSet === 0) {
+        this.userService.userStatistics().subscribe(res => {
+          this.transferService.setUserStatistics(res);
+        }, err => {
+
+        })
+      }
+      else {
+        this.transferService.getUserStatistics().subscribe(res => {
+          if (empty(res))
+            return;
+          this.userTotalReads = res["reads"];
+          if (this.userTotalReads > 0)
+            this.getRecentReads();
+        })
+      }
+    })
+  }
+
+
   getOtherUserReads() {
     this.gotOtherUserReadsResponse = false;
-    this.bookData.getRecentBooks({}).subscribe(
-      (res) => { },
-      (err) => {
-        setTimeout(() => {
+
+    this.transferService.getIsUserOtherFeed().subscribe(res => {
+      if (res === 0) {
+        this.bookData.getOtherSee().subscribe(
+          (res) => {
+            this.transferService.setUserOtherFeed(res);
+          },
+          (err) => {
+
+          }
+        );
+      } else {
+        this.transferService.getUserOtherFeed().subscribe(res => {
+          if (empty(res))
+            return;
           this.gotOtherUserReadsResponse = true;
-          this.others_feeds = [
-            {
-              ISBN: '124-34453',
-              title: 'Mathematics',
-              provider: 'MINEDUC',
-              publisher: 'REB',
-              file: 'googledrive/fsdf',
-              likes: 123,
-              dislikes: 435,
-              readers: 0,
-            },
-            {
-              ISBN: '124-3543451-3452',
-              title: 'Book',
-              provider: 'MINEDUC',
-              publisher: 'REB',
-              file: 'googledrive/fsdf',
-              likes: 123,
-              dislikes: 435,
-              readers: 0,
-            },
-            {
-              ISBN: '124-3453451-3',
-              title: 'Book',
-              provider: 'MINEDUC',
-              publisher: 'REB',
-              file: 'googledrive/fsdf',
-              likes: 123,
-              dislikes: 435,
-              readers: 0,
-            },
-            {
-              ISBN: '122534-3af451-53',
-              title: 'Book',
-              provider: 'MINEDUC',
-              publisher: 'REB',
-              file: 'googledrive/fsdf',
-              likes: 123,
-              dislikes: 435,
-              readers: 0,
-            },
-            {
-              ISBN: '124-534af5345-453',
-              title: 'Book',
-              provider: 'MINEDUC',
-              publisher: 'REB',
-              file: 'googledrive/fsdf',
-              likes: 123,
-              dislikes: 435,
-              readers: 0,
-            },
-            {
-              ISBN: '124-55fd3421-3453',
-              title: 'Book',
-              provider: 'MINEDUC',
-              publisher: 'REB',
-              file: 'googledrive/fsdf',
-              likes: 123,
-              dislikes: 435,
-              readers: 0,
-            },
-            {
-              ISBN: '124-52134531-3453',
-              title: 'Book',
-              provider: 'MINEDUC',
-              publisher: 'REB',
-              file: 'googledrive/fsdf',
-              likes: 123,
-              dislikes: 435,
-              readers: 0,
-            },
-            {
-              ISBN: '1-34522521-3453',
-              title: 'Book',
-              provider: 'MINEDUC',
-              publisher: 'REB',
-              file: 'googledrive/fsdf',
-              likes: 123,
-              dislikes: 435,
-              readers: 0,
-            },
-            {
-              ISBN: '124-2343451-3',
-              title: 'Book',
-              provider: 'MINEDUC',
-              publisher: 'REB',
-              file: 'googledrive/fsdf',
-              likes: 123,
-              dislikes: 435,
-              readers: 0,
-            },
-            {
-              ISBN: '124-a3453',
-              title: 'Book',
-              provider: 'MINEDUC',
-              publisher: 'REB',
-              file: 'googledrive/fsdf',
-              likes: 123,
-              dislikes: 435,
-              readers: 0,
-            },
-            {
-              ISBN: '1-345fds3',
-              title: 'Book',
-              provider: 'MINEDUC',
-              publisher: 'REB',
-              file: 'googledrive/fsdf',
-              likes: 123,
-              dislikes: 435,
-              readers: 0,
-            },
-          ];
+          let array = [];
+          for (const book of res["data"]) {
+            array.push(book.book)
+          }
+          this.otherFeeds = array;
           bookSwiper();
-        }, 5000);
+        })
       }
-    );
+    })
   }
   searchBook(search: string, fromCategory?: boolean) {
     if (!fromCategory) {
@@ -343,16 +150,62 @@ export class DashboardComponent implements OnInit {
       this._router.navigate(['/search'], { queryParams: { category: search } });
     }
   }
-  likeBook(book) {
-    this.bookData.dislikeBook(this.user_id, book).subscribe(
-      (res) => { },
+
+  likeBook(book, event?) {
+    const element: any = event.target.id;
+    const dislikeId = element.replace("like", "dislike");
+    const likeBtn = document.getElementById(event.target.id);
+    likeBtn.style.pointerEvents = 'none';
+    this.likeLoading = true;
+    const button = event.target;
+
+    this.bookData.likeBook(book).subscribe(
+      (res) => {
+        const dislikeBtn = document.getElementById(dislikeId);
+        dislikeBtn.classList.remove('liked');
+
+        this.likeLoading = false;
+        if (!this.hasClass(button, 'liked')) {
+          button.classList.add('liked');
+        } else {
+          button.classList.remove('liked');
+        }
+        likeBtn.style.pointerEvents = 'initial';
+      }
+    );
+  }
+  readBook(book) {
+    if (this.readLoading)
+      return;
+    this.readLoading = true;
+    this.bookData.readBook(book).subscribe(
+      (res) => {
+        this.readLoading = false;
+        this._router.navigate(['/read/book'], { queryParams: { ISBN: book } });
+      },
       (err) => { }
     );
   }
-  dislikeBook(book) {
-    this.bookData.dislikeBook(this.user_id, book).subscribe(
-      (res) => { },
-      (err) => { }
+  dislikeBook(book, event?) {
+    const dislikeBtn = document.getElementById(event.target.id) as HTMLButtonElement;
+    dislikeBtn.style.pointerEvents = 'none';
+    const element: any = event.target.id;
+    this.dislikeLoading = true;
+    const likeId = element.replace("dislike", "like");
+    const button = event.target;
+    this.bookData.likeBook(book).subscribe(
+      (res) => {
+        const likeBtn = document.getElementById(likeId);
+        likeBtn.classList.remove('liked');
+        this.dislikeLoading = false;
+        if (!this.hasClass(button, 'liked')) {
+          button.classList.add('liked');
+        } else {
+          button.classList.remove('liked');
+        }
+        dislikeBtn.style.pointerEvents = 'initial';
+
+      }
     );
   }
   bookNavigate(allbooks: boolean) {
@@ -365,60 +218,37 @@ export class DashboardComponent implements OnInit {
     }
   }
   recommendBooks() {
-    this.gotRecommendationResponse = false;
-    this.bookData.getRecommendedBooks(this.user).subscribe(
-      (res) => { },
-      (err) => {
-        setTimeout(() => {
+    this.transferService.getIsUserRecommendBooksSet().subscribe(res => {
+      if (res === 0) {
+        this.bookData.getRecentBooks().subscribe(
+          (res) => {
+            this.transferService.setUserRecommendBooks(res);
+          },
+          (err) => {
+
+          }
+        );
+      } else {
+        this.transferService.getUserRecommendBooks().subscribe(res => {
+          if (empty(res))
+            return;
           this.gotRecommendationResponse = true;
-          this.recommended_books = [
-            {
-              ISBN: '124-3451-3453',
-              title: 'Book',
-              provider: 'MINEDUC',
-              publisher: 'REB',
-              file: 'googledrive/fsdf',
-              likes: 123,
-              dislikes: 435,
-              readers: 0,
-            },
-            {
-              ISBN: '124-3451-342313',
-              title: 'Book',
-              provider: 'MINEDUC',
-              publisher: 'REB',
-              file: 'googledrive/fsdf',
-              likes: 123,
-              dislikes: 435,
-              readers: 0,
-            },
-            {
-              ISBN: '124-3451-3123453',
-              title: 'Book',
-              provider: 'MINEDUC',
-              publisher: 'REB',
-              file: 'googledrive/fsdf',
-              likes: 123,
-              dislikes: 435,
-              readers: 0,
-            },
-          ];
+          let array = [];
+          for (const book of res["data"]) {
+            array.push(book.book)
+          }
+          this.recommendedBooks = array;
+          bookSwiper();
           const section = document.getElementById('others_feed');
           section.style.marginTop = '35px';
           const sectionHeader = document.getElementById('others_feed_header');
           sectionHeader.style.marginTop = '0';
-        }, 5000);
+        })
       }
-    );
+    })
   }
 
-  readBook(book) {
-    this._router.navigate(['/read/book'], { queryParams: { ISBN: book } });
-    this.bookData.readBook(this.user_id, book).subscribe(
-      (res) => { },
-      (err) => { }
-    );
-  }
+
   hasClass(element: Element, _class: string): boolean {
     return element.classList.contains(_class);
   }
@@ -426,7 +256,7 @@ export class DashboardComponent implements OnInit {
     const button = event.target.id;
     const _button = document.getElementById(button);
     _button.innerHTML = '...';
-    this.bookData.bookmarkBooks(book, {}).subscribe(
+    this.bookData.bookmarkBooks(book).subscribe(
       (res) => { },
       (err) => {
         setTimeout(() => {
@@ -445,8 +275,8 @@ export class DashboardComponent implements OnInit {
   }
   hideBook(event) {
     const e = event.target.id;
-    if (this.recommended_books.length == 1) {
+    if (this.recommendedBooks.length == 1) {
       return;
-    } else { this.recommended_books.splice(e, 1); }
+    } else { this.recommendedBooks.splice(e, 1); }
   }
 }

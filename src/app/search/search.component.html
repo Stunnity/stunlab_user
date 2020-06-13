@@ -8,13 +8,16 @@
 <!-- CONTENT -->
 <div class="contents">
   <div class="contents1">
-    <p class="searchtext" *ngIf="total > 1; else showSearchResult">
-      {{ total }} results of {{ searchKey }}
+    <p class="searchtext" *ngIf="gotResults === 1">
+      {{ total }} results of "{{ searchKey }}"
     </p>
-    <ng-template #showSearchResult>
-      <p class="searchtext">{{ total || None }} result of {{ searchKey }}</p>
-    </ng-template>
-    <div class="row">
+    <p class="searchtext" *ngIf="gotResults === 0">
+      No results found for "{{searchKey}}"
+    </p>
+    <p class="searchtext" *ngIf="gotResults === 2">
+      Searching for "{{searchKey}}"
+    </p>
+    <div class="row sorter">
       <div class="col-5">
         <div class="bg-dropdown"></div>
         <ul class="navbar-nav">
@@ -34,16 +37,16 @@
       </div>
     </div>
   </div>
-  <div class="filter">
-    <div class="filterdiv"></div>
-  </div>
 
-  <div class="books" *ngIf="!isNotConnected; else loadBooks">
+
+  <div class="books" *ngIf="gotResults === 1">
     <div class="filterdiv2" *ngFor="let book of books">
-      <!-- <img src="{{ BASE_URL }}{{ book.cover }}" alt="" height="200" width="200" /> -->
       <img [src]="sanitizeUrl( book.bookCover)" alt="{{ book.bookName }} Cover" height="200" width="200" />
       <p class="booktext">Book</p>
-      <button class="pop" (click)="bookmark(book.ISBN, $event)" id="pop">
+      <button class="pop bg-success" id="{{ book.ISBN }}" (click)="bookmark(book.ISBN, $event)" *ngIf="book.bookmarked">
+        Bookmarked
+      </button>
+      <button class="pop" id="{{ book.ISBN }}" (click)="bookmark(book.ISBN, $event)" *ngIf="!book.bookmarked">
         Bookmark
       </button>
       <br />
@@ -56,8 +59,8 @@
         <span>{{ book.bookViews }} views</span><br />
         <span>{{ book.bookDownloads }} downloads</span><br />
 
-        <i class="fa fa-thumbs-up" (click)="likeBook(book.ISBN)"></i>
-        <i class="fa fa-thumbs-down" (click)="dislikeBook(book.ISBN)"></i>
+        <i class="fa fa-thumbs-up" (click)="likeBook(book.ISBN)" [ngClass]="{'liked': book.liked || false}"></i>
+        <i class="fa fa-thumbs-down" (click)="dislikeBook(book.ISBN)" [ngClass]="{'liked': book.disliked || false}"></i>
 
         <button class="bookopen" (click)="readBook(book.ISBN)">
           Read Book
@@ -65,9 +68,10 @@
       </div>
     </div>
   </div>
-  <ng-template #loadBooks>
-    <div class="loader-area-category">
-      <div class="spinner"></div>
-    </div>
-  </ng-template>
+  <div class="loader-area-category" *ngIf="gotResults === 2">
+    <div class="spinner"></div>
+  </div>
+  <div class="no-results-found col-md-7" *ngIf="gotResults === 0">
+    <img src="assets/images/icon-404_2.svg" alt="No books found">
+  </div>
 </div>

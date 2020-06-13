@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AppDataService } from '../services/app-data/app-data.service';
 import { TransferDataService } from '../services/shared-data/transfer-data.service';
 import { BookDataService } from '../services/book-data/book-data.service';
@@ -15,7 +15,7 @@ declare const bookSwiper: any;
   templateUrl: './mostviewed.component.html',
   styleUrls: ['./mostviewed.component.css'],
 })
-export class MostviewedComponent implements OnInit {
+export class MostviewedComponent implements OnInit, OnDestroy {
   gotBookResponse: boolean;
   isLoggedIn: any;
   isNotConnected: boolean;
@@ -24,6 +24,8 @@ export class MostviewedComponent implements OnInit {
   number_readers: number;
   level_books: any[];
   authUser: any;
+  levelBooks: any[] = [];
+  visitedLevels: any[] = [];
 
   constructor(
     private appData: AppDataService,
@@ -38,9 +40,6 @@ export class MostviewedComponent implements OnInit {
 
   ngOnInit() {
     this.getTrendingLevels();
-    setTimeout(() => {
-      this.authUser = this.sharedData.getUser();
-    }, 3000);
   }
   sanitizeUrl(url) {
     return sanitize(this.sanitizer, url)
@@ -50,11 +49,69 @@ export class MostviewedComponent implements OnInit {
       if (empty(res)) {
         return;
       }
-      console.log(res);
       this.mostViewedLevels = res;
       this.getLevelBooks(this.mostViewedLevels[0]);
-
     });
+  }
+  ngOnDestroy() {
+    this.transferDataService.setGotLevels(this.visitedLevels);
+    this.transferDataService.setGotLevelBooks(this.levelBooks);
+  }
+  returnBooks(level, cache) {
+    if (!cache) {
+      this.gotBookResponse = false;
+      this.bookData.getLevelBooks(level).subscribe(
+        (res: any[]) => {
+          let array = [];
+          for (const book of res["data"]) {
+            array.push(book.book)
+          }
+          this.gotBookResponse = true;
+          this.level_books = array;
+          const levelBook = {
+            level: level,
+            data: res["data"]
+          }
+          this.levelBooks.push(levelBook);
+          bookSwiper();
+        },
+        (err) => {
+
+        }
+      );
+    } else {
+      this.gotBookResponse = false;
+      this.bookData.getLevelBooks(level).subscribe(
+        (res: any[]) => {
+          let array = [];
+          for (const book of res["data"]) {
+            array.push(book.book)
+          }
+          this.gotBookResponse = true;
+          this.level_books = array;
+          const levelBook = {
+            level: level,
+            data: res["data"]
+          }
+
+          this.transferDataService.getGotLevels().subscribe(res => {
+            this.visitedLevels = res as any;
+            if (this.visitedLevels.indexOf(level) === -1)
+              this.visitedLevels.push(level);
+            this.transferDataService.getGotLevelBooks().subscribe(res => {
+              this.levelBooks = res as any;
+              if (this.levelBooks.indexOf(levelBook) === -1)
+                this.levelBooks.push(levelBook);
+            }
+            )
+          })
+          bookSwiper();
+        },
+        (err) => {
+
+        }
+      );
+    }
   }
   getLevelBooks(level, event?) {
     if (event) {
@@ -65,19 +122,53 @@ export class MostviewedComponent implements OnInit {
       $(`#${element}`).siblings().removeClass('active');
       $(`#${element}`).addClass('active');
     }
-    this.gotBookResponse = false;
-    this.bookData.getLevelBooks(level).subscribe(
-      (res: any) => {
-        let array = [];
-        for (const book of res["data"]) {
-          array.push(book.book)
-        }
-        this.gotBookResponse = true;
-        this.level_books = array;
-        bookSwiper();
+    this.transferDataService.getMostViewedLevelNavigation().subscribe(res => {
+      const thisNavigation = res;
+      if (thisNavigation !== 0) {
+        this.transferDataService.getGotLevelBooks().subscribe(res => {
+          let response: any = res;
+          let filterArray = response.filter(obj => {
+            return obj.level === level
+          });
+          if (empty(filterArray)) {
+            this.returnBooks(level, true);
+            return
+          }
+          else {
+            filterArray = filterArray[0]["data"];
+            let array = [];
+            for (const book of filterArray) {
+              array.push(book.book)
+            }
+            this.level_books = array;
 
-      },
-    );
+            this.gotBookResponse = true;
+            bookSwiper();
+          }
+        })
+
+      } else {
+        if (this.visitedLevels.indexOf(level) === -1) {
+          this.visitedLevels.push(level);
+
+          this.gotBookResponse = false;
+          this.returnBooks(level, false);
+        }
+        else {
+          let filterArray = this.levelBooks.filter(obj => {
+            return obj.level === level
+          })
+          filterArray = filterArray[0]["data"];
+          let array = [];
+          for (const book of filterArray) {
+            array.push(book.book)
+          }
+          this.level_books = array;
+          bookSwiper();
+        }
+      }
+    })
+
   }
   navigateLogin() {
     this._router.navigate(['/login'], { queryParams: { logged_in: false } });

@@ -23,7 +23,7 @@ export class AppDataService {
   contactUs(details) {
     return this.httpClient.post(`${this.BASE_URL}/api/contact`, details);
   }
-  report(message: string) {
-    return this.httpClient.post(`${this.BASE_URL}/api/report`, message);
+  report(report: object) {
+    return this.httpClient.post(`${this.BASE_URL}/api/report`, report);
   }
 }

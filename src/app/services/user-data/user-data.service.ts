@@ -18,6 +18,9 @@ export class UserDataService {
       `${this.BASE_URL}/api/user/exists/username/${username}`
     );
   }
+  userStatistics() {
+    return this.httpClient.get(`${this.BASE_URL}/api/user/statistics`)
+  }
   emailIsAvailbable(email: string) {
     return this.httpClient.get(
       `${this.BASE_URL}/api/user/exists/email/${email}`
@@ -27,7 +30,7 @@ export class UserDataService {
     return this.httpClient.post(`${this.BASE_URL}/api/user/login`, user);
   }
   subscribeToNewsLetter(email) {
-    return this.httpClient.post(`${this.BASE_URL}/api/subscribe/${email}`, {});
+    return this.httpClient.post(`${this.BASE_URL}/api/subscribe`, email);
   }
   loggedIn() {
     return !!localStorage.getItem('token');
@@ -42,5 +45,11 @@ export class UserDataService {
   }
   logout() {
     return this.httpClient.post(`${this.BASE_URL}/api/user/logout`, {})
+  }
+  updateUser(user) {
+    return this.httpClient.post(`${this.BASE_URL}/api/user/update/profile`, user)
+  }
+  getImage(imageUrl: string): Observable<Blob> {
+    return this.httpClient.get(imageUrl, { responseType: 'blob' });
   }
 }

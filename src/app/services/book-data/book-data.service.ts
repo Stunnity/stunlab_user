@@ -9,22 +9,35 @@ import { HttpHeaders } from '@angular/common/http';
 export class BookDataService {
   private BASE_URL = 'https://stunlabapis.herokuapp.com';
   constructor(private httpClient: HttpClient) { }
-  likeBook(user: string, book: string) {
+  likeBook(book: string) {
     return this.httpClient.get(
-      `${this.BASE_URL}/api/book/like/${user}/${book}`
+      `${this.BASE_URL}/api/books/like/${book}`
     );
   }
 
-  dislikeBook(user: string, book: string) {
+  dislikeBook(book: string) {
     return this.httpClient.get(
-      `${this.BASE_URL}/api/book/dislike/${user}/${book}`
+      `${this.BASE_URL}/api/books/dislike/${book}`
     );
   }
 
-  readBook(user: string, book: string) {
+  getAllBooks() {
+    return this.httpClient.get(`${this.BASE_URL}/api/books`);
+  }
+
+  getUserBooks(type, page = 1) {
+    if (typeof type === 'undefined')
+      return this.httpClient.get(`${this.BASE_URL}/api/books?page=${page}`);
+    return this.httpClient.get(`${this.BASE_URL}/api/user/books/${type}?page=${page}`);
+  }
+  readBook(book: string) {
     return this.httpClient.get(
-      `${this.BASE_URL}/api/book/read/${user}/${book}`
+      `${this.BASE_URL}/api/books/read/${book}`
     );
+  }
+
+  getOtherSee() {
+    return this.httpClient.get(`${this.BASE_URL}/api/books/others`);
   }
 
   getCategoryBooks(category: string) {
@@ -44,8 +57,8 @@ export class BookDataService {
   searchBooks(query: string) {
     return this.httpClient.get(`${this.BASE_URL}/api/search/query?${query}`);
   }
-  bookmarkBooks(book, user) {
-    return this.httpClient.get(`${this.BASE_URL}/api/bookmark/${user}/${user}`);
+  bookmarkBooks(book) {
+    return this.httpClient.get(`${this.BASE_URL}/api/books/bookmark/${book}`);
   }
 
   getRecommendedBooks(user) {
@@ -57,7 +70,7 @@ export class BookDataService {
     }, 6000);
     // return this.httpClient.get(`${this.BASE_URL}/api/bookmark/${user}`);
   }
-  getRecentBooks(user) {
-    return this.httpClient.get(`${this.BASE_URL}/api/bookmark/${user}`);
+  getRecentBooks() {
+    return this.httpClient.get(`${this.BASE_URL}/api/user/books/reads`);
   }
 }

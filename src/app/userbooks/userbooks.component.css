@@ -7,12 +7,40 @@
   top: 62px;
   z-index: 10;
 }
-
+.nav-link.dropdown-toggle{
+  color: #5e5e5e;
+}
+.nav-link.dropdown-toggle:hover{
+  color: #131313;
+}
 .navbar-logo {
   height: 40px;
   position: relative;
   top: 50%;
   transform: translateY(-50%);
+}
+.liked{
+  color: #007bff;
+}
+
+.page-item{
+  background: whitesmoke;
+  border: 1px solid gainsboro;
+  border-radius: 6px;
+  font-family:  sans-serif;
+  cursor: pointer;
+  color: black !important;
+}
+.text-rose {
+  margin-left: 24px;
+}
+
+.page-item:hover{
+  color: white !important;
+  background-color: #2f96f3;
+}
+.page-item a {
+ pointer-events: none;
 }
 .col-5 {
   bottom: 21px;
@@ -158,9 +186,6 @@ navbar-nav a {
 .bookinfo .fa.fa-thumbs-up {
   left: 265px;
 }
-.bookinfo .fa.fa-thumbs-up:hover {
-  color: green;
-}
 .bookinfo .fa.fa-thumbs-down {
   left: 312px;
 }
@@ -185,6 +210,45 @@ navbar-nav a {
   border: none;
   font-weight: 800;
   font-size: 13px;
+}
+
+.booksviewed {
+  position: relative;
+  top: 116px;
+  height: 260px;
+  background-color: #f3f3f3;
+  width: 90%;
+  margin-bottom: 102px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.booksviewed p {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 40%;
+  font-size: 18px;
+  font-weight: bolder;
+}
+
+.booksviewed button {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 60%;
+  padding: 10px;
+  width: 122px;
+  border: none;
+  background-color: #fe7865;
+  font-size: 16px;
+  color: white;
+}
+
+.booksviewed button:hover {
+  cursor: pointer;
+  background-color: #dd6e60;
+  transition: 0.5s ease;
 }
 
 .bookinfo {
@@ -215,6 +279,7 @@ navbar-nav a {
   color: white;
   border: none;
   font-weight: 500;
+  border-radius: 4px;
   cursor: pointer;
   right: 0;
 }

@@ -1,11 +1,10 @@
 {
-  "/api": {
-    "target": "https://stunlabapis.herokuapp.com",
+  "ui-avatars.com/api": {
+    "target": "https://ui-avatars.com/api",
     "secure": false,
     "pathRewrite": {
-      "^/api": ""
+      "ui-avatars.com/api": ""
     },
-    "logLevel": "debug",
     "changeOrigin": true
   }
 }

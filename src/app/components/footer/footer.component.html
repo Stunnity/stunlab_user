@@ -14,24 +14,16 @@
         <h4 class="text-left">Site Map</h4>
         <ul>
           <li class="footer-sitemap-link">
-            <a class="nav-link" [routerLink]="['/', 'about']"
-              >Home <span class="sr-only">(current)</span></a
-            >
+            <a class="nav-link" [routerLink]="['/', 'about']">Home </a>
           </li>
           <li class="footer-sitemap-link">
-            <a class="nav-link" [routerLink]="['/', 'about']"
-              >About <span class="sr-only">(current)</span></a
-            >
+            <a class="nav-link" [routerLink]="['/', 'about']">About </a>
           </li>
           <li class="footer-sitemap-link">
-            <a class="nav-link" [routerLink]="['/', 'about']"
-              >Login <span class="sr-only">(current)</span></a
-            >
+            <a class="nav-link" [routerLink]="['/', 'about']">Login </a>
           </li>
           <li class="footer-sitemap-link">
-            <a class="nav-link" [routerLink]="['/', 'about']"
-              >Signup <span class="sr-only">(current)</span></a
-            >
+            <a class="nav-link" [routerLink]="['/', 'about']">Signup </a>
           </li>
         </ul>
       </div>
@@ -41,9 +33,7 @@
         <h4 class="text-left">More Apps</h4>
         <ul>
           <li class="footer-sitemap-link">
-            <a class="nav-link" [routerLink]="['/', 'about']"
-              >StunnBook <span class="sr-only">(current)</span></a
-            >
+            <a class="nav-link" [routerLink]="['/', 'about']">StunnBook </a>
           </li>
         </ul>
       </div>
@@ -51,24 +41,11 @@
     <div class="footer-newsletter col-4 bg-dark">
       <div class="footer-newsletter-content">
         <h4 class="text-left">Subscribe to our Newsletter</h4>
-        <input
-          type="text"
-          name="email-address"
-          id="subscribe_newsletter"
-          class="form-control"
-          autocomplete="off"
-          #subscriber_email
-          (keyup)="validateEmail(subscriber_email.value)"
-          placeholder="Email Address"
-        />
-        <button
-          [disabled]="!validEmail"
-          class="send-email"
-          (click)="sendEmail(subscriber_email.value)"
-        >
+        <input type="text" [formControl]="subscriber" id="subscribe_newsletter" class="form-control" autocomplete="off"
+          placeholder="Email Address" />
+        <button [disabled]="subscriber.invalid" class="send-email" (click)="sendEmail(subscriber.value)">
           <i class="fa fa-send"></i>
         </button>
-        <p class="error_msg">{{ error_message }}</p>
       </div>
     </div>
   </div>
@@ -78,16 +55,16 @@
         <h4 class="text-left">Connect</h4>
         <ul>
           <li>
-            <a href="#"> <img src="assets/images/fb.png" alt="" /></a>
+            <a> <img src="assets/images/fb.png" alt="Facebook" /></a>
           </li>
           <li>
-            <a href="#"><img src="assets/images/twit.png" alt="" /> </a>
+            <a><img src="assets/images/twit.png" alt="Twitter" /> </a>
           </li>
           <li>
-            <a href="#"><img src="assets/images/linkin.png" alt="" /> </a>
+            <a><img src="assets/images/linkin.png" alt="Linked In" /> </a>
           </li>
           <li>
-            <a href="#"><img src="assets/images/ig.png" alt="" /> </a>
+            <a><img src="assets/images/ig.png" alt="Instagram" /> </a>
           </li>
         </ul>
       </div>

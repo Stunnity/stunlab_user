@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { UserModel } from './user.model';
-import { Data, Router, ActivatedRoute } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
+import { Router, ActivatedRoute } from '@angular/router';
 import { UserDataService } from '../services/user-data/user-data.service';
 import { TransferDataService } from '../services/shared-data/transfer-data.service';
-import { interval } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
-import { authenticate, decodeToken } from 'src/utils/common';
+import { authenticate, toogleLoading, tooglePassword } from 'src/utils/common';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -14,94 +13,65 @@ import { authenticate, decodeToken } from 'src/utils/common';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+
   constructor(
     private _router: Router,
     private userData: UserDataService,
     private route: ActivatedRoute,
     private cookieService: CookieService,
     private transferDataService: TransferDataService
-  ) { }
-
-  user: UserModel = new UserModel();
-  password: any;
-  responseStatusCode: any;
+  ) {
+    this.loginFormGroup = new FormGroup({
+      username: new FormControl("", [
+        Validators.required,
+      ]),
+      password: new FormControl("", [
+        Validators.required,
+      ]),
+    });
+  }
+  loginFormGroup: FormGroup;
   errorOccurred = false;
   isLoading = false;
-  invalidData = true;
-  showTopAlert = false;
-  error_message: string;
-  navigateKey: any;
-  log_msg = '';
+  buttonText: string = 'Sign in';
+  logMessage: string;
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
-      this.navigateKey = params.logged_in || null;
-      if (this.navigateKey) {
-        this.log_msg = 'To Perform More';
+      let navigateKey = params.logged_in || null;
+      if (navigateKey) {
+        this.logMessage = 'To Perform More';
       }
     });
-    interval(1000).subscribe((val) => this.disableLogin());
   }
   login() {
     this.toogleLoading(true);
-    this.userData.login(this.user).subscribe(
+    this.userData.login(this.loginFormGroup.value).subscribe(
       (res: any) => {
-        const token = res['token'];
-        if (authenticate(this.cookieService, token, this.transferDataService)) {
-          const { sub } = decodeToken(token);
+        if (authenticate(this.cookieService, res['token'], this.transferDataService)) {
           this.userData.authUser().subscribe((res) => {
-            console.log(res);
             this.transferDataService.setUser(res);
             this._router.navigate(['/home']);
           });
         }
       },
       (error: HttpErrorResponse) => {
+        this.errorOccurred = true;
         this.toogleLoading(false);
-        this.errorHandler(error.status);
       }
     );
   }
-  disableLogin(): void {
-    if (Object.keys(this.user).length == 2) {
-      this.invalidData = false;
-      return;
-    }
-  }
-
   toogleLoading(value: boolean) {
-    const button = document.getElementById('button-text');
-    this.isLoading = value;
-    button.innerHTML = this.isLoading ? 'Signing In' : 'Sign in';
+    const object = toogleLoading(value, this.buttonText, true);
+
+    this.buttonText = object.buttonText;
+
+    this.isLoading = object.value;
   }
 
   tooglePassword() {
     const temp: any = document.getElementById('float-input-password');
     const icon = document.getElementById('icon');
-    if (temp.type === 'password') {
-      temp.type = 'text';
-      icon.classList.remove('fa-eye');
-      icon.classList.add('fa-eye-slash');
-      temp.focus();
-    } else {
-      temp.type = 'password';
-      icon.classList.add('fa-eye');
-      icon.classList.remove('fa-eye-slash');
-      temp.focus();
-    }
-  }
-  setToFalse() {
-    this.errorOccurred = false;
-  }
-  errorHandler(status) {
-    if (status == 0) {
-      this.errorOccurred = true;
-      this.navigateKey = false;
-      this.error_message = 'Address unreachable';
-    } else if (status == 404) {
-      this.errorOccurred = true;
-      this.navigateKey = false;
-      this.error_message = 'Invalid Username and Password';
-    }
+    tooglePassword(temp, icon)
   }
 }

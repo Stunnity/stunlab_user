@@ -30,6 +30,9 @@
   align-items: center;
 }
 
+.liked{
+  color: #007bff;
+}
 .navbar {
   height: 68px;
   position: fixed;
@@ -296,9 +299,10 @@
 
 .cross {
   position: relative;
-  left: 83%;
+  left: 91%;
   height: 20px;
-  top: 256px;
+  top: 32px;
+  z-index: 1;
 }
 
 .bookcover {

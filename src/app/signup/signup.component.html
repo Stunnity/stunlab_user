@@ -6,17 +6,8 @@
     <div class="container">
       <div class="row">
         <div class="col-md-8">
-          <div
-            *ngIf="errorOccurred"
-            class="alert alert-danger alert-dismissible fade show"
-            role="alert"
-          >
-            <button
-              type="button"
-              class="close"
-              data-dismiss="alert"
-              aria-label="Close"
-            >
+          <div *ngIf="errorOccurred" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
             <strong class="text-bold">Login Failed </strong>&nbsp;&nbsp;{{
@@ -29,131 +20,66 @@
               <p class="card-category">Type Your Details Here ...</p>
             </div>
             <div class="container">
-              <form (ngSubmit)="signUp()" class="form" autocomplete="off">
-                <div class="form-group first-form-group">
-                  <input
-                    placeholder="Username"
-                    #username
-                    type="text"
-                    (keyup)="validateUsername(username.value)"
-                    class="form-control input"
-                    name="username"
-                    id="username"
-                    maxlength="30"
-                    [(ngModel)]="user.username"
-                  />
-                  <span id="available-status"></span>
+              <form (ngSubmit)="signUp()" [formGroup]="signUpForm" class="form" autocomplete="off">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <input placeholder="Username" formControlName="username"
+                        [ngClass]="{'is-invalid': signUpForm.get('username').invalid && signUpForm.get('username').dirty, 'is-valid': signUpForm.get('username').valid}"
+                        type="text" class="form-control input" />
+                      <span class=" text-danger"
+                        *ngIf="signUpForm.get('username').invalid">{{getUsernameError()}}</span>
+                    </div>
+                    <img *ngIf="signUpForm.get('username').pending" class="pending-spinner" title="Checking"
+                      src="assets/images/spinner.gif" />
+                  </div>
                 </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <input type="email" formControlName="email" class="form-control email" placeholder="Email"
+                        [ngClass]="{'is-invalid': signUpForm.get('email').invalid && signUpForm.get('email').dirty, 'is-valid': signUpForm.get('email').valid}" />
+                      <span class=" text-danger" *ngIf="signUpForm.get('email').invalid">{{getEmailError()}}</span>
 
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <input
-                        type="email"
-                        #email
-                        placeholder="Email (Optional)"
-                        class="form-control email"
-                        (keyup)="validateEmail(email.value)"
-                        name="email"
-                        maxlength="30"
-                        id="email"
-                        [(ngModel)]="user.email"
-                      />
-                      <span id="email_msg" *ngIf="showErrorState"
-                        ><i
-                          class="fa fa-check"
-                          title="Email is available"
-                          *ngIf="emailPass && gotResponse; else emailFailed"
-                        ></i>
-                        <img
-                          *ngIf="isNotConnected"
-                          style="width: 24px; margin-top: -4px;"
-                          title="Checking"
-                          src="../../assets/images/spinner.gif"
-                        />
-                        <ng-template #emailFailed>
-                          <i
-                            *ngIf="gotResponse"
-                            class="fa fa-exclamation-circle"
-                            title="Email is already taken"
-                          ></i>
-                        </ng-template>
-                      </span>
                     </div>
+                    <img *ngIf="signUpForm.get('email').pending" class="pending-spinner" title="Checking"
+                      src="assets/images/spinner.gif" />
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input
-                        type="text"
-                        #phonenumber
-                        class="form-control input"
-                        (keyup)="validatePhone(phonenumber.value)"
-                        placeholder="Phone Number (Optional)"
-                        name="phone-number"
-                        id="phone-number"
-                        maxlength="15"
-                        [(ngModel)]="user.phone"
-                      />
+                      <input type="text" formControlName="phone" class="form-control input"
+                        placeholder="Phone Number" />
                     </div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input
-                        type="password"
-                        class="form-control input"
-                        placeholder="Create Password"
-                        name="password"
-                        maxlength="20"
-                        #password
-                        (keyup)="checkPassStrength(password.value)"
-                        [(ngModel)]="user.password"
-                      />
-                      <span id="password_validation"></span>
+                      <input type="password" class="form-control input" placeholder="Create Password"
+                        formControlName="password"
+                        [ngClass]="{'is-invalid': signUpForm.get('password').invalid && signUpForm.get('password').dirty, 'is-valid': signUpForm.get('password').valid}" />
+                      <span class="text-danger"
+                        *ngIf="signUpForm.get('password').invalid && signUpForm.get('password').dirty">{{getPasswordError()}}</span>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input
-                        type="password"
-                        (keyup)="checkPassword()"
-                        class="form-control input"
+                      <input type="password" formControlName="c_password" class="form-control input"
                         placeholder="Confirm Password"
-                        name="confirm_password"
-                        id="confirm_password"
-                        maxlength="20"
-                        [(ngModel)]="user.c_password"
-                      />
+                        [ngClass]="{'is-invalid':  signUpForm.hasError('unmatch') && signUpForm.get('c_password').dirty, 'is-valid': !signUpForm.hasError('unmatch')  && signUpForm.get('c_password').dirty}" />
                     </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <re-captcha
-                      (resolved)="resolved($event)"
-                      siteKey="6LdQq8AUAAAAAAOsuci1YBAKkUqhZWb99eNhWd6S"
-                    ></re-captcha>
                   </div>
                 </div>
                 <div class="row">
                   <div class="form-group col-md-8">
-                    <button
-                      id="button"
-                      class="btn btn-danger submit-button"
-                      [disabled]="isLoading || invalidData"
-                    >
-                      <img
-                        *ngIf="isLoading"
-                        style="width: 24px; margin-top: -4px;"
-                        src="../../assets/images/spinner.gif"
-                      />
+                    <button id="button" class="btn btn-danger submit-button"
+                      [disabled]="isLoading || signUpForm.invalid || signUpForm.pending">
+                      <img *ngIf=" isLoading" style="width: 24px; margin-top: -4px;" src="assets/images/spinner.gif" />
                       <span id="button-text"> Create Account</span>
                     </button>
                   </div>
                   <div class="col-md-3">
-                    <a [routerLink]="['/login']" class="login"
-                      >Got An Account?
+                    <a [routerLink]="['/login']" class="login">Got An Account?
                     </a>
                   </div>
                 </div>

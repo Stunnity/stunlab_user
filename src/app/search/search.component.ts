@@ -6,6 +6,7 @@ import { TransferDataService } from '../services/shared-data/transfer-data.servi
 import * as _ from 'lodash';
 import { sanitize } from 'src/utils/common';
 import { DomSanitizer } from '@angular/platform-browser';
+import { registerLocaleData } from '@angular/common';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -15,6 +16,7 @@ export class SearchComponent implements OnInit {
   total: string | number;
   isLoggedIn: boolean;
   user_id: string;
+  gotResults: number = 2;
   constructor(
     private route: ActivatedRoute,
     private _router: Router,
@@ -25,7 +27,7 @@ export class SearchComponent implements OnInit {
   _book: string;
   _level: string;
   _category: string;
-  isNotConnected = true;
+  isNotConnected: boolean
   _provider: string;
   query = '';
   None = 'No';
@@ -35,7 +37,8 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     this.isLoggedIn = this.transferDataService.loggedIn();
     this.route.queryParams.subscribe((params) => {
-
+      this.reset();
+      this.query = '';
       this.searchKey =
         params.q ||
         params.category ||
@@ -48,17 +51,19 @@ export class SearchComponent implements OnInit {
       this.query = this.query.substring(0, this.query.length - 1);
       this.bookData.searchBooks(this.query).subscribe(
         (res: any) => {
+          this.gotResults = 1;
           let array = [];
-          for (const book of res) {
+          for (const book of res["data"]) {
             array.push(book.book)
           }
           this.books = array;
-          console.log(this.books);
-          this.total = this.books.length || this.None;
-
+          this.total = this.books.length;
+          if (this.total === 0)
+            this.gotResults = 0;
           this.isNotConnected = false;
         },
-        (error) => { }
+        (error) => {
+        }
       );
     });
   }
@@ -76,7 +81,7 @@ export class SearchComponent implements OnInit {
     if (!this.isLoggedIn) {
       this._router.navigate(['/login'], { queryParams: { logged_in: false } });
     } else {
-      this.bookData.likeBook(this.user_id, book).subscribe(
+      this.bookData.likeBook(book).subscribe(
         (res) => { },
         (err) => { }
       );
@@ -86,7 +91,7 @@ export class SearchComponent implements OnInit {
     if (!this.isLoggedIn) {
       this._router.navigate(['/login'], { queryParams: { logged_in: false } });
     } else {
-      this.bookData.dislikeBook(this.user_id, book).subscribe(
+      this.bookData.dislikeBook(book).subscribe(
         (res) => { },
         (err) => { }
       );
@@ -97,7 +102,7 @@ export class SearchComponent implements OnInit {
       this._router.navigate(['/login'], { queryParams: { logged_in: false } });
     } else {
       this._router.navigate(['/read/book'], { queryParams: { ISBN: book } });
-      this.bookData.readBook(this.user_id, book).subscribe(
+      this.bookData.readBook(book).subscribe(
         (res) => { },
         (err) => { }
       );
@@ -109,7 +114,7 @@ export class SearchComponent implements OnInit {
     } else {
       const button = event.target;
       button.innerHTML = '...';
-      this.bookData.bookmarkBooks(book, this.user_id).subscribe(
+      this.bookData.bookmarkBooks(book).subscribe(
         (res) => { },
         (err) => {
           setTimeout(() => {
@@ -129,5 +134,10 @@ export class SearchComponent implements OnInit {
   }
   hasClass(element: Element, _class: string): boolean {
     return element.classList.contains(_class);
+  }
+  reset() {
+    this.isNotConnected = true;
+    this.books = [];
+    this.gotResults = 2;
   }
 }

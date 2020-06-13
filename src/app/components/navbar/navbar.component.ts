@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import { UserDataService } from 'src/app/services/user-data/user-data.service';
 import { empty } from 'src/utils/common';
+import { AppDataService } from 'src/app/services/app-data/app-data.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,27 +12,27 @@ import { empty } from 'src/utils/common';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  avatar: string;
+  avatar: string = "";
   private avatarUrl: string = 'https://ui-avatars.com/api/?name=';
   constructor(
     private transferService: TransferDataService,
     private router: Router,
-    private userData: UserDataService
+    private userData: UserDataService,
+    private appService: AppDataService
   ) { }
   isLoggedIn: boolean;
   categoriesAvailable: boolean;
-  thumbnail: any;
   categories: any;
-  name: any;
   user: {};
-  username: {}
+  username: '';
+
   ngOnInit() {
+    this.getCategories();
     this.scroll();
     this.isLoggedIn = this.transferService.loggedIn();
     if (this.isLoggedIn) {
       this.getUser();
     }
-    this.fetchCategories();
   }
   bookNavigate(bookmark: boolean) {
     if (!bookmark) {
@@ -41,18 +42,6 @@ export class NavbarComponent implements OnInit {
         queryParams: { page: 'favourites' },
       });
     }
-  }
-  fetchCategories() {
-    this.transferService.getCategories().subscribe(res => {
-      if (empty(res)) {
-        return;
-      }
-      this.categories = res;
-      this.categoriesAvailable = true;
-    }, err => {
-      this.categoriesAvailable = false;
-    });
-
   }
   logout() {
     this.userData.logout().subscribe(res => {
@@ -72,15 +61,42 @@ export class NavbarComponent implements OnInit {
       $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
     });
   }
-  getUser() {
-    this.transferService.getUser().subscribe(res => {
-      console.log(res);
-      if (empty(res))
-        return;
-      console.log(res)
-        ; this.user = res;
-      this.username = this.user["username"];
-      this.avatar = this.avatarUrl + this.username;
+  getCategories() {
+    this.transferService.getIsCategoriesSet().subscribe(res => {
+      if (res === 0) {
+        this.appService.getCategories().subscribe(
+          (res: any[]) => {
+            this.transferService.setCategories(res);
+          },
+        );
+      }
+      else {
+        this.transferService.getCategories().subscribe(res => {
+          this.categories = res;
+          this.categoriesAvailable = true;
+        })
+      }
     })
+
+  }
+
+  getUser() {
+    this.transferService.getUserIsSet().subscribe(res => {
+      const userSet = res;
+      if (userSet === 0) {
+        this.userData.authUser().subscribe((res) => {
+          this.transferService.setUser(res);
+          this.username = res["username"];
+          this.avatar = this.avatarUrl + this.username;
+        });
+      }
+      else {
+        this.transferService.getUser().subscribe(res => {
+          this.username = res["username"];
+          this.avatar = this.avatarUrl + this.username;
+        })
+      }
+    })
+
   }
 }

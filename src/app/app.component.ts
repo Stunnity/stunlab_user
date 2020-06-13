@@ -8,7 +8,6 @@ import {
   NavigationStart,
   NavigationEnd,
 } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
 import * as $ from 'jquery';
 import { DOCUMENT } from '@angular/common';
 @Component({
@@ -39,26 +38,14 @@ export class AppComponent implements OnInit {
     if ($(window).width() < 450) {
       this.mobileApp();
     }
-    this.getCategories();
-    this.getMostViewedCategories();
-
-    const isAuthentificated: boolean = this.transferService.loggedIn();
-
-    if (isAuthentificated) {
-      this.getUserBooks();
-      this.authUser();
-      this.getUserState();
-    } else {
-      this.getMostViewedLevels();
-    }
   }
+
 
   mobileApp() {
     this.document.location.href = 'https://stunlabmobile.herokuapp.com';
   }
   authUser() {
     this.userService.authUser().subscribe((res) => {
-      console.log(res);
       this.transferService.setUser(res);
       this._router.navigate(['/home']);
     });
@@ -77,15 +64,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  getCategories() {
-    this.appService.getCategories().subscribe(
-      (res: any[]) => {
-        this.transferService.setCategories(res);
-      },
-      (err: HttpErrorResponse) => {
-      }
-    );
-  }
+
 
   getMostViewedCategories() {
     this.appService.getMostViewedCategories().subscribe(
@@ -135,8 +114,5 @@ export class AppComponent implements OnInit {
     setTimeout(() => {
       this.transferService.setUserBooks(this.userBooks);
     }, 1000);
-  }
-  getUserState() {
-    this.userService.loggedIn();
   }
 }

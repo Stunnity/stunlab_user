@@ -11,6 +11,12 @@
 .is-valid {
   border-color: #4caf50 !important;
 }
+.pending-spinner{
+  position: absolute;
+    width: 33px;
+    right: 25px;
+    top: 10px;
+}
 .fa-exclamation-circle {
   color: #f44336 !important;
 }
@@ -56,7 +62,7 @@
 .login:hover {
   text-decoration: underline;
 }
-#available-status {
+span.text-danger {
   position: absolute;
   top: 6px;
   right: 23px;

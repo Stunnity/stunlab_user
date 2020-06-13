@@ -7,14 +7,16 @@ import * as $ from 'jquery';
   styleUrls: ['./about.component.css']
 })
 export class AboutComponent implements OnInit {
-  constructor() {}
-
+  constructor() { }
+  homeText: string;
   ngOnInit() {
-    $(function() {
-      $(document).scroll(function() {
+    this.homeText = "Stunlab is is one of the Rwandas l free learning platforms for education and book reading. It is a for-profit social enterprise dedicated to making it possible for anyone, to study anything, anywhere, at any time, for free online, at any subject level. Through our mission we are a catalyst for positive social change, creating opportunity, prosperity, and equality for everyone";
+    $(function () {
+      $(document).scroll(function () {
         const $nav = $('.sticky');
         $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
       });
     });
   }
+
 }

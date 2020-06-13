@@ -1,15 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as $ from 'jquery';
 import { AppDataService } from '../services/app-data/app-data.service';
 import { BookDataService } from '../services/book-data/book-data.service';
 import { TransferDataService } from '../services/shared-data/transfer-data.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Contact } from './models/contact.model';
-import { interval } from 'rxjs';
+import { Router } from '@angular/router';
 import { empty, sanitize } from 'src/utils/common';
 import { DomSanitizer } from '@angular/platform-browser';
-declare const statisticsCounter: any;
 declare const bookSwiper: any;
 
 @Component({
@@ -17,9 +13,10 @@ declare const bookSwiper: any;
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   invalidContactData: boolean;
   report_message: string;
+
   constructor(
     private appData: AppDataService,
     private bookData: BookDataService,
@@ -28,21 +25,26 @@ export class HomeComponent implements OnInit {
     private sanitizer: DomSanitizer
   ) { }
 
-  contact: Contact = new Contact();
+  ngOnDestroy(): void {
+    this.transferDataService.setGotCategories(this.visitedCategories);
+    this.transferDataService.setGotCategoryBooks(this.categoryBooks);
+    return;
+  }
+
   user_id: string;
   userdata: any;
   category_books: any[];
-  isNotConnected = true;
   isLoggedIn: any;
-  gotBookResponse = false; SMS
+  gotBookResponse = false;
   mostViewedCategories: any[];
-  number_books: number;
-  number_readers: number;
-  number_downloads: number;
+  incomingCategoryRequests = [];
+  pendingCategoryBooks: boolean = false;
+  visitedCategories: any[] = [];
+  categoryBooks: any[] = [];
 
   ngOnInit() {
     this.isLoggedIn = this.transferDataService.loggedIn();
-    this.getStats();
+
     this.getMostViewedCategories();
     // interval(1000).subscribe((val) => this.disableContactBtn());
   }
@@ -52,7 +54,6 @@ export class HomeComponent implements OnInit {
       if (empty(res)) {
         return;
       }
-      console.log(res);
       this.mostViewedCategories = ['Literature', 'Language', 'Science', 'Humanity'];
       this.getCategoryBooks(this.mostViewedCategories[0]);
 
@@ -68,22 +69,111 @@ export class HomeComponent implements OnInit {
       $(`#${element}`).siblings().removeClass('active');
       $(`#${element}`).addClass('active');
     }
-    this.gotBookResponse = false;
-    this.bookData.getCategoryBooks(category).subscribe(
-      (res: any[]) => {
-        let array = [];
-        for (const book of res["data"]) {
-          array.push(book.book)
+    this.transferDataService.getHomeNavigation().subscribe(res => {
+      const homeNavigation = res;
+      if (homeNavigation !== 0) {
+        this.transferDataService.getGotCategoryBooks().subscribe(res => {
+          let response: any = res;
+          let filterArray = response.filter(obj => {
+            return obj.category === category
+          });
+          if (empty(filterArray)) {
+            this.returnBooks(category, true);
+            return
+          }
+          else {
+            filterArray = filterArray[0]["data"];
+            let array = [];
+            for (const book of filterArray) {
+              array.push(book.book)
+            }
+            this.category_books = array;
+
+            this.gotBookResponse = true;
+          }
+        })
+
+      } else {
+        if (this.visitedCategories.indexOf(category) === -1) {
+          this.visitedCategories.push(category);
+
+          this.gotBookResponse = false;
+          this.returnBooks(category, false);
         }
-        this.gotBookResponse = true;
-        this.category_books = array;
-        bookSwiper();
-      },
-      (err) => { }
-    );
+        else {
+          let filterArray = this.categoryBooks.filter(obj => {
+            return obj.category === category
+          })
+          filterArray = filterArray[0]["data"];
+          let array = [];
+          for (const book of filterArray) {
+            array.push(book.book)
+          }
+          this.category_books = array;
+        }
+      }
+    })
+
   }
   sanitizeUrl(url) {
     return sanitize(this.sanitizer, url)
+  }
+
+  returnBooks(category, cache) {
+    if (!cache) {
+      this.gotBookResponse = false;
+      this.bookData.getCategoryBooks(category).subscribe(
+        (res: any[]) => {
+          let array = [];
+          for (const book of res["data"]) {
+            array.push(book.book)
+          }
+          this.gotBookResponse = true;
+          this.category_books = array;
+          const categoryBook = {
+            category: category,
+            data: res["data"]
+          }
+          this.categoryBooks.push(categoryBook);
+          bookSwiper();
+        },
+        (err) => {
+          this.pendingCategoryBooks = false;
+        }
+      );
+    } else {
+      this.gotBookResponse = false;
+      this.bookData.getCategoryBooks(category).subscribe(
+        (res: any[]) => {
+          let array = [];
+          for (const book of res["data"]) {
+            array.push(book.book)
+          }
+          this.gotBookResponse = true;
+          this.category_books = array;
+          const categoryBook = {
+            category: category,
+            data: res["data"]
+          }
+          bookSwiper();
+          this.transferDataService.getGotCategories().subscribe(res => {
+            this.visitedCategories = res as any;
+            if (this.visitedCategories.indexOf(category) === -1)
+              this.visitedCategories.push(category);
+            this.transferDataService.getGotCategoryBooks().subscribe(res => {
+              this.categoryBooks = res as any;
+              if (this.categoryBooks.indexOf(categoryBook) === -1)
+                this.categoryBooks.push(categoryBook);
+            }
+
+            )
+          })
+        },
+        (err) => {
+          this.pendingCategoryBooks = false;
+        }
+      );
+    }
   }
   sendToLogin() {
     this._router.navigate(['/login'], { queryParams: { logged_in: false } });
@@ -91,58 +181,6 @@ export class HomeComponent implements OnInit {
   hasClass(element: Element, _class: string): boolean {
     return element.classList.contains(_class);
   }
-  getStats() {
-    this.appData.getStatistics().subscribe(
-      (res: any) => {
-        this.isNotConnected = false;
-        this.number_books = res.books;
-        this.number_downloads = res.downloads;
-        this.number_readers = res.users;
-        setTimeout(() => {
-          statisticsCounter();
-        }, 3000);
-      },
-      (error: HttpErrorResponse) => {
-        this.isNotConnected = false;
-      }
-    );
-  }
-  contactUs() {
-    const name_element = document.getElementById(
-      'contact-name'
-    ) as HTMLInputElement;
-    const email_element = document.getElementById(
-      'contact-email'
-    ) as HTMLInputElement;
-    const textarea_element = document.getElementById(
-      'contact-message'
-    ) as HTMLInputElement;
 
-    const button_element = document.getElementById(
-      'submit-button'
-    ) as HTMLButtonElement;
-    button_element.innerHTML = 'Contacting ';
-    this.appData.contactUs(this.contact).subscribe((res) => {
-      button_element.innerHTML = 'Contact Us';
-      textarea_element.value = '';
-      email_element.value = '';
-      name_element.value = '';
-    });
-  }
-  clearReport() {
-    this.report_message = '';
-  }
-  disableContactBtn() {
-    if (Object.keys(this.contact).length == 0) {
-      this.invalidContactData = true;
-      return;
-    } else {
-      this.invalidContactData = false;
-    }
-  }
-  report() {
-    this.appData.report(this.report_message).subscribe((res) => {
-      this.report_message = '';
-    });
-  }
+
 }

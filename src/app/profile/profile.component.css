@@ -1,3 +1,4 @@
+@import "../signup/signup.component.css";
 .heading1 {
   position: relative;
   margin-top: 3%;
@@ -41,6 +42,11 @@
   width: 80%;
   height: 56vh;
   padding-top: 69px;
+}
+.container.col-md-5{
+  background: #fbfbfb;
+  padding: 23px;
+
 }
 
 .labelname {
@@ -103,6 +109,17 @@
   background: #f1523b;
   color: white;
   border: none;
+}
+.gender-select{
+    position: absolute;
+    right: 7px;
+    top: 9px;
+}
+
+.form-control {
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  padding: 8px !important;
 }
 
 input {

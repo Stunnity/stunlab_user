@@ -2,9 +2,7 @@
   <div class="topnav">
     <div class="sticky">
       <button class="back">
-        <i class="fa fa-chevron-left"></i> &nbsp;<a routerLink="/" class="linko"
-          >Back to the lab</a
-        >
+        <i class="fa fa-chevron-left"></i> &nbsp;<a routerLink="/" class="linko">Back to the lab</a>
       </button>
       <h3>STUNLAB</h3>
       <button class="login" [routerLink]="['/', 'login']">Log In</button>
@@ -20,26 +18,14 @@
     <div class="hometext">
       <h1>Enroll To The Latest Published Books</h1>
       <p>
-        Stunlab is is one of the Rwanda’s l free learning platforms for
-        education and book reading. It is a for-profit social enterprise
-        dedicated to making it possible for anyone, to study anything, anywhere,
-        at any time, for free online, at any subject level. Through our mission
-        we are a catalyst for positive social change, creating opportunity,
-        prosperity, and equality for everyone.
+        {{homeText}}
       </p>
     </div>
-
-    <!-- s<img src="assets/images/boom.jpg" alt="" class="firstimg" /> -->
   </div>
   <h2 class="startext">We provide the best books available</h2>
   <div class="content">
     <div class="text">
-      Stunlab is is one of the Rwanda’s l free learning platforms for education
-      and book reading. It is a for-profit social enterprise dedicated to making
-      it possible for anyone, to study anything, anywhere, at any time, for free
-      online, at any subject level. Through our mission we are a catalyst for
-      positive social change, creating opportunity, prosperity, and equality for
-      everyone.
+      {{homeText}}
     </div>
     <div class="img">
       <img src="assets/images/4.jpg" alt="" class="secimg" />
@@ -48,86 +34,56 @@
   <h2 class="secondtext">Our Values</h2>
   <div class="slideshow">
     <div class="bd-example">
-      <div
-        id="carouselExampleCaptions"
-        class="carousel slide"
-        data-ride="carousel"
-      >
+      <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
-          <li
-            data-target="#carouselExampleCaptions"
-            data-slide-to="0"
-            class="active"
-            style="background-color: #f00;"
-          ></li>
-          <li
-            data-target="#carouselExampleCaptions"
-            data-slide-to="1"
-            style="background-color: #f00;"
-          ></li>
-          <li
-            data-target="#carouselExampleCaptions"
-            data-slide-to="2"
-            style="background-color: #f00;"
-          ></li>
+          <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active" style="background-color: #f00;">
+          </li>
+          <li data-target="#carouselExampleCaptions" data-slide-to="1" style="background-color: #f00;"></li>
+          <li data-target="#carouselExampleCaptions" data-slide-to="2" style="background-color: #f00;"></li>
         </ol>
         <div class="carousel-inner">
           <div class="carousel-item active">
             <img src="assets/images/EMP.jpg" alt="" class="slideone" />
             <div class="text2">
               <h4 class="emph4">Empowerment</h4>
-              We are driven by our belief in the power of free education and
-              skills training to change people’s lives for the better and are
-              passionate about providing an overall learning experience that
-              meets their needs and helps them to achieve life goals.
+              {{homeText}}
+
             </div>
           </div>
           <div class="carousel-item">
             <img src="assets/images/inno.jpg" alt="" class="slideone" />
             <div class="text2">
               <h4 class="emph4">Innovation</h4>
-              We will not be constrained by what already exists but will lead
-              the way in introducing new ways to achieve our mission.
+              {{homeText}}
+
             </div>
           </div>
           <div class="carousel-item">
             <img src="assets/images/know.svg" alt="" class="slideone" />
             <div class="text2">
               <h4 class="emph4">Knowledge</h4>
-              We are experts in the field of online education and are rigorous
-              in delivering high quality learning materials, services and
-              experiences that deliver the learning outcomes we have promised.
+              {{homeText}}
+              d.
             </div>
           </div>
         </div>
-        <a
-          class="carousel-control-prev text-success"
-          href="#carouselExampleCaptions"
-          role="button"
-          data-slide="prev"
+        <a class="carousel-control-prev text-success" href="#carouselExampleCaptions" role="button" data-slide="prev"
           style="
             background-color: darkslategray;
             opacity: 2.5;
             top: 49%;
             height: 33px;
             width: 31px;
-          "
-        >
+          ">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         </a>
-        <a
-          class="carousel-control-next"
-          href="#carouselExampleCaptions"
-          role="button"
-          data-slide="next"
-          style="
+        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next" style="
             background-color: darkslategray;
             opacity: 2.5;
             top: 49%;
             height: 33px;
             width: 31px;
-          "
-        >
+          ">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
         </a>
       </div>

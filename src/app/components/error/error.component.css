@@ -1,0 +1,14 @@
+.alert {
+    font-size: 16px;
+    font-family: "Khula" !important;
+    font-weight: lighter !important;
+    padding: 15px 23px !important;
+  }
+
+  .alert-dismissible .close {
+    top: 3px;
+  }
+
+  .alert-dismissible .close:hover {
+    color: white;
+  }

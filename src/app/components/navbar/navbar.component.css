@@ -3,10 +3,7 @@
   padding: 16px;
   box-shadow: none !important;
 }
-.login a {
-  color: black;
-  text-decoration: none;
-}
+
 .about-link {
   position: absolute;
   list-style: none;
@@ -17,8 +14,6 @@
   cursor: pointer;
 }
 .navbar .navbar-brand {
-  position: relative;
-  color: inherit;
   height: 50px;
   font-size: 1.125rem;
   line-height: 30px;
@@ -26,6 +21,7 @@
   font-weight: 300;
   margin-top: -10px;
 }
+
 .about-link a {
   color: rgba(0, 0, 0, 0.5);
   font-size: 17px;
@@ -98,16 +94,7 @@
   margin-top: 3.4%;
   margin-left: 33%;
 }
-.form-inline .login-btn {
-  margin-right: 11px;
-}
 
-.form-inline .signup-btn {
-  background: #ec5252;
-}
-.form-inline .signup-btn:hover {
-  background: #dc3545;
-}
 .fa-list-ul {
   font-size: 18px !important;
   vertical-align: unset !important;
@@ -116,7 +103,6 @@
 .search-input {
   margin-left: 115px;
   font-family: "Roboto";
-
   width: 100%;
 }
 input.search-input::placeholder {
@@ -178,7 +164,6 @@ input.search-input::placeholder {
 }
 .user-details .navbar .dropdown-item:hover,
 .user-details .navbar .dropdown-item:focus {
-  /* box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(255, 255, 255, 0.4); */
   background-color: none;
 }
 .navbar-nav {
@@ -187,7 +172,6 @@ input.search-input::placeholder {
 .category-area .dropdown-item {
   cursor: pointer;
 }
-
 .user-details .dropdown-menu .dropdown-item:hover,
 .user-details .dropdown-menu .dropdown-item:focus,
 .user-details .dropdown-menu a:hover,
@@ -197,11 +181,6 @@ input.search-input::placeholder {
   background-color: transparent !important;
   color: black !important;
 }
-
-.loggegIn {
-  background-color: #dc3545;
-}
-
 .liked-books {
   margin-top: 3px;
   margin-right: 27px;
@@ -214,19 +193,7 @@ input.search-input::placeholder {
 .fa-book:hover {
   color: #ee6f83 !important;
 }
-.banner {
-  position: relative;
-  height: 162px;
-  width: 1348px;
-}
-.banner .banner-area h3 {
-  position: absolute;
-  bottom: 7px;
-  right: 203px;
-  color: white;
-  font-size: 45px;
-  font-family: Khula, sans-serif;
-}
+
 .signin.btn-danger {
   background-color: #ec5246 !important;
 }
