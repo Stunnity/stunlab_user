@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AppDataService } from '../services/app-data/app-data.service';
-import { TransferDataService } from '../services/shared-data/transfer-data.service';
-import { BookDataService } from '../services/book-data/book-data.service';
+import { AppDataService } from '../../services/app-data/app-data.service';
+import { TransferDataService } from '../../services/shared-data/transfer-data.service';
+import { BookDataService } from '../../services/book-data/book-data.service';
 import * as $ from 'jquery';
 import { Router } from '@angular/router';
 import { empty, sanitize } from 'src/utils/common';

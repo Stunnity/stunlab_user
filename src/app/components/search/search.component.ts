@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BookDataService } from '../services/book-data/book-data.service';
-import { TransferDataService } from '../services/shared-data/transfer-data.service';
+import { BookDataService } from '../../services/book-data/book-data.service';
+import { TransferDataService } from '../../services/shared-data/transfer-data.service';
 import * as $ from 'jquery';
 import * as _ from 'lodash';
 import { sanitize } from 'src/utils/common';

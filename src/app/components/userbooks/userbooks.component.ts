@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BookDataService } from '../services/book-data/book-data.service';
+import { BookDataService } from '../../services/book-data/book-data.service';
 import * as _ from 'lodash';
 import * as $ from 'jquery';
 import { sanitize, empty } from 'src/utils/common';
 import { DomSanitizer } from '@angular/platform-browser';
-import { TransferDataService } from '../services/shared-data/transfer-data.service';
+import { TransferDataService } from '../../services/shared-data/transfer-data.service';
 
 @Component({
   selector: 'app-userbooks',

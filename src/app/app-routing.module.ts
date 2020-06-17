@@ -4,18 +4,18 @@ import {
   RouterModule,
   PreloadAllModules
 } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
-import { SearchComponent } from './search/search.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { ProfileComponent } from './profile/profile.component';
-import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
+import { HomeComponent } from './components/home/home.component';
+import { AboutComponent } from './components/about/about.component';
+import { SearchComponent } from './components/search/search.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { UserbooksComponent } from './userbooks/userbooks.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { UserbooksComponent } from './components/userbooks/userbooks.component';
 import { HomeDataResolverService } from './resolvers/home-data-resolver.service';
-import { ReadBookComponent } from './read-book/read-book.component';
+import { ReadBookComponent } from './components/read-book/read-book.component';
 import { AuthGuardService } from "../app/services/guards/auth-guard.service"
 import { ReportComponent } from './components/report/report.component';
 const ROUTES: Routes = [

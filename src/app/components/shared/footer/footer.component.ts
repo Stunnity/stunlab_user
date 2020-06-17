@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserDataService } from '../../services/user-data/user-data.service';
-import { HttpErrorResponse } from '@angular/common/http';
+import { UserDataService } from '../../../services/user-data/user-data.service';
 import { FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-footer',

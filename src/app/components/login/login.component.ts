@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UserDataService } from '../services/user-data/user-data.service';
-import { TransferDataService } from '../services/shared-data/transfer-data.service';
+import { UserDataService } from '../../services/user-data/user-data.service';
+import { TransferDataService } from '../../services/shared-data/transfer-data.service';
 import { CookieService } from 'ngx-cookie-service';
 import { authenticate, toogleLoading, tooglePassword } from 'src/utils/common';
 import { FormGroup, FormControl, Validators } from '@angular/forms';

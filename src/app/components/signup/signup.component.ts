@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { UserModel } from './user.model';
-import { UserDataService } from '../services/user-data/user-data.service';
+import { UserDataService } from '../../services/user-data/user-data.service';
 import { interval } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { authenticate, decodeToken, scorePassword, setPassword } from 'src/utils/common';
-import { TransferDataService } from '../services/shared-data/transfer-data.service';
+import { TransferDataService } from '../../services/shared-data/transfer-data.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { usernameExists, emailExists, checkPasswords } from 'src/utils/validators';
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TransferDataService } from '../.././services/shared-data/transfer-data.service';
+import { TransferDataService } from '../../../services/shared-data/transfer-data.service';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import { UserDataService } from 'src/app/services/user-data/user-data.service';
