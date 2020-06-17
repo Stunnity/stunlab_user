@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import {
   Routes,
   RouterModule,
-  PreloadAllModules,
-  PreloadingStrategy,
+  PreloadAllModules
 } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
@@ -17,6 +16,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserbooksComponent } from './userbooks/userbooks.component';
 import { HomeDataResolverService } from './resolvers/home-data-resolver.service';
 import { ReadBookComponent } from './read-book/read-book.component';
+import { AuthGuardService } from "../app/services/guards/auth-guard.service"
+import { ReportComponent } from './components/report/report.component';
 const ROUTES: Routes = [
   {
     path: 'home',
@@ -39,7 +40,13 @@ const ROUTES: Routes = [
     component: AboutComponent,
   },
   {
+    path: 'report',
+    pathMatch: 'full',
+    component: ReportComponent,
+  },
+  {
     path: 'user',
+    canActivate: [AuthGuardService],
     pathMatch: 'full',
     component: ProfileComponent,
   },
@@ -50,11 +57,13 @@ const ROUTES: Routes = [
   },
   {
     path: 'books',
+    canActivate: [AuthGuardService],
     pathMatch: 'full',
     component: UserbooksComponent,
   },
   {
     path: 'read/book',
+    canActivate: [AuthGuardService],
     pathMatch: 'full',
     component: ReadBookComponent,
   },
@@ -76,4 +85,4 @@ const ROUTES: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

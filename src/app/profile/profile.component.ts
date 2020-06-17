@@ -13,15 +13,16 @@ import { UserDataService } from '../services/user-data/user-data.service';
 export class ProfileComponent implements OnInit {
   updateForm: FormGroup;
   user: object = {};
-  private avatarUrl: string = 'https://ui-avatars.com/api/?name=';
+  isLoading: boolean;
+  avatar: string;
+  private avatarUrl: string = 'https://ui-avatars.com/api/?size=512&name=';
 
   constructor(private transferService: TransferDataService, private userService: UserDataService) {
-    this.getUser();
     this.updateForm = new FormGroup({
       username: new FormControl({ disabled: true, value: "" }, [
         Validators.required,
         Validators.minLength(5)]),
-      email: new FormControl({ disabled: true, value: "" }, [
+      email: new FormControl({ disabled: false, value: "" }, [
         Validators.required,
         Validators.email
       ],
@@ -31,23 +32,29 @@ export class ProfileComponent implements OnInit {
         Validators.maxLength(14),
       ]),
       firstName: new FormControl({ disabled: false, value: "" }, [
+        Validators.minLength(4),
+        Validators.maxLength(14),
       ],
       ),
       secondName: new FormControl({ disabled: false, value: "" }, [
+        Validators.minLength(4),
+        Validators.maxLength(14),
       ]),
       gender: new FormControl({ disabled: false, value: "" },
       ),
       joined_at: new FormControl({ disabled: true, value: "" }),
     });
+    this.getUser();
   }
-  isLoading: boolean = false;
-  ngOnInit() {
 
+  ngOnInit() {
+    this.isLoading = false;
   }
   updateUser() {
-    this.isLoading = true
+    this.isLoading = true;
     this.userService.updateUser(this.updateForm.value).subscribe(res => {
       this.isLoading = false;
+      this.transferService.setUser(res);
       this.getUser();
     })
   }
@@ -79,14 +86,17 @@ export class ProfileComponent implements OnInit {
     this.transferService.getUser().subscribe(res => {
       if (empty(res))
         return;
-      this.user = res;
-      this.updateForm.get('username').setValue(res["username"])
-      this.updateForm.get('email').setValue(res["email"])
-      this.updateForm.get('gender').setValue(res["gender"])
-      this.updateForm.get('phone').setValue(res["phone"])
-      this.updateForm.get('firstName').setValue(res["firstName"])
-      this.updateForm.get('secondName').setValue(res["secondName"])
-      this.updateForm.get('joined_at').setValue(res["created_at"])
+
+      this.updateForm.setValue({
+        username: res["username"],
+        email: res["email"],
+        gender: res["gender"],
+        phone: res["phone"],
+        firstName: res["firstName"],
+        secondName: res["secondName"],
+        joined_at: res["created_at"]
+      });
+      this.avatar = this.avatarUrl + res["username"];
     })
   }
 }

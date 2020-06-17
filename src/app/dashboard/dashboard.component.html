@@ -43,18 +43,18 @@
                     <div class="row text-left">
                       <div class="col-5">
                         <i class="fa fa-thumbs-up" (click)="likeBook(recentRead.ISBN, $event)"
-                          id="like-btn-{{recentRead.ISBN}}" [ngClass]="{'liked': recentRead.liked}"></i>
+                          id="recent-like-btn-{{recentRead.ISBN}}" [ngClass]="{'liked': recentRead.liked}"></i>
                         <img style="width: 24px; bottom: 0;left: -17px; position: absolute;"
                           src="assets/images/spinner.gif" alt="Loading" *ngIf="likeLoading"><span class="likes">&nbsp;
-                          {{ recentRead.bookLikes }}</span>
+                        </span>
                       </div>
                       <div class="col-5">
                         <i class="fa fa-thumbs-down" (click)="dislikeBook(recentRead.ISBN, $event)"
-                          id="dislike-btn-{{recentRead.ISBN}}" [ngClass]="{'disliked': recentRead.disliked}"></i>
+                          id="recent-dislike-btn-{{recentRead.ISBN}}" [ngClass]="{'disliked': recentRead.disliked}"></i>
                         <img style="width: 24px;bottom: 0;left: -17px;position: absolute;"
                           src="assets/images/spinner.gif" alt="Loading" *ngIf="dislikeLoading">
 
-                        <span class="diss">&nbsp; {{ recentRead.bookDislikes }}</span>
+                        <span class="diss">&nbsp;</span>
                       </div>
                     </div>
                   </div>
@@ -116,13 +116,14 @@
           <h4 class="book-reads">{{ recommendedBook.bookViews }} Reads</h4>
           <h4 class="adv">Adventure</h4>
           <h4 class="category">REB</h4>
-          <i class="fa fa-thumbs-up like" (click)="likeBook(recommendedBook.ISBN)"
-            [ngClass]="{'liked': recommendedBook.liked}"></i>
-
-          <p class="likes">203</p>
-          <i class="fa fa-thumbs-down dislike" (click)="dislikeBook(recommendedBook.ISBN)"
-            [ngClass]="{'liked': recommendedBook.disliked}"></i>
-          <p class="dislikes">304</p>
+          <i class="fa fa-thumbs-up like" (click)="likeBook(recommendedBook.ISBN, $event)"
+            [ngClass]="{'liked': recommendedBook.liked}" id="recommend-like-btn-{{recommendedBook.ISBN}}"></i>
+          <img style="  width: 24px;bottom: 4%;right: 62%; position: absolute;" *ngIf="likeLoading"
+            src="assets/images/spinner.gif" alt="Loading">
+          <i class="fa fa-thumbs-down dislike" (click)="dislikeBook(recommendedBook.ISBN, $event)"
+            id="recommend-dislike-btn-{{recommendedBook.ISBN}}" [ngClass]="{'liked': recommendedBook.disliked}"></i>
+          <img style="width: 24px;bottom: 7px;right: 53%;position: absolute;" *ngIf="dislikeLoading"
+            src="assets/images/spinner.gif" alt="Loading">
           <button class="readbook" (click)="readBook(recommendedBook.ISBN)">
             Read Book
           </button>
@@ -164,14 +165,19 @@
                     </p>
                     <div class="row text-left">
                       <div class="col-5">
-                        <i class="fa fa-thumbs-up" (click)="likeBook(otherFeed.ISBN)"
-                          [ngClass]="{'liked': otherFeed.liked}"></i><span class="likes">&nbsp;
-                          {{ otherFeed.bookLikes }}</span>
+                        <i class="fa fa-thumbs-up" (click)="likeBook(otherFeed.ISBN, $event)"
+                          id="other-like-btn-{{otherFeed.ISBN}}" [ngClass]="{'liked': otherFeed.liked}"></i>
+                        <img style="width: 24px; bottom: 0;left: -17px; position: absolute;" *ngIf="likeLoading"
+                          src="assets/images/spinner.gif" alt="Loading"><span class="likes">&nbsp;
+                        </span>
                       </div>
                       <div class="col-5">
-                        <i class="fa fa-thumbs-down" (click)="dislikeBook(otherFeed.ISBN)"
-                          [ngClass]="{'liked': otherFeed.disliked}"></i>
-                        <span class="diss">&nbsp; {{ otherFeed.bookDislikes }}</span>
+                        <i class="fa fa-thumbs-down" (click)="dislikeBook(otherFeed.ISBN, $event)"
+                          id="other-dislike-btn-{{otherFeed.ISBN}}" [ngClass]="{'disliked': otherFeed.disliked}"></i>
+                        <img style="width: 24px;bottom: 0;left: -17px;position: absolute;" *ngIf="dislikeLoading"
+                          src="assets/images/spinner.gif" alt="Loading">
+
+                        <span class="diss">&nbsp;</span>
                       </div>
                     </div>
                   </div>
@@ -213,8 +219,7 @@
       </div>
       <ul class="catslist">
         <li *ngFor="let recommended_category of recommended_categories">
-          <Button #{{recommended_category}}
-            (click)="searchBook(recommended_category, true)">{{ recommended_category }}</Button>
+          <button (click)="searchBook(recommended_category.category, true)">{{ recommended_category.category }}</button>
         </li>
       </ul>
     </div>

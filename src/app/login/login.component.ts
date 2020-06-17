@@ -15,7 +15,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class LoginComponent implements OnInit {
 
   constructor(
-    private _router: Router,
+    private router: Router,
     private userData: UserDataService,
     private route: ActivatedRoute,
     private cookieService: CookieService,
@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
   loginFormGroup: FormGroup;
   errorOccurred = false;
   isLoading = false;
+  returnUrl: string;
   buttonText: string = 'Sign in';
   logMessage: string;
 
@@ -51,7 +52,9 @@ export class LoginComponent implements OnInit {
         if (authenticate(this.cookieService, res['token'], this.transferDataService)) {
           this.userData.authUser().subscribe((res) => {
             this.transferDataService.setUser(res);
-            this._router.navigate(['/home']);
+            this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || undefined;
+            this.redirect(this.returnUrl)
+            // this.router.navigate(['/home']);
           });
         }
       },
@@ -69,6 +72,12 @@ export class LoginComponent implements OnInit {
     this.isLoading = object.value;
   }
 
+  redirect(url: string) {
+    if (url)
+      this.router.navigateByUrl(url);
+    else
+      this.router.navigateByUrl('/home');
+  }
   tooglePassword() {
     const temp: any = document.getElementById('float-input-password');
     const icon = document.getElementById('icon');

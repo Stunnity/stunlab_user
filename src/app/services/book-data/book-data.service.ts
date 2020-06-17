@@ -26,9 +26,10 @@ export class BookDataService {
   }
 
   getUserBooks(type, page = 1) {
+
     if (typeof type === 'undefined')
       return this.httpClient.get(`${this.BASE_URL}/api/books?page=${page}`);
-    return this.httpClient.get(`${this.BASE_URL}/api/user/books/${type}?page=${page}`);
+    return this.httpClient.get(`${this.BASE_URL}/api/user/books/${type}?page=${page}&pp=1`);
   }
   readBook(book: string) {
     return this.httpClient.get(
@@ -40,6 +41,9 @@ export class BookDataService {
     return this.httpClient.get(`${this.BASE_URL}/api/books/others`);
   }
 
+  getRecommendedCategories() {
+    return this.httpClient.get(`${this.BASE_URL}/api/category/recommended`);
+  }
   getCategoryBooks(category: string) {
     return this.httpClient.get(`${this.BASE_URL}/api/category/${category}`);
   }
@@ -54,8 +58,8 @@ export class BookDataService {
     return this.httpClient.get(`${this.BASE_URL}/api/level/${level}`);
   }
 
-  searchBooks(query: string) {
-    return this.httpClient.get(`${this.BASE_URL}/api/search/query?${query}`);
+  searchBooks(query: string, page = 1) {
+    return this.httpClient.get(`${this.BASE_URL}/api/search/query?${query}&page=${page}&pp=1`);
   }
   bookmarkBooks(book) {
     return this.httpClient.get(`${this.BASE_URL}/api/books/bookmark/${book}`);
@@ -72,5 +76,9 @@ export class BookDataService {
   }
   getRecentBooks() {
     return this.httpClient.get(`${this.BASE_URL}/api/user/books/reads`);
+  }
+
+  newArrivals() {
+    return this.httpClient.get(`${this.BASE_URL}/api/books/new`);
   }
 }

@@ -24,12 +24,12 @@
 }
 
 .page-item{
-  background: whitesmoke;
+  background: #fff;
   border: 1px solid gainsboro;
   border-radius: 6px;
-  font-family:  sans-serif;
+  font-family: sans-serif;
   cursor: pointer;
-  color: black !important;
+  color: #3c3c3c !important;
 }
 .text-rose {
   margin-left: 24px;

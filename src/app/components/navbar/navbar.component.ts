@@ -3,8 +3,8 @@ import { TransferDataService } from '../.././services/shared-data/transfer-data.
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import { UserDataService } from 'src/app/services/user-data/user-data.service';
-import { empty } from 'src/utils/common';
 import { AppDataService } from 'src/app/services/app-data/app-data.service';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-navbar',
@@ -13,13 +13,19 @@ import { AppDataService } from 'src/app/services/app-data/app-data.service';
 })
 export class NavbarComponent implements OnInit {
   avatar: string = "";
+  email: FormControl
   private avatarUrl: string = 'https://ui-avatars.com/api/?name=';
+  isLoading: boolean;
   constructor(
     private transferService: TransferDataService,
     private router: Router,
     private userData: UserDataService,
     private appService: AppDataService
-  ) { }
+  ) {
+    this.email = new FormControl("", [Validators.required, Validators.email]);
+    this.isLoading = false;
+    console.log(this.email)
+  }
   isLoggedIn: boolean;
   categoriesAvailable: boolean;
   categories: any;
@@ -55,6 +61,15 @@ export class NavbarComponent implements OnInit {
       this.router.navigate(['/search'], { queryParams: { category: search } });
     }
   }
+
+  invitation() {
+    this.isLoading = true;
+    this.appService.invite(this.email.value).subscribe(res => {
+      this.isLoading = false;
+      this.email.setValue("");
+    })
+  }
+
   scroll() {
     $(document).scroll(function () {
       const $nav = $('.navbar');

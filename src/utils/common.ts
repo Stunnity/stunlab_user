@@ -5,7 +5,7 @@ import { TransferDataService } from 'src/app/services/shared-data/transfer-data.
 import { DomSanitizer } from '@angular/platform-browser';
 
 
-export function empty(object: object) {
+export function empty(object: any) {
     return _.isEmpty(object);
 }
 export function authenticate(cookieService: CookieService, token, transferDataService: TransferDataService) {

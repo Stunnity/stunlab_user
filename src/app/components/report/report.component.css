@@ -1,0 +1,12 @@
+.modal-body, .form-control{
+    padding: 12px;
+}
+.modal-body, .form-control:focus{
+    background: none;
+    border: none;
+}
+.modal-footer .link{
+    position: absolute;
+    font-size: 14px;
+    margin-left: -29em;
+}

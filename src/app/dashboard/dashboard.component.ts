@@ -7,6 +7,7 @@ import * as $ from 'jquery';
 import { empty, sanitize } from 'src/utils/common';
 import { UserDataService } from '../services/user-data/user-data.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { setIndex, copyArray, removeElement, addElement } from 'src/utils/filter-books';
 
 declare const bookSwiper: any;
 
@@ -20,11 +21,13 @@ export class DashboardComponent implements OnInit {
   total_books: number;
   user_id: string;
   recommendedBooks: any[];
+  cacheRecommendBooks: any[];
   recentReads: any[];
   otherFeeds: any[];
   readLoading: any;
   likeLoading: boolean;
   dislikeLoading: boolean;
+  unfiltered: any[];
 
   constructor(
     private _router: Router,
@@ -53,8 +56,26 @@ export class DashboardComponent implements OnInit {
     });
     this.recommendBooks();
     this.getOtherUserReads();
+    this.recommendedCategories();
   }
 
+  recommendedCategories() {
+    this.transferService.getRecommendedCategoriesSet().subscribe(isSet => {
+      if (isSet === 0) {
+        this.bookData.getRecommendedCategories().subscribe(categories => {
+          this.transferService.setRecommendedCategories(categories);
+        })
+      }
+      else {
+        this.transferService.getRecommendedCategories().subscribe(categories => {
+          if (empty(categories))
+            return;
+          console.log(categories)
+          this.recommended_categories = categories;
+        })
+      }
+    })
+  }
   getUser() {
     this.transferService.getUser().subscribe(res => {
       if (empty(res))
@@ -152,6 +173,7 @@ export class DashboardComponent implements OnInit {
   }
 
   likeBook(book, event?) {
+    this.transferService.setUserBooksDataSet(0);
     const element: any = event.target.id;
     const dislikeId = element.replace("like", "dislike");
     const likeBtn = document.getElementById(event.target.id);
@@ -171,9 +193,61 @@ export class DashboardComponent implements OnInit {
           button.classList.remove('liked');
         }
         likeBtn.style.pointerEvents = 'initial';
+
+        const [elem1, elem2] = this.findOthers(element);
+        this.toogleLikeActions(elem1, elem2);
       }
     );
   }
+
+  toogleLikeActions(...args) {
+    for (let i = 0; i < args.length; i++) {
+      console.log(args[i])
+      const element = document.getElementById(args[i]) as HTMLButtonElement;
+      if (element) {
+
+        element.style.pointerEvents = 'none';
+        const dislikeId = args[i].replace("like", "dislike");
+        const dislikeBtn = document.getElementById(dislikeId);
+        dislikeBtn.classList.remove('liked');
+        if (!this.hasClass(element, 'liked')) {
+          element.classList.add('liked');
+        } else {
+          element.classList.remove('liked');
+        }
+        element.style.pointerEvents = 'initial';
+      }
+    }
+  }
+  toogledisLikeActions(...args) {
+    for (let i = 0; i < args.length; i++) {
+      const element = document.getElementById(args[i]);
+      if (element) {
+        element.style.pointerEvents = 'none';
+        const likeId = args[i].replace("dislike", "like");
+        const likeBtn = document.getElementById(likeId);
+        likeBtn.classList.remove('liked');
+        if (!this.hasClass(element, 'liked')) {
+          element.classList.add('liked');
+        } else {
+          element.classList.remove('liked');
+        }
+        element.style.pointerEvents = 'initial';
+      }
+    }
+  }
+  findOthers(id: string) {
+    if (id.includes('recent'))
+      return [id.replace("recent", "recommend"), id.replace("recent", "other"),];
+
+    if (id.includes('recommend'))
+      return [id.replace("recommend", "recent"), id.replace("recommend", "other"),];
+
+    if (id.includes('other'))
+      return [id.replace("other", "recommend"), id.replace("other", "recent"),];
+
+  }
+
   readBook(book) {
     if (this.readLoading)
       return;
@@ -187,6 +261,8 @@ export class DashboardComponent implements OnInit {
     );
   }
   dislikeBook(book, event?) {
+    this.transferService.setUserBooksDataSet(0);
+
     const dislikeBtn = document.getElementById(event.target.id) as HTMLButtonElement;
     dislikeBtn.style.pointerEvents = 'none';
     const element: any = event.target.id;
@@ -204,7 +280,8 @@ export class DashboardComponent implements OnInit {
           button.classList.remove('liked');
         }
         dislikeBtn.style.pointerEvents = 'initial';
-
+        const [elem1, elem2] = this.findOthers(element);
+        this.toogledisLikeActions(elem1, elem2);
       }
     );
   }
@@ -220,7 +297,7 @@ export class DashboardComponent implements OnInit {
   recommendBooks() {
     this.transferService.getIsUserRecommendBooksSet().subscribe(res => {
       if (res === 0) {
-        this.bookData.getRecentBooks().subscribe(
+        this.bookData.newArrivals().subscribe(
           (res) => {
             this.transferService.setUserRecommendBooks(res);
           },
@@ -237,7 +314,16 @@ export class DashboardComponent implements OnInit {
           for (const book of res["data"]) {
             array.push(book.book)
           }
-          this.recommendedBooks = array;
+          const mapped = setIndex(array);
+          const [filtered, unfiltered] = copyArray(mapped);
+          let final = [];
+          for (const book of filtered) {
+            final.push(book.book)
+          }
+          console.log(final);
+          this.recommendedBooks = final;
+          this.cacheRecommendBooks = this.recommendedBooks;
+          this.unfiltered = unfiltered;
           bookSwiper();
           const section = document.getElementById('others_feed');
           section.style.marginTop = '35px';
@@ -253,6 +339,7 @@ export class DashboardComponent implements OnInit {
     return element.classList.contains(_class);
   }
   bookmark(book, event?) {
+    this.transferService.setUserBooksDataSet(0);
     const button = event.target.id;
     const _button = document.getElementById(button);
     _button.innerHTML = '...';
@@ -274,9 +361,12 @@ export class DashboardComponent implements OnInit {
     );
   }
   hideBook(event) {
-    const e = event.target.id;
-    if (this.recommendedBooks.length == 1) {
+    if (this.recommendedBooks.length === 2)
       return;
-    } else { this.recommendedBooks.splice(e, 1); }
+    const e = event.target.id;
+    removeElement(e, this.recommendedBooks);
+    if (this.unfiltered.length === 0)
+      return;
+    addElement(this.recommendedBooks, this.unfiltered);
   }
 }

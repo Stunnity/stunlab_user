@@ -32,6 +32,8 @@ import { PatternersComponent } from './components/patterners/patterners.componen
 import { GetInTouchComponent } from './components/get-in-touch/get-in-touch.component';
 import { ReportModalComponent } from './components/report-modal/report-modal.component';
 import { AvatarModule } from 'ngx-avatar';
+import { AuthGuardService } from './services/guards/auth-guard.service';
+import { ReportComponent } from './components/report/report.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,6 +57,7 @@ import { AvatarModule } from 'ngx-avatar';
     PatternersComponent,
     GetInTouchComponent,
     ReportModalComponent,
+    ReportComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,6 +77,7 @@ import { AvatarModule } from 'ngx-avatar';
       multi: true,
     },
     CookieService,
+    AuthGuardService,
     // HttpCancelService,
     // { provide: HTTP_INTERCEPTORS, useClass: ManageHttpInterceptor, multi: true }
   ],

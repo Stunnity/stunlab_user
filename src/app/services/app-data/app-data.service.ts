@@ -23,6 +23,10 @@ export class AppDataService {
   contactUs(details) {
     return this.httpClient.post(`${this.BASE_URL}/api/contact`, details);
   }
+
+  invite(email) {
+    return this.httpClient.post(`${this.BASE_URL}/api/invite`, email);
+  }
   report(report: object) {
     return this.httpClient.post(`${this.BASE_URL}/api/report`, report);
   }

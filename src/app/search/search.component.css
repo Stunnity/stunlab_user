@@ -225,10 +225,31 @@ navbar-nav a {
 .liked{
   color: #007bff;
 }
+
 .sorter{
   margin-top: -2% !important;
 }
 .no-results-found{
   margin-top: 4%;
   margin-left: 23%;
+}
+
+.page-item{
+  background: #fff;
+  border: 1px solid gainsboro;
+  border-radius: 6px;
+  font-family: sans-serif;
+  cursor: pointer;
+  color: #3c3c3c !important;
+}
+.text-rose {
+  margin-left: 24px;
+}
+
+.page-item:hover{
+  color: white !important;
+  background-color: #2f96f3;
+}
+.page-item a {
+ pointer-events: none;
 }

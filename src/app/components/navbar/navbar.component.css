@@ -58,6 +58,15 @@
   text-decoration: none;
   color: white;
 }
+.email-input{
+  border: 1px solid #949494;
+  padding: 7px;
+}
+
+.email-input:focus{
+  border: none;
+}
+
 
 #search {
   cursor: pointer;

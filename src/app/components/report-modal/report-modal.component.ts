@@ -12,16 +12,6 @@ export class ReportModalComponent implements OnInit {
 
   ngOnInit() {
   }
-  report() {
-    const reportMessageElement = document.getElementById("report-message") as HTMLInputElement;
-    const reportNameElement = document.getElementById("report-name") as HTMLInputElement;
-    const report = {
-      name: reportNameElement.value,
-      message: reportMessageElement.value
-    }
-    this.appDataService.report(report).subscribe((res) => {
 
-    });
-  }
 
 }

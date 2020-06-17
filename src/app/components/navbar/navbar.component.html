@@ -61,7 +61,8 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" [routerLink]="['/', 'user']">Profile</a>
-                  <a class="dropdown-item" [routerLink]="['/', '']">Invite</a>
+                  <a class="dropdown-item" [routerLink]="['/', '']" data-toggle="modal"
+                    data-target="#exampleModalCenter">Invite</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" (click)="logout()">Logout</a>
                 </div>
@@ -74,3 +75,26 @@
   </nav>
   <!-- HOME IMAGE -->
 </header>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Stunlab Invitation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control email-input" [formControl]="email" placeholder="Email" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" [disabled]="isLoading || email.invalid" (click)="invitation()">
+          <img *ngIf="isLoading" style="width: 24px;margin-top: -3px;margin-left: -13px;" alt="Loading"
+            src="assets/images/spinner.gif" />Invite</button>
+      </div>
+    </div>
+  </div>
+</div>

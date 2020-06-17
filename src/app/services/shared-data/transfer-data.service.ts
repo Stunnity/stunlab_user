@@ -41,6 +41,14 @@ export class TransferDataService {
 
   private isCategoriesSet = new BehaviorSubject(0);
 
+  private recommendedCategories = new BehaviorSubject({});
+  private recommendedCategoriesSet = new BehaviorSubject(0);
+
+  private userBooksData = new BehaviorSubject({});
+  private userBooksDataSet = new BehaviorSubject(0);
+  private visitedUserPages = new BehaviorSubject({});
+
+
   constructor(private cookieService: CookieService, private router: Router) { }
   setCategories(data: any[]) {
     this.isCategoriesSet.next(1);
@@ -96,6 +104,18 @@ export class TransferDataService {
     return this.gotCategories.asObservable();
   }
 
+  setRecommendedCategories(categories) {
+    this.recommendedCategories.next(categories);
+    this.recommendedCategoriesSet.next(1);
+  }
+
+  getRecommendedCategories() {
+    return this.recommendedCategories.asObservable();
+  }
+  getRecommendedCategoriesSet() {
+    return this.recommendedCategoriesSet.asObservable();
+  }
+
   getUserIsSet() {
     return this.userIsSet.asObservable();
   }
@@ -129,6 +149,30 @@ export class TransferDataService {
   }
   setUserBooks(data: any[]) {
     this.userBooks.next(data);
+  }
+  setUserBooksData(data) {
+    console.log(data);
+    this.userBooksData.next(data)
+    this.userBooksDataSet.next(1);
+  }
+
+  setVisitedUserPages(data) {
+    this.visitedUserPages.next(data)
+  }
+
+  getVisitedUserPages() {
+    return this.visitedUserPages.asObservable();
+  }
+
+  setUserBooksDataSet(value) {
+    this.userBooksDataSet.next(value);
+    // this.userBooksData.next({});
+  }
+  getUserBooksData() {
+    return this.userBooksData.asObservable();
+  }
+  getUserBooksDataSet() {
+    return this.userBooksDataSet.asObservable()
   }
   getUserBooks() {
     return this.userBooks.asObservable();
@@ -183,6 +227,7 @@ export class TransferDataService {
   getIsUserRecentBooksSet() {
     return this.isUserRecentBooksSet.asObservable();
   }
+
 
   setUserRecommendBooks(books) {
     this.isUserRecommendBooksSet.next(1);
