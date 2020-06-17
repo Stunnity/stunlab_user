@@ -4,7 +4,7 @@ import { BookDataService } from '../../services/book-data/book-data.service';
 import { TransferDataService } from '../../services/shared-data/transfer-data.service';
 import * as $ from 'jquery';
 import * as _ from 'lodash';
-import { sanitize } from 'src/utils/common';
+import { sanitize } from '../../utils/common';
 import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-search',

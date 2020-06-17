@@ -4,7 +4,7 @@ import { AppDataService } from '../../services/app-data/app-data.service';
 import { BookDataService } from '../../services/book-data/book-data.service';
 import { TransferDataService } from '../../services/shared-data/transfer-data.service';
 import { Router } from '@angular/router';
-import { empty, sanitize } from 'src/utils/common';
+import { empty, sanitize } from '../../utils/common';
 import { DomSanitizer } from '@angular/platform-browser';
 declare const bookSwiper: any;
 

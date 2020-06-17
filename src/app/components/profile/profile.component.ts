@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import { TransferDataService } from '../../services/shared-data/transfer-data.service';
-import { empty, equal } from 'src/utils/common';
+import { empty, equal } from '../../utils/common';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserDataService } from '../../services/user-data/user-data.service';
 

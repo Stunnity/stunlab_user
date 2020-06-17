@@ -4,10 +4,10 @@ import { BookDataService } from '../../services/book-data/book-data.service';
 import { TransferDataService } from '../../services/shared-data/transfer-data.service';
 import * as _ from 'lodash';
 import * as $ from 'jquery';
-import { empty, sanitize } from 'src/utils/common';
+import { empty, sanitize } from 'src/app/utils/common';
 import { UserDataService } from '../../services/user-data/user-data.service';
 import { DomSanitizer } from '@angular/platform-browser';
-import { setIndex, copyArray, removeElement, addElement } from 'src/utils/filter-books';
+import { setIndex, copyArray, removeElement, addElement } from 'src/app/utils/filter-books';
 
 declare const bookSwiper: any;
 

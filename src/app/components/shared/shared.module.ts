@@ -7,8 +7,6 @@ import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { IsOnlineComponent } from './is-online/is-online.component';
 
-
-
 @NgModule({
   declarations: [
     ErrorComponent,

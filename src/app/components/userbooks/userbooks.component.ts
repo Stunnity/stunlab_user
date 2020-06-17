@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BookDataService } from '../../services/book-data/book-data.service';
 import * as _ from 'lodash';
 import * as $ from 'jquery';
-import { sanitize, empty } from 'src/utils/common';
+import { sanitize, empty } from 'src/app/utils/common';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TransferDataService } from '../../services/shared-data/transfer-data.service';
 

@@ -4,40 +4,47 @@ import {
   RouterModule,
   PreloadAllModules
 } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { AboutComponent } from './components/about/about.component';
+
 import { SearchComponent } from './components/search/search.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { ProfileComponent } from './components/profile/profile.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
-import { AppComponent } from './app.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { UserbooksComponent } from './components/userbooks/userbooks.component';
-import { HomeDataResolverService } from './resolvers/home-data-resolver.service';
-import { ReadBookComponent } from './components/read-book/read-book.component';
 import { AuthGuardService } from "../app/services/guards/auth-guard.service"
 import { ReportComponent } from './components/report/report.component';
+import { WebpageLayoutComponent } from './layouts/webpage-layout/webpage-layout.component';
+import { WebappLayoutComponent } from './layouts/webapp-layout/webapp-layout.component';
+import { GuestGuard } from './services/guards/guest.guard';
 const ROUTES: Routes = [
   {
-    path: 'home',
-    pathMatch: 'full',
-    component: HomeComponent,
+    path: '',
+    component: WebpageLayoutComponent,
+    canActivate: [GuestGuard],
+    children: [
+      {
+        path: '',
+        loadChildren:
+          './layouts/webpage-layout/webpage-layout.module#WebpageLayoutModule',
+      },
+    ],
   },
   {
     path: '',
-    pathMatch: 'full',
-    redirectTo: 'home',
+    canActivate: [AuthGuardService],
+    component: WebappLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren:
+          './layouts/webapp-layout/webapp-layout.module#WebappLayoutModule',
+      },
+    ],
   },
+
+
   {
     path: 'search',
     pathMatch: 'full',
     component: SearchComponent,
-  },
-  {
-    path: 'about',
-    pathMatch: 'full',
-    component: AboutComponent,
   },
   {
     path: 'report',
@@ -45,27 +52,9 @@ const ROUTES: Routes = [
     component: ReportComponent,
   },
   {
-    path: 'user',
-    canActivate: [AuthGuardService],
-    pathMatch: 'full',
-    component: ProfileComponent,
-  },
-  {
     path: 'login',
     pathMatch: 'full',
     component: LoginComponent,
-  },
-  {
-    path: 'books',
-    canActivate: [AuthGuardService],
-    pathMatch: 'full',
-    component: UserbooksComponent,
-  },
-  {
-    path: 'read/book',
-    canActivate: [AuthGuardService],
-    pathMatch: 'full',
-    component: ReadBookComponent,
   },
   {
     path: 'signup',
@@ -77,6 +66,7 @@ const ROUTES: Routes = [
     pathMatch: 'full',
     component: PageNotFoundComponent,
   },
+
 ];
 
 @NgModule({

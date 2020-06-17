@@ -4,7 +4,7 @@ import { TransferDataService } from '../../services/shared-data/transfer-data.se
 import { BookDataService } from '../../services/book-data/book-data.service';
 import * as $ from 'jquery';
 import { Router } from '@angular/router';
-import { empty, sanitize } from 'src/utils/common';
+import { empty, sanitize } from 'src/app/utils/common';
 import { DomSanitizer } from '@angular/platform-browser';
 
 

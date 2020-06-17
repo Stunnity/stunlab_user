@@ -1,11 +1,5 @@
-<div class="container-fluid" *ngIf="!isLoggedIn; else dashboard">
+<div class="container-fluid">
   <div class="allPage">
-    <div class="home-navbar">
-      <app-navbar></app-navbar>
-    </div>
-    <div class="isOnline">
-      <app-is-online></app-is-online>
-    </div>
 
     <section id="home" class="home">
       <div class="section-content">
@@ -107,10 +101,9 @@
 
     <app-get-in-touch></app-get-in-touch>
 
-    <app-footer></app-footer>
   </div>
 </div>
 
 <ng-template #dashboard>
-  <app-dashboard></app-dashboard>
+  <!-- <app-dashboard></app-dashboard> -->
 </ng-template>

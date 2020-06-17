@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UserDataService } from '../../services/user-data/user-data.service';
 import { TransferDataService } from '../../services/shared-data/transfer-data.service';
 import { CookieService } from 'ngx-cookie-service';
-import { authenticate, toogleLoading, tooglePassword } from 'src/utils/common';
+import { authenticate, toogleLoading, tooglePassword } from 'src/app/utils/common';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -76,7 +76,7 @@ export class LoginComponent implements OnInit {
     if (url)
       this.router.navigateByUrl(url);
     else
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl('/');
   }
   tooglePassword() {
     const temp: any = document.getElementById('float-input-password');

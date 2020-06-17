@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TransferDataService } from 'src/app/services/shared-data/transfer-data.service';
-import { empty } from 'src/utils/common';
+import { empty } from 'src/app/utils/common';
 import { AppDataService } from 'src/app/services/app-data/app-data.service';
 
 declare const statisticsCounter: any;
