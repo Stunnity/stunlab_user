@@ -6,7 +6,7 @@ import { WebpageLayoutRoutes } from './webpage-layout-routing.module';
 import { HomeModule } from 'src/app/components/home/home.module';
 import { RouterModule } from '@angular/router';
 
-HomeModule
+
 @NgModule({
   declarations: [
     AboutComponent,

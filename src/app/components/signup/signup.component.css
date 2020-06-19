@@ -1,6 +1,8 @@
 .main-content {
   font-size: 23px;
-  font-family: sans-serif !important;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  margin-left: 23%;
+  margin-top: 8%;
 }
 .first-form-group {
   margin-top: 30px;
@@ -10,6 +12,9 @@
 }
 .is-valid {
   border-color: #4caf50 !important;
+}
+.link-group{
+  margin-left: 15%;
 }
 .pending-spinner{
   position: absolute;
@@ -47,17 +52,17 @@
   right: 10px;
 }
 .card-title {
-  font-family: "Khula" !important;
   font-size: 24px;
   font-weight: bold;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
 }
 .submit-button {
   font-family: sans-serif !important;
 }
 .login {
-  font-size: 14px;
-  font-family: "Khula" !important;
-  line-height: 73px;
+  font-size: 13px;
+  line-height: 52px;
 }
 .login:hover {
   text-decoration: underline;
@@ -101,16 +106,4 @@ form {
   border: 1px solid #ced4da;
   border-radius: 6px;
   padding: 16px;
-}
-
-@media screen and (min-width: 1024px) {
-  .main-content {
-    margin-left: 23%;
-    margin-top: 8%;
-  }
-  .icon {
-    position: absolute;
-    margin-top: -2.2em;
-    margin-left: 41.5em;
-  }
 }

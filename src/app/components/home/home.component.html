@@ -24,9 +24,10 @@
     <section class="book-nav-slider" id="book-nav-slider">
       <div class="bookdiv">
         <ul class="booknav" id="booknav">
-          <li class="navlist" id="{{ category }}" *ngFor="let category of mostViewedCategories; let first = first"
-            [class.active]="first" (click)="getCategoryBooks(category, $event)">
-            <a>{{ category }}</a>
+          <li class="navlist" id="{{ trim(category['category']) }}"
+            *ngFor="let category of mostViewedCategories; let first = first" [class.active]="first"
+            (click)="getCategoryBooks(category['category'], $event)">
+            <a>{{ category['category'] }}</a>
           </li>
           <li class="slide"></li>
         </ul>
@@ -37,34 +38,33 @@
     <div class="booksliderdiv1" *ngIf="gotBookResponse; else loadBooks">
       <div class="swiper-container">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" *ngFor="let category_book of category_books">
+          <div class="swiper-slide" *ngFor="let book of categoryBooks">
             <div class="post">
-              <img [src]="sanitizeUrl( category_book.bookCover)" alt="{{ category_book.bookName }} Cover"
-                class="slider-image" />
+              <img [src]="sanitizeUrl( book.bookCover)" alt="{{ book.bookName }} Cover" class="slider-image" />
               <div class="post-info">
                 <p id="para">
-                  {{ category_book.bookName }}
+                  {{ book.bookName }}
                 </p>
                 <div class="post-meta">
                   <p class="book-category text-left">
-                    {{ category_book.bookProvider }}
+                    {{ book.bookProvider }}
                   </p>
                   <p class="book-provider text-left">
-                    {{ category_book.bookPublisher }}
+                    {{ book.bookPublisher }}
                   </p>
                   <p class="book-readers text-left">
-                    {{ category_book.bookViews }}
+                    {{ book.bookViews }}
                     &nbsp;&nbsp;Readers
                   </p>
                   <div class="row text-left">
                     <div class="col-5">
                       <i class="fa fa-thumbs-up" (click)="sendToLogin()"></i><span
-                        class="likes">&nbsp;{{ category_book.bookLikes }}
+                        class="likes">&nbsp;{{ book.bookLikes }}
                       </span>
                     </div>
                     <div class="col-5">
                       <i class="fa fa-thumbs-down" (click)="sendToLogin()"></i>
-                      <span class="diss">&nbsp; {{ category_book.bookDislikes }}
+                      <span class="diss">&nbsp; {{ book.bookDislikes }}
                       </span>
                     </div>
                   </div>
@@ -103,7 +103,3 @@
 
   </div>
 </div>
-
-<ng-template #dashboard>
-  <!-- <app-dashboard></app-dashboard> -->
-</ng-template>

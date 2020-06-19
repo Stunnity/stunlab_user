@@ -4,6 +4,85 @@
   box-shadow: none !important;
 }
 
+
+.topnav .back {
+  background-color: transparent;
+  border: 2px solid rgb(9, 147, 189);
+  padding: 6px;
+  color: #135e75;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 40px;
+}
+.back a {
+  color: #135e75;
+}
+.topnav h3 {
+  position: absolute;
+  top: 21%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.nav-header .login {
+  background-color: transparent;
+  border: 1px solid rgb(184, 181, 181);
+  padding: 5px;
+  width: 80px;
+  position: absolute;
+  right: 142px;
+  cursor: pointer;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.nav-header .login:hover {
+  background-color: #f5f5f5;
+  transition: 0.2s ease;
+  border: none;
+  border: 1px solid rgb(202, 202, 202);
+}
+
+.nav-header .signin:hover {
+  background-color: rgb(218, 86, 69);
+  border: 1px solid #ca6356;
+  transition: 0.2s ease;
+  font-weight: bolder;
+}
+
+.nav-header .signin {
+  background-color: #ec5252;
+  border: 1px solid #ec5252;
+  color: white;
+  padding: 5px;
+  width: 80px;
+  position: absolute;
+  right: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.sticky {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1;
+  background-color: #fff;
+  transition: all 0.4s ease-out 0s;
+  height: 58px;
+}
+
+.nav-header {
+  position: relative;
+  height: 72px;
+}
+.topnav {
+  position: relative;
+}
+
 .about-link {
   position: absolute;
   list-style: none;
@@ -99,7 +178,7 @@
   color: #fff;
 }
 .navbar-collapse .form-inline {
-  position: relative;
+position: relative;
   margin-top: 3.4%;
   margin-left: 33%;
 }
@@ -111,7 +190,6 @@
 
 .search-input {
   margin-left: 115px;
-  font-family: "Roboto";
   width: 100%;
 }
 input.search-input::placeholder {

@@ -1,109 +1,115 @@
-<!-- NAVBAR -->
-<div class="search-navbar">
-
-</div>
-<div class="isOnline">
-
-</div>
-<!-- CONTENT -->
-<div class="contents">
-  <div class="contents1">
-    <p class="searchtext" *ngIf="gotResults === 1">
-      {{ total }} results of "{{ searchKey }}"
-    </p>
-    <p class="searchtext" *ngIf="gotResults === 0">
-      No results found for "{{searchKey}}"
-    </p>
-    <p class="searchtext" *ngIf="gotResults === 2">
-      Searching for "{{searchKey}}"
-    </p>
-    <div class="row sorter">
-      <div class="col-5">
-        <div class="bg-dropdown"></div>
-        <ul class="navbar-nav">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              Sort
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" id="bookLikes" (click)="filterBooks($event)">Most Liked
+<div *ngIf="paramsValid; else pageNotFound">
+  <app-navbar></app-navbar>
+  <app-is-online top="57"></app-is-online>
+  <!-- CONTENT -->
+  <div class="contents">
+    <div class="contents1">
+      <p class="searchtext" *ngIf="gotResults === 1">
+        {{ total }} results of "{{ searchKey }}"
+      </p>
+      <p class="searchtext" *ngIf="gotResults === 0">
+        No results found for "{{searchKey}}"
+      </p>
+      <p class="searchtext" *ngIf="gotResults === 2">
+        Searching for "{{searchKey}}"
+      </p>
+      <div class="row sorter">
+        <div class="col-5">
+          <div class="bg-dropdown"></div>
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Sort
               </a>
-              <a class="dropdown-item" id="bookViews" (click)="filterBooks($event)">Most Reads</a>
-              <a class="dropdown-item" id="bookName" (click)="filterBooks($event)">Book Title</a>
-            </div>
-          </li>
-        </ul>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" id="bookLikes" (click)="filterBooks($event)">Most Liked
+                </a>
+                <a class="dropdown-item" id="bookViews" (click)="filterBooks($event)">Most Reads</a>
+                <a class="dropdown-item" id="bookName" (click)="filterBooks($event)">Book Title</a>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
 
 
-  <div class="books" *ngIf="gotResults === 1">
-    <div class="filterdiv2" *ngFor="let book of books">
-      <img [src]="sanitizeUrl( book.bookCover)" alt="{{ book.bookName }} Cover" height="200" width="200" />
-      <p class="booktext">Book</p>
-      <button class="pop bg-success" id="{{ book.ISBN }}" (click)="bookmark(book.ISBN, $event)" *ngIf="book.bookmarked">
-        Bookmarked
-      </button>
-      <button class="pop" id="{{ book.ISBN }}" (click)="bookmark(book.ISBN, $event)" *ngIf="!book.bookmarked">
-        Bookmark
-      </button>
-      <br />
-      <div class="bookinfo">
-        <span class="bookhead">{{ book.bookName }}</span> <br />
-        <span class="booktitle">Provider :</span> &nbsp;&nbsp;
-        <span>{{ book.bookProvider }}</span> <br />
-        <span class="booktitle">Category : </span> &nbsp;&nbsp;
-        <span>{{ book.bookCategory }}</span> <br />
-        <span>{{ book.bookViews }} views</span><br />
-        <span>{{ book.bookDownloads }} downloads</span><br />
+    <div class="books" *ngIf="gotResults === 1">
+      <div class="filterdiv2" *ngFor="let book of books">
+        <img [src]="sanitizeUrl( book.bookCover)" alt="{{ book.bookName }} Cover" height="200" width="200" />
+        <p class="booktext">Book</p>
+        <button class="pop bg-success" id="{{ book.ISBN }}" (click)="bookmark(book.ISBN, $event)"
+          *ngIf="book.bookmarked">
+          Bookmarked
+        </button>
+        <button class="pop" id="{{ book.ISBN }}" (click)="bookmark(book.ISBN, $event)" *ngIf="!book.bookmarked">
+          Bookmark
+        </button>
+        <br />
+        <div class="bookinfo">
+          <span class="bookhead">{{ book.bookName }}</span> <br />
+          <span class="booktitle">Provider :</span> &nbsp;&nbsp;
+          <span>{{ book.bookProvider }}</span> <br />
+          <span class="booktitle">Category : </span> &nbsp;&nbsp;
+          <span>{{ book.bookCategory }}</span> <br />
+          <span>{{ book.bookViews }} views</span><br />
+          <span>{{ book.bookDownloads }} downloads</span><br />
 
-        <i class="fa fa-thumbs-up" (click)="likeBook(book.ISBN, $event)" id="like-btn-{{book.ISBN}}"
-          [ngClass]="{'liked': book.liked}"></i>
-        <img style="width: 24px;
+          <i class="fa fa-thumbs-up" (click)="likeBook(book.ISBN, $event)" id="like-btn-{{book.ISBN}}"
+            [ngClass]="{'liked': book.liked}"></i>
+          <img style="width: 24px;
       bottom: -27px;
       left: 246px;
       position: absolute;" src="assets/images/spinner.gif" alt="Loading" *ngIf="likeLoading">
-        <i class="fa fa-thumbs-down" (click)="dislikeBook(book.ISBN, $event)" id="dislike-btn-{{book.ISBN}}"
-          [ngClass]="{'disliked': book.disliked}"></i>
-        <img style="width: 24px;
+          <i class="fa fa-thumbs-down" (click)="dislikeBook(book.ISBN, $event)" id="dislike-btn-{{book.ISBN}}"
+            [ngClass]="{'disliked': book.disliked}"></i>
+          <img style="width: 24px;
       bottom: -27px;
       left: 293px;
       position: absolute;" src="assets/images/spinner.gif" alt="Loading" *ngIf="dislikeLoading">
-        <button class="bookopen" (click)="readBook(book.ISBN)" id="read-book">
-          Read Book
-        </button>
+          <button class="bookopen" (click)="readBook(book.ISBN)" id="read-book">
+            Read Book
+          </button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <nav aria-label="Page navigation example" *ngIf="gotResults !== 0 && gotResults !== 2">
-    <ul class="pagination justify-content-center">
-      <li class="page-item" (click)="paginate('first', $event)" id="last"><a class="page-link"><i
-            class="fa fa-backward"></i></a></li>
-      <li class="page-item" id="previous" (click)="paginate('previous', $event)">
-        <a class="page-link" aria-label="Previous">
-          <span aria-hidden="true">&laquo;</span>
-          <span class="sr-only">Previous</span>
-        </a>
-      </li>
+    <nav aria-label="Page navigation example" *ngIf="gotResults !== 0 && gotResults !== 2">
+      <ul class="pagination justify-content-center">
+        <li class="page-item" (click)="paginate('first')" id="last"><a class="page-link"><i
+              class="fa fa-backward"></i></a>
+        </li>
+        <li class="page-item" id="previous" (click)="paginate('previous')">
+          <a class="page-link" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
 
-      <li class="page-item" (click)="paginate('next', $event)" id="next">
-        <a class="page-link" aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-          <span class="sr-only">Next</span>
-        </a>
-      </li>
-      <li class="page-item" (click)="paginate('last', $event)" id="first"><a class="page-link"><i
-            class="fa fa-forward"></i></a></li>
-      <li class="text-rose"><a class="page-link">Page {{bookPage}} of {{totalPages}}</a></li>
-    </ul>
-  </nav>
-  <div class="loader-area-category" *ngIf="gotResults === 2">
-    <div class="spinner"></div>
+        <li class="page-item" (click)="paginate('next')" id="next">
+          <a class="page-link" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+        <li class="page-item" (click)="paginate('last')" id="first"><a class="page-link"><i
+              class="fa fa-forward"></i></a>
+        </li>
+        <li class="text-rose"><a class="page-link">Page {{bookPage}} of {{totalPages}}</a></li>
+      </ul>
+    </nav>
+    <div class="loader-area-category" *ngIf="gotResults === 2">
+      <div class="spinner"></div>
+    </div>
+    <div class="no-results-found col-md-7" *ngIf="gotResults === 0">
+      <img src="assets/images/icon-404_2.svg" alt="No books found">
+    </div>
   </div>
-  <div class="no-results-found col-md-7" *ngIf="gotResults === 0">
-    <img src="assets/images/icon-404_2.svg" alt="No books found">
-  </div>
+  <app-footer *ngIf="gotResults === 1"></app-footer>
 </div>
+
+
+<ng-template #pageNotFound>
+  <app-page-not-found></app-page-not-found>
+</ng-template>

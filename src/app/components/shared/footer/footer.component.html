@@ -1,10 +1,10 @@
-<section class="footer">
+<section class="footer" *ngIf="!loggedIn; else loggedFooter">
   <div class="row">
     <div class="footer-header col-4 bg-dark">
       <div class="footer-header-content">
         <h4 class="text-left">Stunlab</h4>
         <p class="text-left">
-          Stunlab is is one of the Rwanda’s l free learning platforms for
+          Stunlab is is one of the Rwanda’s free learning platforms for
           education and book reading.
         </p>
       </div>
@@ -14,23 +14,23 @@
         <h4 class="text-left">Site Map</h4>
         <ul>
           <li class="footer-sitemap-link">
-            <a class="nav-link" [routerLink]="['/', 'about']">Home </a>
+            <a class="nav-link" [routerLink]="['/', '']">Home </a>
           </li>
           <li class="footer-sitemap-link">
             <a class="nav-link" [routerLink]="['/', 'about']">About </a>
           </li>
           <li class="footer-sitemap-link">
-            <a class="nav-link" [routerLink]="['/', 'about']">Login </a>
+            <a class="nav-link" [routerLink]="['/', 'login']">Login </a>
           </li>
           <li class="footer-sitemap-link">
-            <a class="nav-link" [routerLink]="['/', 'about']">Signup </a>
+            <a class="nav-link" [routerLink]="['/', 'Signup']">Signup </a>
           </li>
         </ul>
       </div>
     </div>
     <div class="footer-sitemap col-2 bg-dark">
       <div class="footer-sitemap-content">
-        <h4 class="text-left">More Apps</h4>
+        <h4 class="text-left">More</h4>
         <ul>
           <li class="footer-sitemap-link">
             <a class="nav-link" [routerLink]="['/', 'about']">StunnBook </a>
@@ -40,9 +40,9 @@
     </div>
     <div class="footer-newsletter col-4 bg-dark">
       <div class="footer-newsletter-content">
-        <h4 class="text-left">Subscribe to our Newsletter</h4>
+        <h4 class="text-left">Newsletter</h4>
         <input type="text" [formControl]="subscriber" id="subscribe_newsletter" class="form-control" autocomplete="off"
-          placeholder="Email Address" />
+          placeholder="Enter email to subscribe" />
         <button [disabled]="subscriber.invalid" class="send-email" (click)="sendEmail(subscriber.value)">
           <i class="fa fa-send"></i>
         </button>
@@ -55,16 +55,22 @@
         <h4 class="text-left">Connect</h4>
         <ul>
           <li>
-            <a> <img src="assets/images/fb.png" alt="Facebook" /></a>
+            <a> <i class="fa fa-facebook-square"></i> </a>
           </li>
           <li>
-            <a><img src="assets/images/twit.png" alt="Twitter" /> </a>
+            <a>
+              <i class="fa fa-twitter-square"></i>
+            </a>
           </li>
           <li>
-            <a><img src="assets/images/linkin.png" alt="Linked In" /> </a>
+            <a>
+              <i class="fa fa-linkedin-square"></i>
+            </a>
           </li>
           <li>
-            <a><img src="assets/images/ig.png" alt="Instagram" /> </a>
+            <a>
+              <i class="fa fa-instagram"></i>
+            </a>
           </li>
         </ul>
       </div>
@@ -77,4 +83,24 @@
       </div>
     </div>
   </div>
+
 </section>
+<ng-template #loggedFooter>
+  <nav class="navbar navbar-expand-lg navbar-light bg-dark loggedFooter">
+    <a class="navbar-brand">STUNLAB</a>
+    <span class="copyright">&copy; 2020</span>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <div class="form-inline col-4 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" [formControl]="subscriber"
+          placeholder="Subscribe to Newsletter">
+        <button [disabled]="subscriber.invalid || subscribing" class=" btn bg-danger my-2 my-sm-0"
+          (click)="sendEmail(subscriber.value)">
+          <img *ngIf="subscribing" style="width: 24px;position: absolute; top: 8px;left: 5px;" alt="Loading"
+            src="assets/images/spinner.gif" />
+          <i class="fa fa-send"></i>
+        </button>
+      </div>
+    </div>
+
+  </nav>
+</ng-template>

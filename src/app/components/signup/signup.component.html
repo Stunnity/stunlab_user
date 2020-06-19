@@ -1,19 +1,10 @@
-<div class="isOnline">
-  <app-is-online></app-is-online>
-</div>
+<app-is-online top="0"></app-is-online>
 <div class="container-fluid">
   <div class="main-content">
     <div class="container">
       <div class="row">
         <div class="col-md-8">
-          <div *ngIf="errorOccurred" class="alert alert-danger alert-dismissible fade show" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-            <strong class="text-bold">Login Failed </strong>&nbsp;&nbsp;{{
-              error_message
-            }}
-          </div>
+          <app-error [error]='errorMessage' *ngIf="errorOccurred"></app-error>
           <div class="card">
             <div class="card-header card-header-danger">
               <h4 class="card-title">Create New Account</h4>
@@ -78,7 +69,7 @@
                       <span id="button-text"> Create Account</span>
                     </button>
                   </div>
-                  <div class="col-md-3">
+                  <div class="form-group link-group">
                     <a [routerLink]="['/login']" class="login">Got An Account?
                     </a>
                   </div>
@@ -91,5 +82,3 @@
     </div>
   </div>
 </div>
-
-<!-- [disabled]="!_recaptcha" -->

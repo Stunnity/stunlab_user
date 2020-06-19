@@ -1,19 +1,28 @@
-.card-title {
-  font-family: "Khula" !important;
-  font-size: 24px;
+.main-content{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+.card-title {
+  font-size: 24px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+  font-weight: bold;
+}
+
 .card-foot .form-group{
-  font-family: "Khula" !important;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .card-foot .btn{
   font-family: sans-serif !important;
 }
 .signup {
-  font-size: 14px;
-  line-height: 69px;
+  font-size: 13px;
+  line-height: 59px;
 }
 .signup:hover {
   text-decoration: underline;
+}
+.link-group{
+  margin-left: 7%;
 }
 form {
   margin-top: 20px;
@@ -24,7 +33,7 @@ form {
   font-family: sans-serif;
 }
 .icon {
-  margin: -2.91em  0 0  37.5em;
+  margin: -2.91em 0 0 41.5em;
   z-index: 1;
   cursor: pointer;
 }
@@ -37,8 +46,4 @@ form {
 .main-content {
   margin-left: 23%;
   margin-top: 8%;
-}
-.isOnline {
-  position: fixed;
-  top: 0;
 }

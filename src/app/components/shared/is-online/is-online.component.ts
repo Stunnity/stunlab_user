@@ -1,17 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, AfterContentInit, AfterViewInit } from '@angular/core';
 import { Observable, Observer, fromEvent, merge } from 'rxjs';
 import { map } from 'rxjs/operators';
+import * as $ from 'jquery';
+import { setTopOnline } from 'src/app/utils/common';
 @Component({
   selector: 'app-is-online',
   templateUrl: './is-online.component.html',
   styleUrls: ['./is-online.component.css'],
 })
-export class IsOnlineComponent implements OnInit {
-  constructor() {}
-
+export class IsOnlineComponent implements OnInit, AfterViewInit {
+  @Input() top: string;
   isOnline: boolean;
-  ngOnInit(): void {
+
+  constructor() {
     this.createOnline$().subscribe((isOnline) => (this.isOnline = isOnline));
+  }
+
+  ngAfterViewInit(): void {
+    setTopOnline('.isOnline-alert', this.top);
+  }
+  ngOnInit(): void {
   }
 
   createOnline$() {

@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import * as $ from 'jquery';
-import { AppDataService } from '../../services/app-data/app-data.service';
-import { BookDataService } from '../../services/book-data/book-data.service';
-import { TransferDataService } from '../../services/shared-data/transfer-data.service';
+import { BookDataService } from '../../services/data/book/book-data.service';
+import { TransferDataService } from '../../services/data/shared/transfer-data.service';
 import { Router } from '@angular/router';
-import { empty, sanitize } from '../../utils/common';
+import { empty, sanitize, trimSpaces, setToActive } from '../../utils/common';
 import { DomSanitizer } from '@angular/platform-browser';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 declare const bookSwiper: any;
 
 @Component({
@@ -14,39 +14,35 @@ declare const bookSwiper: any;
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  invalidContactData: boolean;
-  report_message: string;
 
   constructor(
-    private appData: AppDataService,
     private bookData: BookDataService,
     private transferDataService: TransferDataService,
-    private _router: Router,
+    private router: Router,
     private sanitizer: DomSanitizer
   ) { }
+  invalidContactData: boolean;
+  booksPending: boolean;
+  private readonly onDestroy = new Subject<void>();
+  gotBookResponse: boolean;
+  mostViewedCategories: any;
+  incomingCategoryRequests: any[] = [];
+  pendingCategoryBooks: boolean;
+  visitedCategories: any[] = [];
+  categoryBooks: any[] = [];
 
   ngOnDestroy(): void {
     this.transferDataService.setGotCategories(this.visitedCategories);
     this.transferDataService.setGotCategoryBooks(this.categoryBooks);
+    this.onDestroy.next();
+
     return;
   }
 
-  user_id: string;
-  userdata: any;
-  category_books: any[];
-  isLoggedIn: any;
-  gotBookResponse = false;
-  mostViewedCategories: any[];
-  incomingCategoryRequests = [];
-  pendingCategoryBooks: boolean = false;
-  visitedCategories: any[] = [];
-  categoryBooks: any[] = [];
-
   ngOnInit() {
-    this.isLoggedIn = this.transferDataService.loggedIn();
-
+    this.gotBookResponse = false;
+    this.pendingCategoryBooks = false;
     this.getMostViewedCategories();
-    // interval(1000).subscribe((val) => this.disableContactBtn());
   }
 
   getMostViewedCategories() {
@@ -54,44 +50,45 @@ export class HomeComponent implements OnInit, OnDestroy {
       if (empty(res)) {
         return;
       }
-      this.mostViewedCategories = ['Literature', 'Language', 'Science', 'Humanity'];
-      this.getCategoryBooks(this.mostViewedCategories[0]);
-
+      this.mostViewedCategories = res;
+      this.getCategoryBooks(this.mostViewedCategories[0].category);
     });
   }
 
+  trim(word) {
+    return trimSpaces(word);
+  }
+
   getCategoryBooks(category, event?) {
-    if (event) {
-      const element: any = event.target.id;
-      if ($(`#${element}`).hasClass('active')) {
-        return;
-      }
-      $(`#${element}`).siblings().removeClass('active');
-      $(`#${element}`).addClass('active');
+    if (this.booksPending) {
+      return;
     }
-    this.transferDataService.getHomeNavigation().subscribe(res => {
-      const homeNavigation = res;
+    this.booksPending = true;
+    if (event) {
+      setToActive(event.target.id, 'active');
+    }
+    this.transferDataService.getHomeNavigation().subscribe(set => {
+      const homeNavigation = set;
       if (homeNavigation !== 0) {
-        this.transferDataService.getGotCategoryBooks().subscribe(res => {
-          let response: any = res;
+        this.transferDataService.getGotCategoryBooks().pipe(takeUntil(this.onDestroy)).subscribe(books => {
+          const response: any = books;
           let filterArray = response.filter(obj => {
-            return obj.category === category
+            return obj.category === category;
           });
           if (empty(filterArray)) {
             this.returnBooks(category, true);
-            return
-          }
-          else {
-            filterArray = filterArray[0]["data"];
-            let array = [];
+            return;
+          } else {
+            filterArray = filterArray[0].data;
+            const array = [];
             for (const book of filterArray) {
-              array.push(book.book)
+              array.push(book.book);
             }
-            this.category_books = array;
-
+            this.categoryBooks = array;
             this.gotBookResponse = true;
+            this.booksPending = false;
           }
-        })
+        });
 
       } else {
         if (this.visitedCategories.indexOf(category) === -1) {
@@ -99,42 +96,44 @@ export class HomeComponent implements OnInit, OnDestroy {
 
           this.gotBookResponse = false;
           this.returnBooks(category, false);
-        }
-        else {
+        } else {
           let filterArray = this.categoryBooks.filter(obj => {
-            return obj.category === category
-          })
-          filterArray = filterArray[0]["data"];
-          let array = [];
+            return obj.category === category;
+          });
+          filterArray = filterArray[0].data;
+          const array = [];
           for (const book of filterArray) {
-            array.push(book.book)
+            array.push(book.book);
           }
-          this.category_books = array;
+          this.categoryBooks = array;
+          this.booksPending = false;
+
         }
       }
-    })
+    });
 
   }
   sanitizeUrl(url) {
-    return sanitize(this.sanitizer, url)
+    return sanitize(this.sanitizer, url);
   }
 
   returnBooks(category, cache) {
     if (!cache) {
       this.gotBookResponse = false;
-      this.bookData.getCategoryBooks(category).subscribe(
-        (res: any[]) => {
-          let array = [];
-          for (const book of res["data"]) {
-            array.push(book.book)
+      this.bookData.getCategoryBooks(category).pipe(takeUntil(this.onDestroy)).subscribe(
+        (res: any) => {
+          const array = [];
+          for (const book of res.data) {
+            array.push(book.book);
           }
           this.gotBookResponse = true;
-          this.category_books = array;
+          this.categoryBooks = array;
           const categoryBook = {
-            category: category,
-            data: res["data"]
-          }
+            category,
+            data: res.data
+          };
           this.categoryBooks.push(categoryBook);
+          this.booksPending = false;
           bookSwiper();
         },
         (err) => {
@@ -143,31 +142,34 @@ export class HomeComponent implements OnInit, OnDestroy {
       );
     } else {
       this.gotBookResponse = false;
-      this.bookData.getCategoryBooks(category).subscribe(
-        (res: any[]) => {
-          let array = [];
-          for (const book of res["data"]) {
-            array.push(book.book)
+      this.bookData.getCategoryBooks(category).pipe(takeUntil(this.onDestroy)).subscribe(
+        (res: any) => {
+          const array = [];
+          for (const book of res.data) {
+            array.push(book.book);
           }
           this.gotBookResponse = true;
-          this.category_books = array;
-          const categoryBook = {
-            category: category,
-            data: res["data"]
-          }
-          bookSwiper();
-          this.transferDataService.getGotCategories().subscribe(res => {
-            this.visitedCategories = res as any;
-            if (this.visitedCategories.indexOf(category) === -1)
-              this.visitedCategories.push(category);
-            this.transferDataService.getGotCategoryBooks().subscribe(res => {
-              this.categoryBooks = res as any;
-              if (this.categoryBooks.indexOf(categoryBook) === -1)
-                this.categoryBooks.push(categoryBook);
-            }
+          this.categoryBooks = array;
+          this.booksPending = false;
 
-            )
-          })
+          const categoryBook = {
+            category,
+            data: res.data
+          };
+          bookSwiper();
+          this.transferDataService.getGotCategories().pipe(takeUntil(this.onDestroy)).subscribe(categories => {
+            this.visitedCategories = categories as any;
+            if (this.visitedCategories.indexOf(category) === -1) {
+              this.visitedCategories.push(category);
+            }
+            this.transferDataService.getGotCategoryBooks().subscribe(books => {
+              this.categoryBooks = books as any;
+              if (this.categoryBooks.indexOf(categoryBook) === -1) {
+                this.categoryBooks.push(categoryBook);
+              }
+            }
+            );
+          });
         },
         (err) => {
           this.pendingCategoryBooks = false;
@@ -175,12 +177,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       );
     }
   }
-  sendToLogin() {
-    this._router.navigate(['/login'], { queryParams: { logged_in: false } });
-  }
-  hasClass(element: Element, _class: string): boolean {
-    return element.classList.contains(_class);
-  }
 
+  sendToLogin() {
+    this.router.navigate(['/login'], { queryParams: { logged_in: false } });
+  }
 
 }

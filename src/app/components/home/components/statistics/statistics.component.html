@@ -1,0 +1,41 @@
+<!-- COUNTER UP -->
+<div class="middle">
+    <div class="counting-sec">
+        <div class="inner-width">
+            <div class="col">
+                <i class="fa fa-book"></i>
+                <div *ngIf="isNotConnected"></div>
+                <div class="num" *ngIf="!isNotConnected">{{ books }}</div>
+                <img *ngIf="isNotConnected" style="width: 50px; margin-top: -4px;" title="Checking"
+                    src="assets/images/spinner.gif" />
+                Books
+            </div>
+        </div>
+    </div>
+    <div class="counting-sec">
+        <div class="inner-width">
+            <div class="col">
+                <i class="fa fa-users"></i>
+                <div *ngIf="isNotConnected"></div>
+                <div class="num" *ngIf="!isNotConnected">{{ readers }}</div>
+                <img *ngIf="isNotConnected" style="width: 50px; margin-top: -4px;" title="Checking"
+                    src="assets/images/spinner.gif" />
+                Readers
+            </div>
+        </div>
+    </div>
+    <div class="counting-sec">
+        <div class="inner-width">
+            <div class="col">
+                <i class="fa fa-download"></i>
+                <div *ngIf="isNotConnected"></div>
+                <div class="num" *ngIf="!isNotConnected">
+                    {{ downloads }}
+                </div>
+                <img *ngIf="isNotConnected" style="width: 50px; margin-top: -4px;" title="Checking"
+                    src="assets/images/spinner.gif" />
+                Downloads
+            </div>
+        </div>
+    </div>
+</div>

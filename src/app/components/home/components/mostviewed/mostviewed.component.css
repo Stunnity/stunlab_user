@@ -1,0 +1,378 @@
+/* CSS OF THE NAVBAR */
+@import "../../../../../assets/js/swiper/package/css/swiper.min.css";
+.swiper-container {
+  width: 100%;
+  height: 100%;
+}
+.levels-link {
+  pointer-events: none;
+}
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.text-left .col-5 .fa:before {
+  font-size: 23px;
+  vertical-align: sub;
+}
+.text-left .col-5 .fa-thumbs-up:hover {
+  color: green;
+}
+.text-left .col-5 .fa-thumbs-down:hover {
+  color: #ca6356;
+}
+.navlist1 {
+  cursor: pointer;
+}
+.pop {
+  position: absolute;
+  top: 21.5%;
+  border: none;
+  padding: 1px;
+  font-size: 13px;
+  left: 65%;
+  width: 47%;
+  background-color: #f1523b;
+  color: white;
+  border: none;
+}
+
+.bookdiv {
+  position: relative;
+  margin-top: 20px;
+  margin-left: 232px;
+}
+.swiper-button-prev {
+  left: 37% !important;
+  right: 0;
+}
+.most-viewed-component {
+  position: relative;
+  margin-top: 6%;
+}
+
+.swiper-container {
+  margin-left: 94px;
+}
+
+.loader-area-category {
+  position: relative;
+  /* height: 200px; */
+  width: 100px;
+  margin-left: 19%;
+  margin-top: 145px;
+}
+
+.spinner {
+  border: 6px solid silver;
+  border-top: 8px solid #dc3545;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 350ms linear infinite;
+  left: 50%;
+  position: relative;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+.booknav {
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+.slide {
+  position: relative;
+  width: 650px;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: #f1523b;
+  z-index: -1;
+  transition: 0.5s;
+  opacity: 0;
+  box-shadow: 1rem 1rem 1rem -1rem #83818133;
+}
+
+.booknav li {
+  color: black;
+  height: 62px;
+  padding-left: 60px;
+  padding-top: 17px;
+  font-size: 18px;
+  padding-bottom: 17px;
+  padding-right: 60px;
+  width: 200px;
+  border: 1px solid;
+  margin-bottom: 20px;
+  border-color: #ddd;
+  box-shadow: 0 0 1px 1px rgba(20, 23, 28, 0.1),
+    0 3px 1px 0 rgba(20, 23, 28, 0.1);
+  opacity: 1;
+  border: none;
+}
+
+.booknav li:hover {
+  transition: 0.2s ease;
+  box-shadow: 0 2px 8px 2px rgba(20, 23, 28, 0.15);
+}
+
+.booknav li a {
+  text-decoration: none;
+  color: #333;
+  text-align: center;
+}
+
+.slide {
+  position: relative;
+  width: 650px;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: #f1523b;
+  z-index: -1;
+  transition: 0.5s;
+  opacity: 0;
+  box-shadow: 1rem 1rem 1rem -1rem #83818133;
+}
+
+.booknav li.active a {
+  color: white;
+}
+
+.booknav li:nth-child(1).active ~ .slide {
+  top: 0;
+  left: 15px;
+  position: absolute;
+  opacity: 1;
+}
+
+.booknav li:nth-child(2).active ~ .slide {
+  top: 83px;
+  left: 15px;
+  opacity: 1;
+  position: absolute;
+}
+
+.booknav li:nth-child(3).active ~ .slide {
+  top: 166px;
+  left: 15px;
+  opacity: 1;
+  position: absolute;
+}
+
+.booknav li:nth-child(4).active ~ .slide {
+  top: 249px;
+  opacity: 1;
+  left: 15px;
+  position: absolute;
+}
+
+/* END OF BOOKNAV CSS */
+
+/* BOOK SLIDER CSS */
+
+.post-slider {
+  position: absolute;
+  top: 120%;
+  width: 100%;
+  height: 600px;
+}
+
+.post-slider .post-wrapper {
+  width: 70%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  height: 529px;
+  margin: 0px auto;
+  margin-top: 89px;
+  overflow: hidden;
+}
+
+.post {
+  background: white;
+  display: inline-block;
+  height: 383px;
+  margin: 0px 10px;
+  box-shadow: 0 0 1px 1px rgb(216, 216, 216), 0 3px 1px 0 rgba(20, 23, 28, 0.1);
+  border-bottom: 4px solid rgba(0, 0, 0, 0.1);
+}
+
+.post-slider .next {
+  position: absolute;
+  top: 48%;
+  right: 175px;
+  cursor: pointer;
+  font-size: 2em;
+  background-color: #fff;
+  border-radius: 50%;
+  border-width: 0;
+  box-shadow: 0 0 1px 1px rgba(20, 23, 28, 0.1),
+    0 3px 1px 0 rgba(20, 23, 28, 0.1);
+  color: #007791;
+  font-size: 24px;
+  height: 47px;
+  line-height: 1;
+  padding: 11px 0;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: 300ms;
+  width: 47px;
+  z-index: 3;
+  font-size: 16px;
+  padding-top: 16px;
+  padding-left: 5px;
+}
+
+.post-slider .prev {
+  position: absolute;
+  top: 48%;
+  left: 175px;
+  font-size: 2em;
+  cursor: pointer;
+  background-color: #fff;
+  border-radius: 50%;
+  border-width: 0;
+  box-shadow: 0 0 1px 1px rgba(20, 23, 28, 0.1),
+    0 3px 1px 0 rgba(20, 23, 28, 0.1);
+  color: #007791;
+  font-size: 24px;
+  height: 47px;
+  line-height: 1;
+  padding: 11px 0;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: 300ms;
+  width: 47px;
+  z-index: 4;
+  font-size: 16px;
+  padding-top: 16px;
+  padding-right: 5px;
+}
+
+.post .slider-image {
+  width: 100%;
+  height: 172px;
+}
+
+.post .post-info {
+  width: 194px;
+  margin-left: 10px;
+  position: relative;
+  padding: 5px;
+  font-size: 16px;
+}
+.book-category,
+.book-provider,
+.book-readers {
+  margin-bottom: 0 !important;
+}
+.post .post-info p {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-weight: bolder;
+  color: rgb(27, 42, 47);
+}
+
+.imge1 {
+  height: 26px;
+  padding: 0px;
+  margin: 0px;
+  cursor: pointer;
+  color: #f1523b;
+}
+
+.imge2 {
+  cursor: pointer;
+  position: relative;
+  height: 24px;
+  vertical-align: -webkit-baseline-middle;
+}
+
+.likes {
+  position: relative;
+  vertical-align: sub;
+}
+
+.diss {
+  position: relative;
+  vertical-align: sub;
+}
+
+.bookopen {
+  width: 100%;
+  background: #495d70;
+  color: white;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  font-weight: bolder;
+  top: 16px;
+  padding: 7px;
+  left: 1%;
+}
+
+.bookopen:hover {
+  background-color: #f1523b;
+  color: white;
+  transition: 0.5s ease;
+}
+
+.booksliderdiv {
+  position: absolute;
+  left: 429px;
+}
+
+.swiper-slide {
+  width: 246.333px !important;
+  margin-right: 0px !important;
+}
+.swiper-slide:nth-child(1) {
+  margin-left: 75px !important;
+}
+.swiper-container {
+  width: 70% !important;
+}
+
+.swiper-button-next {
+  right: 42px !important;
+  left: auto !important;
+}
+/* END OF BOOK SLIDER CSS */
+
+/* SECOND BOOK SLIDER CSS */
+
+/* END OF SECOND BOOK SLIDER CSS */
+
+/* COUNTER CSS */
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  position: relative;
+  left: 16%;
+  width: 80%;
+  color: rgb(27, 42, 47);
+}

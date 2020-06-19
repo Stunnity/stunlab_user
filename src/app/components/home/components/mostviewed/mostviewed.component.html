@@ -1,0 +1,67 @@
+<div class="most-viewed-component">
+  <p class="title">Most reads</p>
+  <div class="row">
+    <div class="bookdiv col-3">
+      <ul class="booknav levels">
+        <li class="navlist1" *ngFor="let level of mostViewedLevels; let first = first" [class.active]="first"
+          id="{{ trim(level['level']) }}" (click)="getLevelBooks(level['level'], $event)">
+          <a class="levels-link">{{ level['level'] }}</a>
+        </li>
+        <li class="slide"></li>
+      </ul>
+    </div>
+
+    <div class="booksliderdiv col-9" *ngIf="gotBookResponse; else loadBooks">
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide" *ngFor="let book of levelBooks">
+            <div class="post">
+              <img [src]="sanitizeUrl( book.bookCover)" alt="{{ book.bookName }} Cover" class="slider-image" />
+              <div class="post-info">
+                <p id="para">
+                  {{ book.bookName }}
+                </p>
+                <div class="post-meta">
+                  <p class="book-category text-left">
+                    {{ book.bookProvider }}
+                  </p>
+                  <p class="book-provider text-left">
+                    {{ book.bookPublisher }}
+                  </p>
+                  <p class="book-readers text-left">
+                    {{ book.bookViews }}&nbsp;&nbsp;Readers
+                  </p>
+                  <div class="row text-left">
+                    <div class="col-5">
+                      <i class="fa fa-thumbs-up" (click)="navigateLogin()"></i><span
+                        class="likes">&nbsp;{{ book.bookLikes }}</span>
+                    </div>
+                    <div class="col-5">
+                      <i class="fa fa-thumbs-down" (click)="navigateLogin()"></i>
+                      <span class="diss">&nbsp;{{ book.bookDislikes }}</span>
+                    </div>
+                  </div>
+                </div>
+                <button class="bookopen" (click)="navigateLogin()">
+                  Read
+                </button>
+                <button class="pop" id="pop" (click)="navigateLogin()">
+                  Bookmark
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Add Arrows -->
+      </div>
+    </div>
+    <ng-template #loadBooks>
+      <div class="loader-area-category">
+        <div class="spinner"></div>
+      </div>
+    </ng-template>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+</div>

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { TransferDataService } from '../../../services/shared-data/transfer-data.service';
-import { Router } from '@angular/router';
-import * as $ from 'jquery';
-import { UserDataService } from 'src/app/services/user-data/user-data.service';
-import { AppDataService } from 'src/app/services/app-data/app-data.service';
+import { TransferDataService } from '../../../services/data/shared/transfer-data.service';
+import { UserDataService } from 'src/app/services/data/user/user-data.service';
+import { AppDataService } from 'src/app/services/data/app/app-data.service';
 import { FormControl, Validators } from '@angular/forms';
+import { empty, scroll } from 'src/app/utils/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -12,47 +12,51 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  avatar: string = "";
-  email: FormControl
-  private avatarUrl: string = 'https://ui-avatars.com/api/?name=';
+
+  avatar: string;
+  about: boolean;
+  email: FormControl;
+  avatarAvailable: boolean;
   isLoading: boolean;
-  constructor(
-    private transferService: TransferDataService,
-    private router: Router,
-    private userData: UserDataService,
-    private appService: AppDataService
-  ) {
-    this.email = new FormControl("", [Validators.required, Validators.email]);
-    this.isLoading = false;
-    console.log(this.email)
-  }
   isLoggedIn: boolean;
   categoriesAvailable: boolean;
   categories: any;
-  user: {};
-  username: '';
+  username: string;
+
+  private avatarUrl = 'https://ui-avatars.com/api/?name=';
+
+  constructor(
+    private transferService: TransferDataService,
+    private router: Router,
+    private appService: AppDataService
+  ) {
+    this.transferService.getAboutPage().subscribe(set => {
+      this.about = set;
+    });
+    scroll('.navbar');
+    this.isLoggedIn = this.transferService.loggedIn();
+
+    this.email = new FormControl('', [Validators.required, Validators.email]);
+    this.isLoading = false;
+    this.avatarAvailable = false;
+  }
+
 
   ngOnInit() {
     this.getCategories();
-    this.scroll();
-    this.isLoggedIn = this.transferService.loggedIn();
-    if (this.isLoggedIn) {
-      this.getUser();
-    }
+    this.getUser();
   }
   bookNavigate(bookmark: boolean) {
     if (!bookmark) {
-      this.router.navigate(['/books'], { queryParams: { page: 'bookmarks' } });
+      this.router.navigate(['/u/books'], { queryParams: { page: 'bookmarks' } });
     } else {
-      this.router.navigate(['/books'], {
+      this.router.navigate(['/u/books'], {
         queryParams: { page: 'favourites' },
       });
     }
   }
   logout() {
-    this.userData.logout().subscribe(res => {
-      this.transferService.logoutUser();
-    })
+    this.transferService.logoutUser();
   }
   searchBook(search: string, fromCategory?: boolean) {
     if (!fromCategory) {
@@ -66,52 +70,40 @@ export class NavbarComponent implements OnInit {
     this.isLoading = true;
     this.appService.invite(this.email.value).subscribe(res => {
       this.isLoading = false;
-      this.email.setValue("");
-    })
-  }
-
-  scroll() {
-    $(document).scroll(function () {
-      const $nav = $('.navbar');
-      $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
+      this.email.setValue('');
     });
   }
+
   getCategories() {
-    this.transferService.getIsCategoriesSet().subscribe(res => {
-      if (res === 0) {
-        this.appService.getCategories().subscribe(
-          (res: any[]) => {
-            this.transferService.setCategories(res);
-          },
-        );
-      }
-      else {
-        this.transferService.getCategories().subscribe(res => {
-          this.categories = res;
+    this.transferService.getIsCategoriesSet().subscribe(set => {
+      if (set === 1) {
+        this.transferService.getCategories().subscribe(categories => {
+          if (empty(categories)) {
+            return;
+          }
+          this.categories = categories;
           this.categoriesAvailable = true;
-        })
-      }
-    })
 
-  }
-
-  getUser() {
-    this.transferService.getUserIsSet().subscribe(res => {
-      const userSet = res;
-      if (userSet === 0) {
-        this.userData.authUser().subscribe((res) => {
-          this.transferService.setUser(res);
-          this.username = res["username"];
-          this.avatar = this.avatarUrl + this.username;
         });
       }
-      else {
-        this.transferService.getUser().subscribe(res => {
-          this.username = res["username"];
-          this.avatar = this.avatarUrl + this.username;
-        })
-      }
-    })
-
+    });
   }
+
+
+  getUser() {
+
+    this.transferService.getUserIsSet().subscribe(set => {
+      if (set === 1) {
+        this.transferService.getUser().subscribe((user: any) => {
+          if (empty(user)) {
+            return;
+          }
+          this.username = user.username;
+          this.avatar = this.avatarUrl + this.username;
+          this.avatarAvailable = true;
+        });
+      }
+    });
+  }
+
 }

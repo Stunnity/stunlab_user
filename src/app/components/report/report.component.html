@@ -1,5 +1,8 @@
+<app-navbar></app-navbar>
+<app-is-online [top]="57"></app-is-online>
 <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content" style="box-shadow: none;">
+        <app-error [error]="errorMessage" *ngIf="errorOccurred"></app-error>
         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLongTitle">
                 REPORT A PROBLEM
@@ -18,10 +21,8 @@
                 Cancel
             </button>
             <button type="button" class="btn btn-danger" (click)="report()" [disabled]="reportForm.invalid || sending">
-                <img *ngIf="sending" style="width: 24px;
-                margin-top: -5px;
-                margin-left: -24px;
-                position: absolute;" alt="Loading" src="assets/images/spinner.gif" />
+                <img *ngIf="sending" style="width: 24px;margin-top: -4px; margin-left: -12px;" alt="Loading"
+                    src="assets/images/spinner.gif" />
                 Send
             </button>
         </div>

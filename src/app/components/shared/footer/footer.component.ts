@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserDataService } from '../../../services/user-data/user-data.service';
+import { UserDataService } from '../../../services/data/user/user-data.service';
 import { FormControl, Validators } from '@angular/forms';
+import { TransferDataService } from 'src/app/services/data/shared/transfer-data.service';
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
@@ -8,17 +9,25 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class FooterComponent implements OnInit {
   subscriber: FormControl;
-  constructor(private userData: UserDataService) {
-    this.subscriber = new FormControl("", [Validators.required, Validators.email]);
+  loggedIn: boolean;
+  subscribing: boolean;
+  constructor(private userData: UserDataService, private transferService: TransferDataService) {
+    this.subscriber = new FormControl('', [Validators.required, Validators.email]);
+
   }
-  ngOnInit() { }
+  ngOnInit() {
+    this.loggedIn = this.transferService.loggedIn();
+
+  }
   sendEmail(email: string) {
+    this.subscribing = true;
     const subscriber = {
-      email: email
-    }
+      email
+    };
     this.userData.subscribeToNewsLetter(subscriber).subscribe(
       (res) => {
-        this.subscriber.setValue("");
+        this.subscribing = false;
+        this.subscriber.setValue('');
       },
     );
   }

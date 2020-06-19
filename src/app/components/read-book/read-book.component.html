@@ -1,13 +1,10 @@
 <div class="loader" *ngIf="!bookReady">
   <h3>
     Opening Book
-    <img
-      style="width: 24px; margin-top: -4px;"
-      src="assets/images/spinner.gif"
-      alt="spinner"
-    />
+    <img style="width: 24px; margin-top: -4px;" src="assets/images/spinner.gif" alt="spinner" />
   </h3>
 </div>
-<div style="height: 640px;">
-  <ng2-pdfjs-viewer #pdfViewerAutoLoad></ng2-pdfjs-viewer>
+
+<div *ngIf="!validParam || fileNotFound" class="col-6 page-not-found">
+  <img src="assets/images/icon-404_2.svg" alt="No books found">
 </div>

@@ -4,15 +4,14 @@
 <div id="notfound" class="container">
   <div class="row">
     <div class="notfound-404 col-6">
-      <img src="assets/images/book_1.svg" alt="" (click)="onclick()" />
+      <img src="assets/images/book_1.svg" alt="Page not found" />
     </div>
     <div class="col-6 not-found-content">
       <h2>Oops! 404 <span class="emoji">😶️😶️ </span></h2>
       <p>
         The page you are looking for might have been removed, had its name
-        changed or is temporarily unavailable. ✊️ <br>
-        <a [routerLink]="['/', 'home']" class="text-danger">Return to Home</a>
-
+        changed or is temporarily unavailable. <br>
+        <a routerLink="/" class="text-danger">Return to Home</a>
       </p>
     </div>
   </div>

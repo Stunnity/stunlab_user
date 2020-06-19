@@ -1,9 +1,8 @@
 <div class="main">
-
   <section class="read_feed">
     <div class="read_feed-header">
       <div class="greetings">
-        <img src="assets/images/alert.png" alt="" class="alert" />
+        <i class="fa fa-user-secret text-rose display-4 section-icon"></i>
       </div>
       <div class="greetingstext">
         <p>Hello {{username}} continue reading ?</p>
@@ -41,16 +40,14 @@
                         <i class="fa fa-thumbs-up" (click)="likeBook(recentRead.ISBN, $event)"
                           id="recent-like-btn-{{recentRead.ISBN}}" [ngClass]="{'liked': recentRead.liked}"></i>
                         <img style="width: 24px; bottom: 0;left: -17px; position: absolute;"
-                          src="assets/images/spinner.gif" alt="Loading" *ngIf="likeLoading"><span class="likes">&nbsp;
-                        </span>
+                          src="assets/images/spinner.gif" alt="Loading" *ngIf="likeLoading">
+
                       </div>
                       <div class="col-5">
                         <i class="fa fa-thumbs-down" (click)="dislikeBook(recentRead.ISBN, $event)"
                           id="recent-dislike-btn-{{recentRead.ISBN}}" [ngClass]="{'disliked': recentRead.disliked}"></i>
                         <img style="width: 24px;bottom: 0;left: -17px;position: absolute;"
                           src="assets/images/spinner.gif" alt="Loading" *ngIf="dislikeLoading">
-
-                        <span class="diss">&nbsp;</span>
                       </div>
                     </div>
                   </div>
@@ -90,14 +87,18 @@
       </div>
     </ng-template>
     <div class="recommendedbooks">
-      <img src="assets/images/book1.png" alt="" class="alert" />
+      <i class="fa fa-dashboard  text-rose display-4 section-icon"></i>
     </div>
     <div class="recommendedbookstext">
       <p>Recommended For you</p>
     </div>
     <div *ngIf="gotRecommendationResponse; else loadRecommendedBooks">
+
+
       <div class="recommendedbooks_body" *ngFor="let recommendedBook of recommendedBooks; let i = index">
-        <img src="assets/images/cross.png" alt="" class="cross" id="{{ i }}" (click)="hideBook($event)" />
+
+
+        <i class="fa fa-close cross" id="{{ i }}" (click)="hideBook($event)"></i>
         <div class="book row">
           <img [src]="sanitizeUrl( recommendedBook.bookCover)" alt="{{ recommendedBook.bookName }} Cover"
             class="bookcover" />
@@ -131,7 +132,7 @@
   <section id="others_feed">
     <div id="others_feed_header">
       <div class="othersee">
-        <img src="assets/images/trending.png" alt="" class="alert" />
+        <i class="fa fa-line-chart  text-rose display-4 section-icon"></i>
       </div>
       <div class="otherseetext">
         <p>See what others are reading</p>
@@ -207,15 +208,16 @@
   <section class="category_recommendation">
     <div class="recommended-category">
       <div class="recommendcats">
-        <img src="assets/images/categories.png" alt="" class="alert" />
+        <i class="fa fa-list-ul  text-rose display-4 section-icon"></i>
+
       </div>
 
       <div class="recommendcatstext">
         <p>Categories recommended for you</p>
       </div>
       <ul class="catslist">
-        <li *ngFor="let recommended_category of recommended_categories">
-          <button (click)="searchBook(recommended_category.category, true)">{{ recommended_category.category }}</button>
+        <li *ngFor="let category of recommendedCategories">
+          <button (click)="searchBook(category.category, true)">{{ category.category }}</button>
         </li>
       </ul>
     </div>

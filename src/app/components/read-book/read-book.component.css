@@ -4,5 +4,9 @@
   left: 43%;
 }
 .loader h3 {
-  font-family: Khula, sans-serif;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.page-not-found{
+  margin: 13% auto;
 }

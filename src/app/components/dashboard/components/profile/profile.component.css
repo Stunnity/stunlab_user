@@ -1,0 +1,56 @@
+
+.heading1 {
+  position: relative;
+  margin-top: 3%;
+  text-align: center;
+  font-weight: bolder;
+  font-size: 26px;
+}
+.personal-profile {
+  position: relative;
+  margin-top: 53px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.profile {
+  border: 1px solid #8a92a3;
+  height: 350px;
+  width: 44%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.container.col-md-5{
+  background: #fbfbfb;
+  padding: 23px;
+}
+
+.detailshead {
+  font-weight: bolder;
+  font-size: 26px;
+  position: relative;
+  text-align: center;
+  margin-top: 5%;
+  margin-bottom: 3%;
+}
+
+.gender-select{
+    position: absolute;
+    right: 7px;
+    top: 9px;
+}
+
+.form-control {
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  padding: 8px !important;
+}
+
+input {
+  border: none;
+  background: white;
+}
+
+select {
+  background-color: white;
+  border: none;
+}
