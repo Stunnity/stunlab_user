@@ -141,6 +141,7 @@ export class SearchComponent implements OnInit {
   likeBook(book, event?) {
     if (!this.isLoggedIn) {
       this.sendToLogin();
+
     }
 
     const element = document.getElementById(event.target.id) as HTMLButtonElement;
@@ -160,6 +161,8 @@ export class SearchComponent implements OnInit {
   dislikeBook(book, event?) {
     if (!this.isLoggedIn) {
       this.sendToLogin();
+      return;
+
     }
 
     const element = document.getElementById(event.target.id) as HTMLButtonElement;
@@ -181,8 +184,8 @@ export class SearchComponent implements OnInit {
   readBook(book) {
     if (!this.isLoggedIn) {
       this.sendToLogin();
+      return;
     }
-
     this.bookData.readBook(book).subscribe(
       (res) => {
         this.router.navigate(['/read/book'], { queryParams: { ISBN: book } });

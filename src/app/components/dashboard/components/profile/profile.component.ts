@@ -55,7 +55,7 @@ export class ProfileComponent implements OnInit {
     this.isLoading = true;
     this.userService.updateUser(this.updateForm.value).subscribe(res => {
       this.isLoading = false;
-      this.transferService.setUser(res['0']);
+      this.transferService.setUser(res['0'][0]);
     });
   }
 
