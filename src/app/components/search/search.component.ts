@@ -179,6 +179,10 @@ export class SearchComponent implements OnInit {
     return;
   }
   readBook(book) {
+    if (!this.isLoggedIn) {
+      this.sendToLogin();
+    }
+
     this.bookData.readBook(book).subscribe(
       (res) => {
         this.router.navigate(['/read/book'], { queryParams: { ISBN: book } });

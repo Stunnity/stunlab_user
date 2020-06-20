@@ -33,7 +33,7 @@ export class BookDataService {
     if (typeof type === 'undefined') {
       return this.httpClient.get(`${this.BASE_URL}/api/books?page=${page}`);
     }
-    return this.httpClient.get(`${this.BASE_URL}/api/user/books/${type}?page=${page}&pp=1`);
+    return this.httpClient.get(`${this.BASE_URL}/api/user/books/${type}?page=${page}&pp=3`);
   }
   readBook(book: string) {
     return this.httpClient.get(
@@ -63,7 +63,7 @@ export class BookDataService {
   }
 
   searchBooks(query: string, page = 1) {
-    return this.httpClient.get(`${this.BASE_URL}/api/search/query?${query}&page=${page}&pp=1`);
+    return this.httpClient.get(`${this.BASE_URL}/api/search/query?${query}&page=${page}&pp=3`);
   }
   bookmarkBooks(book) {
     return this.httpClient.get(`${this.BASE_URL}/api/books/bookmark/${book}`);

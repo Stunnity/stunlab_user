@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { TransferDataService } from '../../../services/data/shared/transfer-data.service';
-import { UserDataService } from 'src/app/services/data/user/user-data.service';
 import { AppDataService } from 'src/app/services/data/app/app-data.service';
 import { FormControl, Validators } from '@angular/forms';
 import { empty, scroll } from 'src/app/utils/common';
@@ -91,7 +90,6 @@ export class NavbarComponent implements OnInit {
 
 
   getUser() {
-
     this.transferService.getUserIsSet().subscribe(set => {
       if (set === 1) {
         this.transferService.getUser().subscribe((user: any) => {

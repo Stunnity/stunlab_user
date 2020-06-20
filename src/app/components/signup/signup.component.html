@@ -17,7 +17,7 @@
                     <div class="form-group">
                       <input placeholder="Username" formControlName="username"
                         [ngClass]="{'is-invalid': signUpForm.get('username').invalid && signUpForm.get('username').dirty, 'is-valid': signUpForm.get('username').valid}"
-                        type="text" class="form-control input" />
+                        type="text" class="form-control input" autocomplete="off" />
                       <span class=" text-danger"
                         *ngIf="signUpForm.get('username').invalid">{{getUsernameError()}}</span>
                     </div>
@@ -28,7 +28,8 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input type="email" formControlName="email" class="form-control email" placeholder="Email"
+                      <input type="email" autocomplete="off" formControlName="email" class="form-control email"
+                        placeholder="Email"
                         [ngClass]="{'is-invalid': signUpForm.get('email').invalid && signUpForm.get('email').dirty, 'is-valid': signUpForm.get('email').valid}" />
                       <span class=" text-danger" *ngIf="signUpForm.get('email').invalid">{{getEmailError()}}</span>
 
@@ -38,7 +39,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input type="text" formControlName="phone" class="form-control input"
+                      <input type="text" formControlName="phone" autocomplete="off" class="form-control input"
                         placeholder="Phone Number" />
                     </div>
                   </div>
@@ -46,7 +47,7 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input type="password" class="form-control input" placeholder="Create Password"
+                      <input type="password" class="form-control input" autocomplete="off" placeholder="Create Password"
                         formControlName="password"
                         [ngClass]="{'is-invalid': signUpForm.get('password').invalid && signUpForm.get('password').dirty, 'is-valid': signUpForm.get('password').valid}" />
                       <span class="text-danger"
@@ -55,7 +56,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input type="password" formControlName="c_password" class="form-control input"
+                      <input type="password" formControlName="c_password" autocomplete="off" class="form-control input"
                         placeholder="Confirm Password"
                         [ngClass]="{'is-invalid':  signUpForm.hasError('unmatch') && signUpForm.get('c_password').dirty, 'is-valid': !signUpForm.hasError('unmatch')  && signUpForm.get('c_password').dirty}" />
                     </div>
